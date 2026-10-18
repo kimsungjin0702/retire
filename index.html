@@ -370,6 +370,18 @@
   .sr-good { background: rgba(127,217,174,.10); border-color: rgba(127,217,174,.45); }
   .sr-good .k, .sr-good .v { color: var(--ok); } .sr-good .m { color: #A8E4C6; }
 
+  /* ---------- 다음 단계 연결 ---------- */
+  .next-cta {
+    display: block; margin-top: 15px; padding: 15px 16px; border-radius: 9px;
+    background: rgba(201,162,75,.12); border: 1px solid rgba(201,162,75,.52);
+    text-decoration: none; -webkit-tap-highlight-color: transparent;
+  }
+  .next-cta:active { background: rgba(201,162,75,.24); }
+  .next-cta .nc-t { display: block; font-size: 15.5px; font-weight: 700; color: var(--gold); line-height: 1.45; }
+  .next-cta .nc-s { display: block; margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+  .next-cta .nc-s b { color: var(--text-primary); }
+  .next-cta .nc-a { display: block; margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--text-primary); }
+
   /* ---------- 초보자용 안내 ---------- */
   .sec-help {
     font-size: 12.5px; line-height: 1.6; color: var(--text-muted);
@@ -763,6 +775,7 @@
         <div class="total-track" id="totalTrack"></div>
         <div class="ledger" id="ledger"></div>
         <div class="short-result" id="shortResult"></div>
+        <div id="nextStep"></div>
       </div>
 
       <div class="stat-row">
@@ -1570,6 +1583,25 @@
         '<span class="m">예상 수명까지 쓰고도 이만큼 남습니다. 매달 <b>' + comma(perMonth) + '만원</b>의 여유에 해당합니다.</span>';
     }
 
+    // 다음 단계 — 모자라는 돈을 개인연금으로 메우려면 얼마인가
+    var ANNUITY_URL = "https://kimsungjin0702.github.io/retire/annuity/";
+    if (shortfall > 0 && perMonth > 0) {
+      $("nextStep").innerHTML =
+        '<a class="next-cta" href="' + ANNUITY_URL + '?target=' + Math.max(1, Math.min(500, perMonth)) +
+          '" target="_blank" rel="noopener">' +
+          '<span class="nc-t">그럼 개인연금을 얼마나 넣어야 할까?</span>' +
+          '<span class="nc-s">매달 <b>' + comma(perMonth) + '만원</b>을 평생 받으려면 보험료가 얼마인지 계산해 봅니다. 이 금액이 그대로 넘어갑니다.</span>' +
+          '<span class="nc-a">개인 연금보험 수령액 계산기 열기 →</span>' +
+        '</a>';
+    } else {
+      $("nextStep").innerHTML =
+        '<a class="next-cta" href="' + ANNUITY_URL + '" target="_blank" rel="noopener">' +
+          '<span class="nc-t">오래 살아도 줄지 않는 돈으로 바꿔두기</span>' +
+          '<span class="nc-s">지금은 여유가 있지만, <b>모아둔 돈은 쓰면 없어지고 연금은 죽을 때까지 나옵니다.</b> 평생 받는 쪽으로 얼마를 옮길지 계산해 보세요.</span>' +
+          '<span class="nc-a">개인 연금보험 수령액 계산기 열기 →</span>' +
+        '</a>';
+    }
+
     // 한 줄 진단 — 숫자를 못 읽는 사람도 이 문장 하나는 읽는다
     var shortSum = 0, shortCnt = 0, ia;
     for (ia = 0; ia < assetRows.length; ia++) {
@@ -1759,7 +1791,7 @@
   // 정상 실행됐으므로 "스크립트 차단" 안내를 제거
   var notice = $("jsBlockedNotice");
   if (notice && notice.parentNode) notice.parentNode.removeChild(notice);
-  $("diag").textContent = "정상 작동 중 · 화면폭 " + window.innerWidth + "px · v8 (웹 공개용)";
+  $("diag").textContent = "정상 작동 중 · 화면폭 " + window.innerWidth + "px · v9 (웹 공개용)";
 
   } catch (err) {
     showError((err && err.message) ? err.message : String(err));
