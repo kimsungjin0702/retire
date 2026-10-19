@@ -48,7 +48,7 @@
     --grid: #E6ECF3;
     --text-primary: #15212E;
     --text-secondary: #47586E;
-    --text-muted: #6E7F94;
+    --text-muted: #5F7186;
     --gold: #8A6A14;
     --gold-fill: #C9A24B;          /* UI 강조색 (슬라이더·숫자) */
     /* 평생 나오는 돈 = 초록 계열 / 언젠가 끊기는 돈 = 파랑 계열 */
@@ -401,6 +401,57 @@
   .next-cta .nc-s b { color: var(--text-primary); }
   .next-cta .nc-a { display: block; margin-top: 10px; font-size: 17.5px; font-weight: 700; color: var(--text-primary); }
 
+  /* ---------- 초보자용 부품 ---------- */
+  .sum-wrap { display: flex; align-items: center; flex-wrap: wrap; gap: 0 3px; row-gap: 2px; min-width: 0; }
+  .sum-main { display: inline-flex; align-items: center; white-space: nowrap; }
+  .step-no {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; margin-right: 9px; flex-shrink: 0;
+    border-radius: 50%; background: var(--gold-fill); color: #0E1826;
+    font-size: 16.5px; font-weight: 800;
+  }
+  details.sec > summary .sum-sub {
+    font-size: 15.5px; font-weight: 600; font-style: normal;
+    color: var(--text-muted); margin-left: 8px; white-space: nowrap;
+  }
+  .lb-sub { font-size: 15px; font-weight: 600; color: var(--text-muted); }
+  .howto {
+    display: grid; gap: 7px; margin: 0 0 16px; padding: 13px 14px;
+    border-radius: 10px; background: var(--panel-alt); border: 1px solid var(--border);
+  }
+  @media (min-width: 760px) { .howto { grid-template-columns: repeat(3, 1fr); gap: 14px; } }
+  .howto .ht-i { font-size: 17px; line-height: 1.5; color: var(--text-secondary); }
+  .howto .ht-i b { color: var(--gold); margin-right: 3px; }
+
+  /* 모아둔 돈 — 그래프 대신 쓰는 부품 */
+  .asset-verdict { border-radius: 10px; padding: 15px 16px; border: 1px solid; margin-bottom: 18px; }
+  .asset-verdict .av-v { font-size: 22px; font-weight: 700; line-height: 1.4; }
+  .asset-verdict .av-m { font-size: 17px; line-height: 1.65; margin-top: 7px; }
+  .asset-verdict.bad { background: rgba(224,100,74,.13); border-color: rgba(224,100,74,.5); }
+  .asset-verdict.bad .av-v { color: #A83418; } .asset-verdict.bad .av-m { color: #8C3A20; }
+  .asset-verdict.good { background: rgba(127,217,174,.10); border-color: rgba(127,217,174,.45); }
+  .asset-verdict.good .av-v { color: var(--ok); } .asset-verdict.good .av-m { color: #0B6B45; }
+  .agebar { margin-bottom: 20px; }
+  .ab-track { height: 22px; border-radius: 5px; background: rgba(224,100,74,.30); overflow: hidden; }
+  .ab-ok { height: 100%; background: var(--np); border-radius: 5px 0 0 5px; }
+  .ab-ends { display: flex; justify-content: space-between; margin-top: 6px;
+             font-size: 16px; color: var(--text-muted); }
+  .ab-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 9px; font-size: 16.5px; color: var(--text-secondary); }
+  .ab-legend .abi { display: flex; align-items: center; gap: 7px; }
+  .ab-legend .abi b { color: var(--text-primary); }
+  .asw { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; display: inline-block; }
+  .asw.ok { background: var(--np); } .asw.no { background: rgba(224,100,74,.55); }
+  .asset-table { border-collapse: collapse; width: 100%; font-size: 18px; }
+  .asset-table th, .asset-table td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--grid); }
+  .asset-table thead th { font-size: 15.5px; color: var(--text-muted); font-weight: 600; }
+  .asset-table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 700; }
+  .asset-table .abar { width: 34%; padding-left: 12px; }
+  .asset-table .rb { display: block; height: 12px; border-radius: 3px; background: var(--irp); min-width: 2px; }
+  .asset-table .rb.empty { background: rgba(224,100,74,.45); }
+  .asset-table tr.hit td { background: rgba(224,100,74,.10); font-weight: 700; }
+  .asset-table tbody tr:last-child td { border-bottom: 0; }
+  .tg { font-size: 14.5px; font-weight: 700; color: var(--gold); margin-left: 4px; }
+
   /* ---------- 초보자용 안내 ---------- */
   .sec-help {
     font-size: 16px; line-height: 1.6; color: var(--text-muted);
@@ -465,6 +516,7 @@
   .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-bottom: 13px; }
   .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #EDF1F7; }
   .brand-text b { display: block; font-size: 20px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; line-height: 1.25; }
+  .brand-text em i { font-style: normal; white-space: nowrap; }
   .brand-text em { display: block; font-size: 15px; font-style: normal; color: var(--gold); margin-top: 2px; letter-spacing: .02em; }
   .nav { display: flex; gap: 7px; overflow-x: auto; -webkit-overflow-scrolling: touch;
          margin: 0 0 4px; padding-bottom: 3px; scrollbar-width: none; }
@@ -475,6 +527,18 @@
            white-space: nowrap; -webkit-tap-highlight-color: transparent; }
   .nav a.on { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
   .side-contact { display: none; }
+  /* 하단 상담 안내 */
+  .cta-card { margin-top: 30px; padding: 20px 18px; border-radius: 12px;
+    background: rgba(201,162,75,.12); border: 1px solid rgba(201,162,75,.5); }
+  .cta-card:empty { display: none; }
+  .cta-card .cta-t { font-size: 21px; font-weight: 800; color: var(--gold); line-height: 1.4; }
+  .cta-card .cta-s { font-size: 17.5px; line-height: 1.7; color: var(--text-secondary); margin: 8px 0 15px; }
+  .cta-btns { display: flex; flex-wrap: wrap; gap: 9px; }
+  .cta-b { flex: 1 1 190px; min-height: 54px; display: flex; align-items: center; justify-content: center;
+    padding: 0 12px; text-align: center; border-radius: 9px; border: 1px solid var(--border);
+    background: var(--panel-alt); color: var(--text-primary); font-size: 18.5px; font-weight: 700;
+    text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .cta-b.primary { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
   .side-contact:empty { display: none !important; }
   .main { min-width: 0; }
 
@@ -536,15 +600,32 @@
   .from-sim b { color: var(--gold); }
   .err-banner { color: #8C2C14; border-color: #D98A74; }
   .faq summary::before, .faq details[open] summary::before { color: var(--gold); }
-  details.sec > summary, .sec > summary { background: #FFFFFF; }
+  .panel-controls details.sec > summary { background: transparent; }
   input[type=range]::-webkit-slider-thumb { box-shadow: 0 1px 3px rgba(20,40,70,.28), 0 0 0 1px rgba(20,40,70,.12); }
   input[type=range]::-moz-range-thumb { box-shadow: 0 1px 3px rgba(20,40,70,.28), 0 0 0 1px rgba(20,40,70,.12); }
   .total-bar { color: #FFFFFF; }
+
+  /* ── 숫자를 넣는 곳(연한 파랑) / 읽는 글(흰 쪽지) / 결과(흰 카드) ── */
+  .panel-controls, .howto { background: #EAF1FA; border-color: #BFD3EC; }
+  .panel-controls .sec-help, .panel-controls .np-note {
+    background: #FFFFFF; border: 1px solid #DBE7F6; border-left: 3px solid var(--gold-fill);
+    border-radius: 6px;
+  }
+  .panel-controls .step,
+  .panel-controls .seg-btn,
+  .panel-controls .reset-btn { background: #FFFFFF; }
+  .panel-controls .seg-btn.on { background: var(--gold-fill); }
+  .panel-controls details.sec { border-bottom-color: #CFDEF0; }
+  .panel-controls input[type=range]::-webkit-slider-runnable-track { background: #CBDAEC; }
+  .panel-controls input[type=range]::-moz-range-track { background: #CBDAEC; }
+  .panel-controls .reset-btn:active { background: #DCE8F7; }
+  .stat-card { background: #FFFFFF; }
   ::selection { background: rgba(201,162,75,.30); }
 
 
   /* ───────── 노안 대응 마감 ───────── */
   .stepper .value { min-width: 96px; }
+  @media (max-width: 420px) { .stepper .value { min-width: 82px; } .stepper .step { width: 40px; height: 40px; } }
   @media (min-width: 900px) { .panel-controls { width: 364px; } }
   @media (min-width: 1100px) {
     .nav a { white-space: normal; line-height: 1.3; padding-block: 9px; }
@@ -570,7 +651,7 @@
   <aside class="side">
     <a class="brand" href="https://kimsungjin0702.github.io/retire/">
       <img class="brand-logo" src="data:image/webp;base64,UklGRgomAABXRUJQVlA4WAoAAAAQAAAAvwAAvwAAQUxQSE0FAAABDsq2bauNHVul98LMzMzM3GNmzo8wM7U4PeakxcycD2BmxrKsMawrlS1LO5zso3PPvREBBwDYtI2gikUdL2BLvtkYTNKgJMmFl9t733POv/WlF18d5CUM0vlbz4/77r0cqz5GKNifCUKSS2x30iUPvvVFPgF+4eMlJ1GcjzWYgIAkGEmufujlT5RihzIIISOrgGQIQaQU+sTlh3Y9kgYgbd+U5GL7XPTij07sYDZkMsmLMPjgfFzdixftYz0yaXe4GclVT7nz/VxVna9ITSjBBx3h+90pq5I0a62/kIsdeO93qppV2mo0UVXt3m4x51No4xHJna8p4kPIdErIEIrwTnpk2w6SlFz8xAedz32oU0VxvubRFu8xTdrlsfzpI/9hWTNthaj605dvj4OMPDY87ZNcB0EbgyGomt9w5CAt8bjyl1xnh9ooFK8ar2yDg5Pnk/JR8w7MSdPwqHmnfqA6GGojUYLqB55NDjJyn+erPZrpEDlSNjbnyjdUezTXgSs3M6WRR3+YZ9TGI6nx6JGygTlXvnkUpa1Ar8qVm5YyIY+Mc0Q1Piiyx6RBkDJcVqFtjTIGhgbxek/rINNWIYM+vV5TqJ/wyC/L2nYpjb1EmpHj9FwH2kIMqqc3IcUMF7t+jHdr0ZtF48zUeakX9be8tfhb3vkpU8qtXq3O0cYU0jFMlbf7qjpHO1NE9tKpMwKaJmfaeqRDU2UUNEWGTVZiIGS182YOA6HNaqaES705eiMgGJS+1lOYviz8YsFYqKNInRlu0lkFg15vYqiRT9ffcjj4Wx5qI+PhBSMiX1OCRNaOQ0EEInHtfh0JxOz5qgxoEkQzqcPpsqoMeBJEhjqcCoZFNfgkuvxnwwwXUD7ziU6qu63shMrHmE6oO9LVIVOxZxPpVvw0IzYgw4qTqMw9X0EnbqJNwLtlA4WHgbuNTf1k/it5hg+osUtkXHlyPpIAhXJMIbLMxxkRAvlxFBn3bH1WIaIf8wxeZKkvsiFGEH7hxxHGq107RjPHMCey9mwhUQo/xhWI8QzXjtLMOYVI/HwoOEGkmzOJ8XTXjtN8Om0OuegnhUQqzFeLlMcUEquw6v89iT6GF5ho9U3uPFOwSN2uymy8tpwZaeJrK0C42Cf5EC2I2mLsl+X+xRjvMJZFwgdcb7TOxqQ0XvG7Yox3aHSHKU8pJGLRMXUt96CGSHPGS3xYjBEP4xLF0LinG404eM9CpLww95jBa2QgJXmlsGA2xEQoXPWHwoLZ8ENgP+UhhUQtItN5vSsKC2rDFZxn8jTyF4r1Fv+8sKA2dJHcMowYNgX2eKIG3BDU6Hoid+SD2F8iF3tLM9xA9bbC14rcRRn2ykYMnOj3U+ygdk7hidwxno0e7NacyIF66+vowb+AHuRV9CCON3bnf/xjgM/4z1vwnzfiP2/Hf92E/7oV/30D/Pdt8N83w3/fEv99Y/j37fE/N8H/3Op34Lkh/ue2+J+b45+3gH/eCP55O/DnTeGft4Z/3iD+eZvw583in7eMf944/Hn7+NdN4F+3An/dEP51W/DXzeFft4h/3Sj8dbv4103DX7eOv24A/LoN+OtmwK9bgr9uDPy6PfjrJsGvWwW/bhj+um3w6+bBr1uIv24k/Lqd8Oum4q9bC79uMPy6zfDrZsOvW46/bjz8uv3w+ybA71sBv28I/L4t8PvmwO9bBL9vFPy+XfD7psHvWwe/byD8vo3o+2bC71sKv28s/L696Psmw+9bjb5vOPy+7ej75sPftwD6fSOg37cD+n1ToN+3Bvp9g4Dftwn6fbOA37fMH4B948Dftw8BAFZQOCCWIAAAkGwAnQEqwADAAD5JHoxEoqGhFFsWqCgEhLGAZkj8/7ns05R9EZt/aHpzGb1/dneeC/f6Nf7N6hvPb8wHm++jf/Ab6n+7PsifsB1s3+BwXD+6/S75C/3j8gv3j9d/xT6N+8f3H9pPyP+QbLv51/Zf8P0N/kv2e/H/2n9xPyq+OP9t/c/G/44agX4//Lv7x/XP2//wf7Ve3H/VfYB46Fp/+p/U/YC9kvon+q/v/7o/3/0rP7f0V+xn+m9wL+Yfz//N/3H9zP3////37/hf+h47/kf7AfAD/Lf69/vP8f+3P+G+mP+e/6X+Y/1H7je3f86/w//J/zX5LfYN/JP5x/n/7z/nv/H/kv/5/xPvb9nP7g+xX+sCRMsp82GYT/2a1fqQ8rh6bRgVRda0tHzF/P/93jBsWps/9GNSMf00seFwItXfPGP/fyOlZ7RGY7yrM//y0+mcFjQ/tG7qayfxtQTdG1quO4RuWqQKpyoNRr+TN2b5qH2YlClIEEVVTWolukvSMk4CUXjZoHk6MyivxVftNcJpcCQ0JciclrCGxHoU6mvoYTREw03aEcUANP33wtxaO1Rlv1QpqcBfoRHcb3SVywSE47MTqY+EB9gYyn5JwBnCkmjAg+eyIiYMH6NUh7v3vz+EnqXJNjI6hqbXaBl5vZtAnysGs3dO8d7qIuopMMmoJeGDKK6sLKxGBXWAIeKIf9X2Vk0XEyBIo50fWcIdSfUydl9Q1+4v3kncuTUYxmTKaIWPIO+4qLhS1lQEb5MVT5VoVAUnaubnb3P9QI/lK2t+2bjNBaH2rV5Ji1prl92WhEDGrpxVkkP1yWJHHKz6pr+/1OYVHQttln5Gxa+gPzKZf5WFLlZiBpOx/TtXDpF+6uQ9XOOv8NTFfE+X8nBQ5sXsBiP3YB74ofq4s2xSx6ovXHaDJuUjWoUvJcFXiEr6v2j6nY0MTa+NavOf7LX9BUWdrhI03SlJGf+PxY8dr1VN6RPJh3YwdC40W4LtNfh35rd595XhkHdoVw1QoanfTggywpUUg8QV9FmtZAbt/FZovPhdNX5HRp4OfEsSLVBEhJhJoyBx9F3N6/Shd2xUzR8oUJLaQL7XTXblHQyhXV1Gd+tQtg/sjp0LjclSQyICdCnwYFdDfXX7bqhxR/Gbp/2HcAi9EotaqgvNAAD+/LhLLTl93LkKpf8mR/XnYEbJ/KwjWssvg3YMdAwUnltNfFm17TeZKiFcHpmELZcHJActqxpVMVoxu+OmrowFng6si4CAPO9W0/WP/NbUMeR/hW2LHPNfI92DpzS2SoGj+KsUMQPfAIQla+UpsaqAMc2ZFwO0hF7Inl5BaEXM9359LW8byrYb8nIL0LhHkqq8CcZzKv/dIVpbeyxyWp/V8of23QjdJ1rZjwv9Cd4BH/6Vx4mPxe8yqcB7qgMTtsgRkPe/4FHbYjZ9HxBRrJwBaVj9Fvr07cHw53o/FP9Cg5jNCnz+ltrCllrlmCwl1QXtP+fS6kGlJ0UoUR5G2uDIPEf3vUhTEn4CyeKMCDFs/v7HpbFx6h1yoiJBshdVROklwCNS4ajWH2yh8JAuPRXW/l+k1uzlBE1JB2omZmFsNNJaJTT2kKrNTK/jaHY7vsQpiO5wN3H75vNTfaD53zDF6QaKkJoGiBVoiVHKYd5yB/iri0xyQK0n08QpUK2yqv9uiHj61+3PmIcxGa3JqITjAwmFKls7eK5daoG6uMT3P4HPlrgRvv7nM/tZdpfxosgyImZunI9qKaSfEhvWPkp2YzSrxa1Fh3pEiVjleimkNtFcoM/4p8QLLr8Z3EzZB24G1fblxcLpWn90LHdzsJln7txSF1vn7kYpsxEQg8/yURSJiKPvSqijbimxTD19vKcgYtXZyTQ/oQAd0NhbfEo8K6eAyfMYOnwXGn8sxx2STqIRX+RfdmQkQ+Q3Ff70jTd63UXh3TPK8PX1n67auWcpY7+a4nHrKFO8s9KFv7dq3cZuQFxkSiOT7RixGCmV/iK8ILBIEUoPXTlLA6k84ARG7ry03GNQAGKU3XmEnw0jzxypLnl+PZDUxrarSgYv7S/HVPLIC2bimqXNh0A/37KLcq3nX5cpJ3zopQATJA4lLFrtlXntwI02D0eWsmDHjJp1j/SACAlHGrVVhoRzWb01NZ2UC35cbrCyHR4CSkPQC+etn7CFmTMKi9l4QXYBRGtKLF2auwIRvYtOkIrdGdrZTLunreGIbRSDgdN2pxruTxIXGnTGUbmyDD3686UsOZ1Kg+gpU2RueNxlPdAyJZgOjvIoTGb9Tc0u6irJtQi5pB8mBxDVG+/aoxb+9SPzGQ0T5RkkQhWKI9XLuLxoFqp5ImSyS+GawSBktKJYZUvgGZ+q0wRezZrGt9Dp+1nC25aF+F+FJrIto+nPWK8EaOJXnTM5NMKH2PgC3Ja4fK0uo1IW/KKNY2w77dc8+KvmmWNx9cYRuOvXsIDQLeuLRDswjgSrRcL9vneZw7kYr/Dt0+b4QXcIedW7UgdhCyy8skI7+LEMXwnxeFMoW6vwddC951pJNaZMLZ1i0ye0sy6g76mzdlT1zyAq/1c6e7paQwMyvRSjiZbQgeIzESj919NQ8OnvoPxs20wgEkcL+EikpDROvZvCxOpnhxGxIVxjWfAU6sPzYIAVJqVJzEU9OOJUMQJHsVAMsEawm+dZ8MBozmoI3CqZEQQrY4k7kf5p3tMLSmBwZC7w29dQH203zaKA2A02mQxIG/as4237ZvBHd+fKWcs/OrfLqr3w/0SKL+xz/ydcU0u+s8KB6+Uxpx5KCKIIT9PFD995jfNwzvQ3FjVaaO74eCWa3SJ0Emy289dcCXKKSb5burINTe9iolfRZcjvnVh4cFg6YzYCx3OazTXXkiTSKTsVOTbsK2a4YjOyDUfKOpz6xq1uHRNaeVMWpAmTf8O8LGP3FOXYuoMiUx3q9d9VBX6wiXpMqaH4qm9HFWxkv37mv8qGi7jqeXxTkA+0vP/0xvdV3Mr3Q1r9sf5zDrzqCLvhpfzbEMpNhuLvFWLqT9fnYawjQxzi1k8pHV7xkBmXIc5eX8YT0jhsf9f9OYlQqDzD9G3/CCGrBplb8Z/YcVB862iH0k1f4YKnZb0K7IWh1Yaz1K06kZhzAwMjsN8SenAZa4KzaPeuKhL+Ji2wRgB8ScF3Vj7gQtqg/Nsh2wzWBaO6jKYrVtjRrQew+PxP5clCz/0INLNugGHHIti5v4orhNYQ43Cezsw6u/cWMIgxzq325ssCkmJBnINZ2ZlUT2NjJPJQSUe6vuAmzawIXJ/sHGCzEV10Ee5F3fBf82Nt2dRaczozMiCSdxhn6po9R7s/TmIjaQVwbNwTRWxj6unSLbY/7+or1fm5hoh0R1Mx4pNzeFIiUqXA5pT56OF2uaPKXuQT9ZFZUvhDti1ZEsxfyPn+5VuIo3vvTvsUr0PKp5PDjJkqdrhojfC340N9pK5qd64NardIQDXHwOFRTgUex9FzK3rVnt1pO8Udy/LjBk4bITcXp5LzImN5/688JzkWeO5VQFHzYuT9P7QyjZTaU1drR/QzWWlY+/3N1P+YS9xg7Tq82iluR4v14JV2ZjrJccsnrNkfhRXh3bXnqAVFlAHs2UvGWBaDlhmAn5D4ac9cIXqaahTEo1eGzzw7JKnVxX80F8Oqpm5m034gi4L+IKRnRNJpoXX7sS4vzVJXfR+Qtr2h4nehTKQLlH9kFOyRFrAJ+tU1vRh1nRxVv3JdeZzctaDYGQho5l9JmyBWfwF3KGx7IVjFFZADFreVx5WnHbDoB7OCXxGImwHw6Y2wErhlSHXXVysOiD9tGSCarNib1t3q0sFCi9cnVpiqk3gwMox5m1pnjciF/ONSvd476zeLu6/so5sD0vRVoqDhZvhfRFGdiXEoirRqVKD5IVPKfPinjvp3hKixbx/frYorUvMBUVVG0J4QQPySC9avXc0uDwUlwo7HiInOehxEKwdfhswApEl67qaeu67o48khwu2ZJHN4FK89cLxGW51zXYUYRpc77wLujVRCHAIsbp8OgmI6fYTUXrgweOHU0enmcfD//PMU/SzWIJLF9B2wmsoodl9AFnavcvokG2p6KxMwBja8wG0WN2rH/Jb96dkewbNSp2Wg8BUMMoYoMqLMaFCXGqjdjNHUtSda832B2f6s1REQ+WPXKtFtkWj54Zmvt63KPeL+uqqkXksmvL7Zx+p/rHCnbFNXTnGAi+jVch+FZvqBOQv7ClSSv7JKSZZcvoQN7X4JQWJmhpuno1tP26wpJv2TjE9hP6x8OfT3rm63iPAND2hfkeayAX/AX6EoFrMwHl8tyjaI0LNrx8v7BziENibOf8EekYz1gOVXWsj/8SJVc8e/9owMm2UHrW27VXzGGhG/2Epj+DgEfi5Nn6x7bmWqNwswMW79Y04U9VY3nKDEWvn3Dw7V2K9Pto7sN020mmeiktr4DFSv6WLZvZ7yAy7FEoN60t7MqCIc3WYwp3RemIQf/NdnHmaFGzboe6uOr2BG3L5xguFMhUxZpxSfx96HzuafkwLs3nTD7VjsP73Wx84C5p0xzIwnNai1CKUfYZH/RPiU5p0c8b6nefyIMzl3e0xxqL6tTGLVIyT1rkGdqt9DF//bE8sF/LtuBWjBbwbordgHNjJGKWNqCEFsjMpG0gC3xfSdewbDj8GZy51Lmw+XBlTm/WwV8H/D1x5pPJCeYEpmYXVNBjpffMmB18X/dXoN9WB1bfsr/iu6yBYxaYxZBFr3tf7TG8SfAqetmWyaad5J3syg+m8AA43umA6SAe9MDzPlYtB7LkAMyYxtsmomzUXWYpJ4U9NE1rKEQpKDYTSsZxwkXv7jAkqSsif9n/By91xH7NcATuAQg+50HtVpGEvwDLup/YbdboDtdiWVcRMKqRYrkTjKgrG9sgLjk4jlCHt8weKqmyFHrjKHLgG8re/CJH+p1BmBauiQw0fMM+M4j7X+u4OKdpRMJGUsobv2zUM9kgsR/ZURV8q30nOj1c42CM6CkTvIUK8HpBgFJLsZdimDNPcehhSLwTGKaCc/Yhk4n8zuOMAfVTu89s0//76Oul2SdHi3zSg74NPlI/eCNZ7ca2wkwF7a1ewiqfSilUWk70qETZXZybImrCnvzesx1tVIK3NRrCTwygHIWvgSxihUa3tMpbSHSn+vUIwUyAZcRfLSh98V8uEGQ6N8DgkQx6ikvx+9VhhHAop5b18MR4ZIKhACdtp9sM2yEAy/TzK9c92EcqjE7C8QPjGAMUqNY5J7rtUQz8jtVJk16OouSuFS29XOMgD6HyR+vxWi8FVMeP4oQxcdQis0EIZ0eANip0aFKD0l58eJsq3F7lxPjRdmDqfQnHTw4+pJRz4cvHNGUKdErqaLgAeJaUCYA1lBoz1QcDq3eege9Dvsb5h2/bjN6zTpxgJ5qXf5FH32me/x2tnE3+oLp7OtC1qM+A468cmRQSNNUzjzvZmvrxhTQcKtSiIOihK48tHwu5Vr/76kM/H6ljwE3yqD+Dz+yRUvJTi5kbOPcS0p6ClElPIM7X+cJXo/zjtxYdDyqrfm4F9EC1TjNMTGyAA1tVSJACMpu4KR4zi+YVOl8vF+45FC5mLsZIp6HgVJb/WB4Ek+b+TQBiR5mh+OElWSUmyIwIy5DQraVZ4fjUaRPjnmv6mOaS//hSDr69cgJ0+2PPgbC28Yhi4xUdaNSEOXshfKTHvWVoo24QBOXDzp8VGXJCwtAEoVmldBdD3FPCHnbsoZixcRm2a3e2c+yWEFzKecnma+98nBKO1Ws6TgZYWvD+o7LPqpd50yX4RIRe5Jsxe/wWlj8FRQURFYIF5QggysDO8ILSUNlmU0xrIroYixI/x9milckTzGNZpop3RdW1AIzIG89yDforq1cY3ZXMm3b0D0GcrUzhGX3MSLkyIsyFg3V93qppLK3lq6RmshtZpZKCpbgV7Hq/2A0xGlL8SVrTT9s81B4pJzEcOK5YOTcsnMUbPTRG6ydhH1foJpY2NCzFjwYCXSx0vwhpjQknR5gAigfPzRRpunx/tnQgSWbBUQ8//698glXDjFeXwxE95ZQMZDDIsB7BUPcSHWPyXrYeoVsgyDUKzjgO0nuBBtjeuwQ6R4qQXUUtWUru/beTQs6xSD+BmpvQghwWTUFaPwAAEkrCXACGn+Yj3WGCB77K3pgIFPMCoIoxutEkzCb2WtliYWmmlNy139x9H3MYtOfftW3rE4p7rvx8ANwZmAtAGzl5ul3ayX+Pi2xzCG2Llh8UaE2yE8uR/oS5/f/o6eS6mMm1z57RUGW8lw8OPyGZCGoq78fB4go4cfGI+3HCgoODT3Cds3ZydsiDlvwbz+4MA0eBiijEkyciDe9E8qQh2/9deZIOGZCp4NXiQbVL1fyahrXQshwR6ml2lkI5Yt0/ZFcg8hhQarReqAwwVapA9cW4fXITm+Ot4MKBGAFUZOzR6Q1YWAHJw+1PtEiqkXpiQBn279rIbbwghkbKQIo2q5dwV2E0ROulroiCMhUpAP4O+HUGmJc+HdW4A8Zd7+vJTe+MNvlDxB1Hez1SgsiK1t9AJmh4YjHtPiwB8XUE1GY5Zcdf6yt8045gmiQmGF9fJsG9YGolB70u5+9U3L97SOaS26aWj9B4QXgEAi3h22KqTlzBXJ8FofOz745DpXqn4YQmJeInmoGKssDL/GsCnLBwFltfWmwW50l3NGJPxVgvgBsFtDC1D3huZGsi3Q9hwHTdMGzTnvV9oShj3Oa6dKiGibYjNrHJNwlAKdWOS0y9mrxAyO4NnnKQFpOQ9jNT9NfS6eBL3ETEUimZHQisP08lS1h8Y917ESohoKbyoZQR9DmualN3O4Ed3Z30qMGXb4cE75N0tuncKndOco1tuTmeGd81JASIWgfz2NEKa2cXD3gH0r1bNziE9lPOxRaIP1rojDJeiR8PMxZdnZv/Gr9z+96Lat8qIE3/mLyZHo/Z+qzO4r0khrPu+tgKo5asy7NSwTkOxU6FUx40SPJ4GV2kVJy+r4aw+Q2gsOtiZzpQ4NEqLoYF1GDtAWTx80WD1jY52UYMp9+ifVB6R8hDNFo/6GMLFg39rlUPME+9OUro16K8Z2znJpXkVL57OzkvPCTX4KTadzmE214RqQQTLJbfs67q4AP7kd1avtEBY0NG3NoeYQQmHiBV8+8ymVcE0iZugYZa+3D9H840bhmrIymYvoZP30tD5X8ORJDi/ZOMz7d7aNEoqqNGoDIvvRfGOnDwr8fp5t7AaP3vmQbTm9hhlHZlue57+tdskbjwL825Ndc2hj6ImjTUE1BRvZmVwmdD13szX1xSKvi6b2bbCAQ+j4RQ4MagVSXfaOf/lxegMm1AGCK/SJVD9Zg+3gbiBsPuH/z8KY7Z7jL8gTPn9JiPofDe1tnwDtA1AH/b9o0vnw5EsxhwVp+LXEWnYt1XlMfvQbykFEIHYXFfjsWnJt0HNi4SeJrOAJO0iHxjxy/BhM/GtFiFBBEvx3eQHRDmXhkFfe+Vw3LtOukbZh49Ns+tRRmUQe0SPX44a7PgDkg514uv4AqRpCeUK+JnGFvfVHW621cKa2fN29WGYCplJIxCj8vwzddSH7tYZ2zWkQteAQ8xMHbbYq+0yIsYhsdOnIfaz2akK4Y8YPGtImCXIZA5c+9DrlPtXt0lNgzfcZNBQvpqJtkgLcipi1+yxYpq8G2bH7di/V2uoYUmTGIkc0yp2fUYpiNWEZVzWYXfp+7m+hGTCpzcGm1KOp091e0gv04y5xVtmse0mbHPycuHMxGAupXK5PRJFn0kvBi/GNufKOY2gGTT63fAEp+yptiAFxeFSZOPurM/ca4AdLCeCmKg7HfNj5ANU1G8QYbJKk8cv2iMP/FsE+Wn+T2ZyG4K+pmYVZYO21uTvGEI9sPCN+ESfakAnmKK/JyGsIp0LIghlw4bcHypG1iaxAXfORmdALagMbBSTtZeEgNuT+ynbm217gSGB7gLl8ID/taOHvwe5530tm/Pk1AK6NIxfael02Ps1B5lE9Av6ol70hobzT0381p2jh4DMaEkFY8Sd8o2xmYc0KmUFnuGmzzP8ENPmqLXSj5v9BQ49F8xPAoyAAAMQ7RQKKeoD5r/JrZRPI74Ll3xRwxzJNcKmpd+CXXrenLwL0nl2tzomRth7H541w5XioqqfMl1v4ioc/vqVxwZvAxvDVtHn8L4Jex8MO3f98zqZxa1HDXOz5bqOBJndAJzYmBAzzZBdEIzr1R+TNXz3aTMqy+jZOsLm0kwCPDrWOco4HgianJL7LQ9SJkYoQQWHOQD2V9q2gZULXbOkBNjJMXf21jlVBu4CoAHUCjso/SKHzTU06GvBarfwk0WKD9AkzuPj/j8RAApZQusbb2lP/+xj2Zoy+86HvoW9zeYvEarWV1Kmy9sGRqbRbBblH+as8ozT//UDTRV61TjK/WXlM87NsFHzXu2QGyqb0yM8qIN+scFoVTHHDjw5G7UffZzCfiXVw4fUtlaUjF7Q7cqgDQs4CNs24MzgoTmePLr7lI2VyyydxbIVPrOv39UKT/2kNlwL/Hk5RLllJE3c9UfOhY/hElfp7ebI+Ti8ZYrSEepF+G1ExdXs068qZRbIMLYw2R4PBdHqeoahtpK3/4xAXZw4t6ZB9VtpkZJ2Jqsf69InXoJOk8r8dHhDxwNg42c4rC208PAq3qnh+js5gS64qZRcKejRiA1CfTz+rSPfjR++6amnCjxtm4G7OjETArAowO5NQ6gcgm8LWzp9Qa+iHO/lwYsm4hdJ2H1i0yVXdDnCsuI2hzfEOvKZGJhU/tyn16KbFslDmkyiA5ycxfxR08Zj1931YwxAK9FiYYRycQ92qTN0IpVtfdlKZv4wHQq0dzpoBVSWyC07kSeR8iI0SReKSLRB3j9rpsrcbpBcaSGRuwQY3TvZv8pGP6DUzrn0+TJdFxuaJZrVVodDG3VBqX1l6WmbquUvhddS+Q7mQcfH1bZDMRb8WWk2Seei42JmrzsArhMkaOYJkQKHlEZTf84fDINrnCn4td8U4/vmxkO5QcQXY1c9cBOIb87qE2F3Dde2AiUuC6GwMLRUpBYW+hx/0aveBejRE8Ykpjgg50eXiQaObxkSrJqKe+CVKxsh20vptw3CXGhynlS+eXouVh2/iYeKxelguQDT+yk87pjcMW4nXvLqp6MzEptA/mcrkZf4J95zVq6zLyTZxg5c2nV3We7Ppn1GEgvw/+Eb5hy7j+WL6qHq8WxS5ij1DrKlHOhpJsyADHP+ITN3QyxN/gIhF97Pncjh83VhwYlStEibq02WWB1JMwwmZSAPTHlx6ldhg3yxLSu9BRRH9zMZ0bjeyn9gjJVT3HDzjEpi/2NH6ikIWwAoQdp8n+LvKk4zB7IP6OOPbX4ch7jCtVvN1Agb1EokFlJzHX+Ng8r9pcIG24IAT/KpFSJlqtrXH9J/1j9EYZL/CZ55yp2EwCpaAapBvpbbMcuiE7vYQPgAXlAHB8UGBJC9Oqqcx6CB15Wf3QAFClUc7HCJsyA2ECPF1VK8G16XCZAxCz1LumE0Y/zcDh5gmBZk81Y7eKoDHW36hP+UkxCrHNwzy4JEWWvmW+MbRMOuLwwEe76YZr0kPwcZQGJnKX1rPgTSEpLuC48fyd9asM7v9PI2EBPtd53u02wdBWCVHkdzJyjYLhsPRpKj6NmVKIn0DWH+VpLPp26gzlKb1/CKr5OgLKOClMdEZU4x6gnl3FlvmykyXDFAPjvZ63Lo32g830CjRDSF2nQyktvlXcYBZ37OfKZXBCOnQBngJz4A8X4NSljLrN1moxWw3eD3IUwZQ/2G6XeF+ifpMwb8qy0CGj3bfme2wcD9Qhwa4aPkNhRvioUM3kcmU7YQMX0r/dHYsYej7qUkL5TGcgTo9+Vs9JHObG/TKIIch4R4q1Hwi+fDCQM8AeZivG+bzw/szmnw/Ah937pmOX2191rG03JlY2V84TsKUxkeJ1aLkeCpwu1O3TcOxs3/tHclxbfnaFrq+RQcglb92AN3DZ17Nley0O8Vq49YBwz7e6YlDOM/eO4C/atJid6wTEpLqhivLFSRFr2kuyc0Bf8f4S3IXuyiEMI337XeDC91LIqDablK9rGeRaDDYkVi1q1IQLzcFm1qYFPSV04O6CXMMaVe0xxjsw78/r/amc/LLejUNpSbDh3SgJ23mMQ759jkrZUK2UjE0fMe8KH6kmfSZ8o5R9zJ+S+nTBVs5yoKVc4OVZLkE6NhICy5xgN871pUDp/xaeOwRLASthZXNR4Wuom+U2ooADP8sPOfGm7wy5cQgGELQaK2pRtKJ0oj/geXTh6T39xQC+NOZWeFVpzz9ZiHoFNc0gUgk5l41TEPePIZG625p9ZSK03NfSiAtSUVWJ7kYDbm9aMdlHvKksoLMb/AkDJIcwJupBCts97ddyKXrspqWu0puV20yocOX19xoSv5zgz3zoGES1dzoioVsR3dgh9/9LBdwnyZKdzOq9/eddEo8OLkjiyXEbvg0AIR90+ZKrxeu3tb7Vbo2KTKJjxP9L/huT9HQAmlsNwaYruPPbFlCz9H3Njum5JSOACPbMTwQVdYUmpsBE+3oCmGXo8AADnvMePG5zICX0EHStGb29pH4nN8JjBpz5MQhvyncr3BaRxDelDFE31qi+ZzgzAhw0KLyAtnd0HxXsgHUQ8fZPilEQ++QXr89L7qQXJ/RRVX/lk8/PguCOyO5SAJ0KzjldRMc57akEsNABszUfht+ElPxyjcFs+LcxLqjnGIeIdFQ3YK+sT1UMUWNcJIJg4T8KircHQ5a9o5WUmUF36atxdzaCPvWFXpqD6VYriUsWxks2JW5B4brFxZDtRNeTSmKiL+ef0WkDY4fE/cCDF5KaphSFWzxHZMKzHzP5XqN4mWPjdSi+Wj7IYp6svo7NoDTHxh/mWI73pHCeP8ef4bciP415a3rRD72ot9J2FIIpyHDe4WojRyE26t2SpHwhaeQsxeZs0uhMuLmG1I7e7DEAnkXv63AhOnpsftJDg9ztTh9/xNi1kW+fw1XCbv/1cjcJurvKozoyRXdQX1hfUspyDJV1X8igi5qMwJyBfaxvh3es/oPuF9krhwBTmkPP4AAAAA=" alt="김성진의 보험경제" width="54" height="54" loading="eager" decoding="async" />
-      <span class="brand-text"><b>김성진의 보험경제</b><em>은퇴 · 연금 · 간병 설계</em></span>
+      <span class="brand-text"><b>김성진의 보험경제</b><em>은퇴 · 연금 · <i>장기요양/간병</i> 설계</em></span>
     </a>
     <nav class="nav" aria-label="주요 메뉴">
       <a href="https://kimsungjin0702.github.io/retire/" class="on">은퇴자금·노후자금 계산기</a>
@@ -582,7 +663,12 @@
   <main class="main">
   <h1>은퇴자금·노후자금 계산기</h1>
   <p class="subtitle">국민연금·퇴직연금·개인연금·직역연금·주택연금을 하나의 흐름으로 — 소득 공백과 간병 리스크까지 한 화면에서 진단합니다</p>
-  <p class="subtitle" style="color:var(--text-muted)">아는 숫자만 넣어 보세요. 빈칸이 있어도 결과는 나옵니다. 입력한 내용은 <b>이 기기 밖으로 나가지 않습니다.</b></p>
+  <div class="howto">
+    <span class="ht-i"><b>①</b> 왼쪽(휴대폰은 위쪽)에 <b>아는 숫자만</b> 넣으시면</span>
+    <span class="ht-i"><b>②</b> 바로 아래 결과가 <b>즉시 바뀝니다</b></span>
+    <span class="ht-i"><b>③</b> 모르는 칸은 <b>그냥 두셔도</b> 됩니다</span>
+  </div>
+  <p class="subtitle" style="color:var(--text-muted)">입력한 내용은 <b>이 기기 밖으로 나가지 않습니다.</b> 저장되지도, 전송되지도 않습니다.</p>
 
   <div class="notice" id="jsBlockedNotice">
     ⚠️ 자바스크립트가 실행되지 않아 <b>기본값 화면</b>만 보이는 상태입니다. 슬라이더가 움직이지 않는다면 이 파일을 기기에 저장한 뒤
@@ -603,12 +689,12 @@
     <div class="panel-controls">
 
       <details class="sec" open>
-        <summary>기본 정보</summary>
+        <summary><span class="sum-wrap"><span class="sum-main"><span class="step-no">1</span>은퇴설계 / 노후설계</span></span></summary>
         <div class="sec-body">
-          <div class="sec-help">슬라이더를 한 번 <b>클릭</b>하면 테두리가 생깁니다. 그 뒤로는 <b>마우스 휠</b>이나 <b>← →</b> 키로도 값을 조절할 수 있습니다 (휠을 Shift와 함께 굴리면 5칸씩).<br>아는 숫자만 먼저 넣으세요. <b>월 필요생활비</b>는 지금 쓰는 생활비에서 자녀 교육비·대출상환처럼 은퇴 후 없어질 돈을 뺀 금액이면 충분합니다.</div>
+          <div class="sec-help">예상하는 은퇴 준비를 위한 숫자를 넣어주세요. 정확하지 않아도 괜찮습니다.<br><b>월 필요생활비</b>는 지금 쓰는 생활비에서 자녀 교육비·대출 갚는 돈처럼 <b>은퇴 후에는 안 나갈 돈</b>을 뺀 금액이면 됩니다.</div>
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">은퇴(소득중단) 나이</span>
+              <span class="label">은퇴하는 나이<br><span class="lb-sub">월급이 끊기는 때</span></span>
               <span class="stepper">
                 <button type="button" class="step" data-t="retireAge" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-retireAge">60세</span>
@@ -620,7 +706,7 @@
 
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">은퇴 후 월 필요생활비</span>
+              <span class="label">은퇴 후 한 달 생활비</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="monthlyExpense" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-monthlyExpense">280만원</span>
@@ -632,7 +718,7 @@
 
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">은퇴 시점 보유 금융자산</span>
+              <span class="label">지금까지 모아둔 돈<br><span class="lb-sub">예금·적금·펀드·퇴직금 일시금</span></span>
               <span class="stepper">
                 <button type="button" class="step" data-t="initialAssets" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-initialAssets">3억원</span>
@@ -644,7 +730,7 @@
 
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">예상 수명 (몇 살까지 계산할지)</span>
+              <span class="label">몇 살까지 산다고 볼까</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="lifeAge" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-lifeAge">90세</span>
@@ -652,18 +738,18 @@
               </span>
             </div>
             <input type="range" id="lifeAge" min="75" max="105" step="1" value="90" aria-label="예상 수명" />
-            <div class="sec-help" style="margin:6px 0 0">지금 60세인 분의 기대여명은 여든 중반이고, <b>절반은 그보다 더 오래 삽니다.</b> 짧게 잡으면 부족액이 실제보다 적게 나오니, 기대수명보다 5년쯤 길게 보는 편이 안전합니다.</div>
+            <div class="sec-help" style="margin:6px 0 0">지금 60세인 분은 평균 여든 중반까지 사시는데, <b>절반은 그보다 더 오래 삽니다.</b> 짧게 잡으면 모자라는 돈이 실제보다 적게 나옵니다. <b>90세 정도로 넉넉히</b> 잡아 보세요.</div>
           </div>
         </div>
       </details>
 
       <details class="sec" open>
-        <summary>국민연금</summary>
-        <div class="sec-help" style="margin:0 0 12px">내 예상 수령액은 <b>국민연금공단 앱(내 곁에 국민연금)</b> 또는 nps.or.kr에서 바로 확인됩니다. 65세 기준 금액을 넣으세요.</div>
+        <summary><span class="sum-wrap"><span class="sum-main"><span class="step-no">2</span>국민연금</span><em class="sum-sub">나라에서 평생 주는 연금</em></span></summary>
+        <div class="sec-help" style="margin:0 0 12px">죽을 때까지 나오는 연금입니다. 내가 얼마 받는지는 <b>'내 곁에 국민연금' 앱</b>이나 nps.or.kr에서 1분이면 확인됩니다. 거기 나온 <b>65세 기준 금액</b>을 그대로 넣으세요. 모르시면 그냥 두셔도 결과는 나옵니다.</div>
         <div class="sec-body">
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">정상수급(65세) 월 예상액</span>
+              <span class="label">65세부터 받을 월 금액</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="npBase" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-npBase">150만원</span>
@@ -675,7 +761,7 @@
 
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">수급 개시 나이</span>
+              <span class="label">실제로 받기 시작할 나이</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="npStartAge" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-npStartAge">65세</span>
@@ -690,11 +776,11 @@
       </details>
 
       <details class="sec">
-        <summary><span>직역연금 (공무원·사학·군인)<span class="opt-tag">해당자만</span></span></summary>
-        <div class="sec-help" style="margin:0 0 12px">공무원·사립학교 교직원·군인으로 일하신 분만 해당합니다. <b>이 기간에는 국민연금에 가입하지 않습니다</b> — 공직 전후 민간 근무가 없었다면 위 국민연금은 0으로 두세요.</div>
+        <summary><span class="sum-wrap"><span class="sum-main"><span class="step-no">3</span>공무원·군인·사학 연금</span><span class="opt-tag">해당자만</span></span></summary>
+        <div class="sec-help" style="margin:0 0 12px">공무원·사립학교 선생님·군인으로 일하신 분만 해당합니다. 그 기간에는 <b>국민연금에 가입하지 않습니다.</b> 공직 말고 회사를 다닌 적이 없으시면 위의 국민연금은 <b>0으로</b> 두세요.</div>
         <div class="sec-body">
           <div class="toggle-row">
-            <span class="t-label">직역연금 있음</span>
+            <span class="t-label">공무원·군인·사학 연금 있음</span>
             <label class="switch">
               <input type="checkbox" id="occEnabled" aria-label="직역연금 반영" />
               <span class="slider-ui"></span>
@@ -707,7 +793,7 @@
             </div>
             <div class="slider-row">
               <div class="row-top">
-                <span class="label">월 수령액</span>
+                <span class="label">매달 받을 금액</span>
                 <span class="stepper">
                   <button type="button" class="step" data-t="occMonthly" data-d="-1" aria-label="감소">−</button>
                   <span class="value" id="v-occMonthly">200만원</span>
@@ -718,7 +804,7 @@
             </div>
             <div class="slider-row" id="occNormalRow">
               <div class="row-top">
-                <span class="label">정상 개시 나이</span>
+                <span class="label">원래 받게 되는 나이</span>
                 <span class="stepper">
                   <button type="button" class="step" data-t="occNormalAge" data-d="-1" aria-label="감소">−</button>
                   <span class="value" id="v-occNormalAge">65세</span>
@@ -744,12 +830,12 @@
       </details>
 
       <details class="sec" open>
-        <summary>퇴직연금(IRP)</summary>
-        <div class="sec-help" style="margin:0 0 12px">회사에서 받은 퇴직금을 IRP·DC 계좌에 넣어 나눠 받는 돈입니다. <b>정해진 기간만</b> 나오고 끝납니다.</div>
+        <summary><span class="sum-wrap"><span class="sum-main"><span class="step-no">4</span>퇴직연금</span><em class="sum-sub">회사에서 받은 퇴직금</em></span></summary>
+        <div class="sec-help" style="margin:0 0 12px">회사를 그만두며 받은 퇴직금을 계좌에 넣어 두고 나눠 받는 돈입니다(IRP·DC). <b>정해 놓은 기간만 나오고 끝납니다.</b> 한 번에 다 받으셨다면 위 '보유 금융자산'에 넣고 여기는 0으로 두세요.</div>
         <div class="sec-body">
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">월 수령액</span>
+              <span class="label">매달 받을 금액</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="irpMonthly" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-irpMonthly">80만원</span>
@@ -760,7 +846,7 @@
           </div>
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">수령 시작 나이</span>
+              <span class="label">받기 시작할 나이</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="irpStartAge" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-irpStartAge">60세</span>
@@ -771,7 +857,7 @@
           </div>
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">수령 기간</span>
+              <span class="label">몇 년 동안 받나</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="irpDuration" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-irpDuration">15년</span>
@@ -784,12 +870,12 @@
       </details>
 
       <details class="sec" open>
-        <summary>개인연금</summary>
-        <div class="sec-help" style="margin:0 0 12px">연금저축·연금보험처럼 본인이 따로 든 연금입니다. 종신형이 아니면 <b>정해진 기간만</b> 나옵니다.</div>
+        <summary><span class="sum-wrap"><span class="sum-main"><span class="step-no">5</span>개인연금</span><em class="sum-sub">내가 따로 든 연금</em></span></summary>
+        <div class="sec-help" style="margin:0 0 12px">연금저축·연금보험처럼 <b>내가 따로 든 연금</b>입니다. 죽을 때까지 주는 종신형이 아니면 <b>정해 놓은 기간만</b> 나옵니다. 몇 년짜리인지는 보험증권이나 가입확인서에 적혀 있습니다.</div>
         <div class="sec-body">
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">월 수령액</span>
+              <span class="label">매달 받을 금액</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="ppMonthly" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-ppMonthly">50만원</span>
@@ -800,7 +886,7 @@
           </div>
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">수령 시작 나이</span>
+              <span class="label">받기 시작할 나이</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="ppStartAge" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-ppStartAge">60세</span>
@@ -811,7 +897,7 @@
           </div>
           <div class="slider-row">
             <div class="row-top">
-              <span class="label">수령 기간</span>
+              <span class="label">몇 년 동안 받나</span>
               <span class="stepper">
                 <button type="button" class="step" data-t="ppDuration" data-d="-1" aria-label="감소">−</button>
                 <span class="value" id="v-ppDuration">20년</span>
@@ -824,8 +910,8 @@
       </details>
 
       <details class="sec">
-        <summary><span>주택연금 (집을 연금으로)<span class="opt-tag">선택</span></span></summary>
-        <div class="sec-help" style="margin:0 0 12px">살던 집에 그대로 살면서 집을 담보로 <b>매달 평생</b> 연금을 받는 제도입니다. 부부 중 한 분이 <b>만 55세 이상</b>, 공시가격 <b>12억원 이하</b>면 신청할 수 있습니다. 집값을 넣으면 월 얼마가 나오는지 자동으로 계산됩니다.</div>
+        <summary><span class="sum-wrap"><span class="sum-main"><span class="step-no">6</span>주택연금</span><em class="sum-sub">집을 담보로 받는 연금</em><span class="opt-tag">선택</span></span></summary>
+        <div class="sec-help" style="margin:0 0 12px"><b>살던 집에서 그대로 살면서</b> 집을 담보로 매달 연금을 받는 제도입니다. 나라가 보증하고 <b>죽을 때까지</b> 나옵니다. 부부 중 한 분이 만 55세 이상이고 공시가격 12억원 이하면 신청할 수 있습니다. 집값만 넣으면 월 얼마인지 자동으로 계산됩니다.</div>
         <div class="sec-body">
           <div class="toggle-row">
             <span class="t-label">주택연금 받을 계획</span>
@@ -837,7 +923,7 @@
           <div class="opt-body off" id="houseBody">
             <div class="slider-row">
               <div class="row-top">
-                <span class="label">우리 집 시세</span>
+                <span class="label">우리 집 시세<br><span class="lb-sub">지금 팔면 받는 값</span></span>
                 <span class="stepper">
                   <button type="button" class="step" data-t="houseValue" data-d="-1" aria-label="감소">−</button>
                   <span class="value" id="v-houseValue">4억원</span>
@@ -863,10 +949,11 @@
       </details>
 
       <details class="sec" open>
-        <summary>리스크 이벤트 (간병·중대질병)</summary>
+        <summary><span class="sum-wrap"><span class="sum-main"><span class="step-no">7</span>간병·큰 병에 쓸 목돈</span><span class="opt-tag">선택</span></span></summary>
+        <div class="sec-help" style="margin:0 0 12px">노후에 한 번은 <b>크게 돈 나갈 일</b>이 생깁니다. 간병이 시작되거나 큰 병에 걸렸을 때 한꺼번에 들어갈 돈을 미리 빼 두고 계산합니다. 보통 <b>75~80세 사이</b>에 시작한다고 보고, 금액은 <b>5,000만~1억원</b>을 많이 잡습니다.</div>
         <div class="sec-body">
           <div class="toggle-row">
-            <span class="t-label">리스크 반영</span>
+            <span class="t-label">간병비를 계산에 넣기</span>
             <label class="switch">
               <input type="checkbox" id="riskEnabled" checked aria-label="리스크 이벤트 반영" />
               <span class="slider-ui"></span>
@@ -875,7 +962,7 @@
           <div class="risk-body" id="riskBody">
             <div class="slider-row">
               <div class="row-top">
-                <span class="label">이벤트 발생 나이</span>
+                <span class="label">간병이 시작될 나이</span>
                 <span class="stepper">
                   <button type="button" class="step" data-t="riskAge" data-d="-1" aria-label="감소">−</button>
                   <span class="value" id="v-riskAge">78세</span>
@@ -886,7 +973,7 @@
             </div>
             <div class="slider-row">
               <div class="row-top">
-                <span class="label">일시 지출 규모</span>
+                <span class="label">그때 한꺼번에 나갈 돈</span>
                 <span class="stepper">
                   <button type="button" class="step" data-t="riskAmount" data-d="-1" aria-label="감소">−</button>
                   <span class="value" id="v-riskAmount">8,000만원</span>
@@ -899,7 +986,7 @@
         </div>
       </details>
 
-      <button type="button" class="reset-btn" id="resetBtn">기본값으로 되돌리기</button>
+      <button type="button" class="reset-btn" id="resetBtn">처음 상태로 되돌리기</button>
     </div>
 
     <!-- ===================== 결과 패널 ===================== -->
@@ -907,8 +994,8 @@
       <div class="verdict-banner vb-bad" id="verdictBanner">계산 중입니다…</div>
 
       <div class="card">
-        <div class="card-title" id="totalTitle">은퇴 후 전체를 한 번에</div>
-        <div class="card-sub">예상 수명까지 <b>필요한 돈</b>과, 연금·모아둔 돈으로 <b>마련되는 돈</b>을 통째로 비교한 것입니다.</div>
+        <div class="card-title" id="totalTitle">은퇴하고 죽을 때까지, 돈이 얼마나 모자라나</div>
+        <div class="card-sub"><b>은퇴하고 죽을 때까지 쓸 돈</b>이 얼마인지, 그중 <b>연금과 모아둔 돈으로 메워지는 돈</b>이 얼마인지 통째로 비교한 것입니다.</div>
         <div class="total-track" id="totalTrack"></div>
         <div class="ledger" id="ledger"></div>
         <div class="short-result" id="shortResult"></div>
@@ -917,17 +1004,17 @@
 
       <div class="stat-row">
         <div class="stat-card">
-          <div class="label">소득 공백기</div>
+          <div class="label">수입이 끊기는 기간</div>
           <div class="value" id="stat-gap" style="color:#B04125">5년</div>
           <div class="sub" id="stat-gap-sub">60세 은퇴 → 65세 국민연금 개시</div>
         </div>
         <div class="stat-card">
-          <div class="label">자산 고갈 예상 나이 (리스크 미반영)</div>
+          <div class="label">모아둔 돈이 바닥나는 나이<br><span class="lb-sub">간병비를 안 썼을 때</span></div>
           <div class="value" id="stat-depNoRisk" style="color:#1E5FA8">90세 이후</div>
           <div class="sub" id="stat-depNoRisk-sub"></div>
         </div>
         <div class="stat-card">
-          <div class="label">자산 고갈 예상 나이 (리스크 반영)</div>
+          <div class="label">모아둔 돈이 바닥나는 나이<br><span class="lb-sub">간병비를 썼을 때</span></div>
           <div class="value" id="stat-depRisk" style="color:#B04125">85세</div>
           <div class="sub" id="stat-depRisk-sub"></div>
         </div>
@@ -935,30 +1022,30 @@
 
       <div class="card">
         <div class="card-title">연금이 언제부터 언제까지 나오나</div>
-        <div class="card-sub">가로줄 하나가 연금 하나입니다. 줄이 그려진 기간에만 그 연금이 나옵니다. <b style="color:#B23A1E">붉은 칸</b>은 국민연금이 아직 안 나오는 기간입니다.</div>
+        <div class="card-sub">가로줄 하나가 연금 하나입니다. <b>줄이 그려진 기간에만</b> 그 연금이 나옵니다. <b style="color:#B23A1E">붉은 칸</b>은 은퇴는 했는데 국민연금은 아직 안 나오는, 수입이 끊기는 기간입니다.</div>
         <div class="legend" id="incomeLegend"></div>
         <div class="chart-box" id="timelineChart"></div>
       </div>
 
       <div class="card">
-        <div class="card-title">시기별로 매달 얼마가 들어오나</div>
-        <div class="card-sub">막대 길이가 월 소득입니다. <b>흰 세로선이 생활비</b>이니, 막대가 선에 못 미치면 그만큼 모자랍니다.</div>
+        <div class="card-title">나이대별로 매달 얼마가 들어오나</div>
+        <div class="card-sub">막대가 <b>그 나이에 매달 들어오는 돈</b>입니다. <b>세로선이 내가 쓸 생활비</b>이니, 막대가 선에 못 미치면 그만큼 모자라는 것입니다.</div>
         <div id="phaseList"></div>
       </div>
 
       <div class="card">
         <div class="card-title">모아둔 돈이 언제까지 버티나</div>
-        <div class="card-sub">선이 <b>0</b>에 닿는 순간이 금융자산이 바닥나는 나이입니다.</div>
-        <div class="legend" id="assetLegend">
-          <span class="item"><span class="swatch" style="background:#1E5FA8"></span>리스크 미반영</span>
-          <span class="item"><span class="swatch dashed" style="border-color:#C0442A"></span>리스크 반영</span>
-        </div>
-        <div class="chart-box" id="assetChart"></div>
-        <div class="readout" id="assetHover">그래프를 손가락으로 문지르면 해당 나이의 남은 돈이 표시됩니다</div>
+        <div class="card-sub">연금으로 모자라는 돈은 <b>모아둔 돈에서 꺼내 씁니다.</b> 그 돈이 몇 살에 바닥나는지 보여 드립니다.</div>
+        <div class="asset-verdict" id="assetVerdict"></div>
+        <div class="agebar" id="ageBar"></div>
+        <table class="asset-table" id="assetTable">
+          <thead><tr><th>나이</th><th class="num">그때 남아 있는 돈</th><th class="abar"></th></tr></thead>
+          <tbody></tbody>
+        </table>
       </div>
 
       <div class="card">
-        <div class="card-title" id="scenarioTitle">국민연금 수급 시나리오 비교</div>
+        <div class="card-title" id="scenarioTitle">국민연금, 언제부터 받는 게 나을까</div>
         <div class="scenario-row" id="scenarioRow"></div>
       </div>
     </div>
@@ -985,6 +1072,8 @@
       <p>노인장기요양보험은 집에서 받는 <b>재가급여</b>와 요양원 <b>시설급여</b>를 지원하지만, 등급별 월 한도가 있고 한도를 넘긴 금액은 전액 본인 부담입니다. <b>병원에 입원해 간병인을 쓰는 비용은 아예 지원되지 않습니다.</b> 연금은 그대로인데 나가는 돈만 갑자기 늘어나는 시기여서, 노후 준비에서 가장 늦게 생각하지만 금액은 가장 큰 항목입니다.</p>
     </div>
   </div>
+
+  <div class="cta-card" id="ctaCard"></div>
 
   <div class="disclaimer">
     <h2>계산 기준과 한계</h2>
@@ -1045,7 +1134,7 @@
     np: "#07915B", occ: "#01603A", house: "#3CC383", irp: "#0555B7", pp: "#5089DC",
     danger: "#C0442A", ok: "#0E7A4F",
     grid: "#E6ECF3", panel: "#FFFFFF", inkOnFill: "#0E1826",
-    textMuted: "#6E7F94", textSecondary: "#47586E", textPrimary: "#15212E"
+    textMuted: "#5F7186", textSecondary: "#47586E", textPrimary: "#15212E"
   };
   COLORS.green = COLORS.np; COLORS.blue = COLORS.irp; COLORS.brick = COLORS.danger;
 
@@ -1574,6 +1663,66 @@
   /* ---------------------------------------------------------------
      4. 계산 + 렌더
   ----------------------------------------------------------------*/
+  /* 모아둔 돈이 버티는 기간 — 그래프 대신 문장·막대·표로 보여 준다 */
+  function renderAssetPlain(rows, riskOn, retireAge, endAge, dep, depNoRisk, startMoney) {
+    var key = riskOn ? "risk" : "noRisk", i, r;
+
+    // (1) 한 문장 결론
+    var v = $("assetVerdict");
+    if (dep) {
+      v.className = "asset-verdict bad";
+      v.innerHTML =
+        '<div class="av-v">모아둔 돈은 <b>' + dep + '세</b>에 바닥납니다</div>' +
+        '<div class="av-m">은퇴하고 <b>' + (dep - retireAge) + '년</b> 만입니다. 그 뒤 <b>' + (endAge - dep) +
+        '년</b>은 매달 들어오는 연금만으로 살아야 합니다.' +
+        (riskOn && depNoRisk && depNoRisk > dep
+          ? ' 간병비를 안 쓴다면 ' + depNoRisk + '세까지 버팁니다.' : '') + '</div>';
+    } else {
+      v.className = "asset-verdict good";
+      v.innerHTML =
+        '<div class="av-v">모아둔 돈은 <b>' + endAge + '세까지</b> 버팁니다</div>' +
+        '<div class="av-m">' + endAge + '세에도 <b>' +
+        formatManwon(Math.max(0, rows.length ? rows[rows.length - 1][key] : 0)) + '</b>이 남습니다.</div>';
+    }
+
+    // (2) 나이 막대 — 돈이 있는 기간과 없는 기간
+    var span = Math.max(1, endAge - retireAge);
+    var okY = dep ? Math.max(0, dep - retireAge) : span;
+    var pct = Math.round(okY / span * 100);
+    $("ageBar").innerHTML =
+      '<div class="ab-track"><div class="ab-ok" style="width:' + pct + '%"></div></div>' +
+      '<div class="ab-ends"><span>' + retireAge + '세 은퇴</span><span>' + endAge + '세</span></div>' +
+      '<div class="ab-legend">' +
+        '<span class="abi"><i class="asw ok"></i>모아둔 돈으로 메울 수 있는 기간 <b>' + okY + '년</b></span>' +
+        (pct < 100 ? '<span class="abi"><i class="asw no"></i>연금만으로 버텨야 하는 기간 <b>' + (span - okY) + '년</b></span>' : '') +
+      '</div>';
+
+    // (3) 5년 단위 잔고 표
+    var maxV = Math.max(1, startMoney || 1);
+    for (i = 0; i < rows.length; i++) if (rows[i][key] > maxV) maxV = rows[i][key];
+    var pick = [{ age: retireAge, start: 1 }], seen = {};
+    seen[retireAge] = 1;
+    for (i = 0; i < rows.length; i++) {
+      r = rows[i];
+      if (r.age % 5 === 0 || r.age === endAge || r.age === dep) {
+        if (!seen[r.age]) { seen[r.age] = 1; pick.push(r); }
+      }
+    }
+    var html = "";
+    for (i = 0; i < pick.length; i++) {
+      r = pick[i];
+      var val = r.start ? Math.max(0, startMoney || 0) : Math.max(0, r[key]);
+      var w = Math.round(val / maxV * 100);
+      var gone = val <= 0;
+      html += '<tr' + (r.age === dep ? ' class="hit"' : '') + '>' +
+        '<td>' + r.age + '세' + (r.start ? ' <span class="tg">은퇴 직후</span>' : '') + '</td>' +
+        '<td class="num"' + (gone ? ' style="color:#A83418"' : '') + '>' +
+          (gone ? '0원 · 바닥남' : formatManwon(val)) + '</td>' +
+        '<td class="abar"><span class="rb' + (gone ? ' empty' : '') + '" style="width:' + w + '%"></span></td></tr>';
+    }
+    $("assetTable").getElementsByTagName("tbody")[0].innerHTML = html;
+  }
+
   function render() {
     var retireAge = getVal("retireAge");
     var monthlyExpense = getVal("monthlyExpense");
@@ -1833,21 +1982,12 @@
     // 시기별 월 소득
     renderPhases($("phaseList"), computePhases(incomeData, startAge, retireAge, endAge), monthlyExpense);
 
-    var legendHtml = '<span class="item"><span class="swatch" style="background:' + COLORS.irp + '"></span>리스크 미반영</span>';
-    if (riskEnabled) {
-      legendHtml += '<span class="item"><span class="swatch dashed" style="border-color:' + COLORS.danger + '"></span>리스크 반영</span>';
-    }
-    $("assetLegend").innerHTML = legendHtml;
-
-    buildAssetChart($("assetChart"), assetRows, riskEnabled, riskAge,
-      depletionNoRisk, riskEnabled ? depletionRisk : null, function (row) {
-        var html = "<b>" + row.age + "세</b> · 리스크 미반영 " + formatManwon(row.noRisk);
-        if (riskEnabled) html += "<br>리스크 반영 " + formatManwon(row.risk);
-        $("assetHover").innerHTML = html;
-      });
+    renderAssetPlain(assetRows, riskEnabled, retireAge, endAge,
+                     riskEnabled ? depletionRisk : depletionNoRisk,
+                     depletionNoRisk, initialAssets);
 
     var scenarioAges = [60, 65, 70];
-    var labelMap = { 60: "조기수령 (60세)", 65: "정상수령 (65세)", 70: "연기수령 (70세)" };
+    var labelMap = { 60: "60세부터 일찍 받기", 65: "65세부터 제때 받기", 70: "70세로 미뤄 받기" };
     var scenarioHtml = "", si, sAge, sFactor, sMonthly, sTotal;
     for (si = 0; si < scenarioAges.length; si++) {
       sAge = scenarioAges[si];
@@ -1857,10 +1997,10 @@
       scenarioHtml += '<div class="scenario-card' + (sAge === npStartAge ? " active" : "") + '">' +
         '<div class="s-label">' + labelMap[sAge] + '</div>' +
         '<div class="s-monthly">월 ' + formatManwon(sMonthly) + '</div>' +
-        '<div class="s-total">누적 ' + formatManwon(sTotal) + '</div></div>';
+        '<div class="s-total">다 더하면 ' + formatManwon(sTotal) + '</div></div>';
     }
     $("scenarioRow").innerHTML = scenarioHtml;
-    $("scenarioTitle").textContent = "국민연금 수급 시나리오 비교 (" + endAge + "세까지 누적 기준)";
+    $("scenarioTitle").textContent = "국민연금, 언제부터 받는 게 나을까 (" + endAge + "세까지 받은 돈을 다 더한 금액)";
   }
 
   /* ---------------------------------------------------------------
@@ -1996,6 +2136,19 @@ var CONTACT = {
     if (s) { s.innerHTML = '<span class="sb">상담 문의</span>' + rows.join("<br />"); }
     var f = document.getElementById("footContact");
     if (f) { f.innerHTML = '<div style="margin-top:8px">' + rows.join(' &nbsp;·&nbsp; ') + '</div>'; }
+    var c = document.getElementById("ctaCard");
+    if (c) {
+      var btns = "";
+      if (CONTACT.tel)     btns += '<a class="cta-b primary" href="tel:' + CONTACT.tel.replace(/[^0-9+]/g, "") + '">전화 상담 ' + CONTACT.tel + '</a>';
+      if (CONTACT.kakao)   btns += '<a class="cta-b" href="' + CONTACT.kakao + '" target="_blank" rel="noopener">카카오톡으로 묻기</a>';
+      if (CONTACT.youtube) btns += '<a class="cta-b" href="' + CONTACT.youtube + '" target="_blank" rel="noopener">유튜브 채널 보기</a>';
+      if (CONTACT.blog)    btns += '<a class="cta-b" href="' + CONTACT.blog + '" target="_blank" rel="noopener">블로그 보기</a>';
+      c.innerHTML =
+        '<div class="cta-t">숫자는 나왔는데, 뭘 어떻게 해야 할지 모르시겠다면</div>' +
+        '<div class="cta-s">이 화면을 그대로 두고 물어보셔도 됩니다. CFP(국제공인재무설계사) 자격과 보험업 20년 경력으로, ' +
+        '모자라는 돈을 어떤 순서로 메우는 게 나은지 같이 정리해 드립니다. 편하게 연락 주세요.</div>' +
+        '<div class="cta-btns">' + btns + '</div>';
+    }
   } catch (e) {}
 })();
 </script>
