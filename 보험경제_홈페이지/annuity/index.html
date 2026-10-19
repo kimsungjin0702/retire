@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="개인연금 계산기" />
+<meta name="format-detection" content="telephone=no" />
+<title>개인 연금보험 수령액 계산기 | 종신연금 월 수령액·필요 보험료 — 김성진의 보험경제</title>
+<meta name="description" content="연 7% 최저보증·종신 지급 개인연금의 월 수령액과, 원하는 연금을 받기 위해 필요한 월 보험료를 바로 계산합니다. 노후 준비와 은퇴설계를 위한 무료 개인연금 계산기 — 김성진의 보험경제." />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="개인 연금보험 수령액 계산기 | 평생 매달 얼마가 나올까" />
+<meta property="og:description" content="납입액을 넣으면 평생 받을 월 연금액이, 목표 연금액을 넣으면 필요한 납입액이 바로 나옵니다." />
+<meta property="og:locale" content="ko_KR" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230E1826'/%3E%3Cpath d='M14 40 L26 28 L36 36 L50 18' stroke='%2325AB78' stroke-width='6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='50' cy='18' r='5' fill='%23C9A24B'/%3E%3C/svg%3E" />
+<link rel="canonical" href="https://kimsungjin0702.github.io/retire/annuity/" />
+<meta name="keywords" content="연금,은퇴,노후준비,노후자금,간병,재가급여,장기요양,국민연금,퇴직연금,개인연금,주택연금,은퇴설계" />
+<meta property="og:url" content="https://kimsungjin0702.github.io/retire/annuity/" />
+<meta property="og:image" content="https://kimsungjin0702.github.io/retire/og.jpg" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="600" />
+<meta name="twitter:image" content="https://kimsungjin0702.github.io/retire/og.jpg" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"김성진의 보험경제","url":"https://kimsungjin0702.github.io/retire/",
+"inLanguage":"ko-KR","publisher":{"@type":"Organization","name":"김성진의 보험경제","url":"https://kimsungjin0702.github.io/retire/","logo":"https://kimsungjin0702.github.io/retire/og.jpg"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"개인 연금보험 수령액 계산기",
+"applicationCategory":"FinanceApplication","operatingSystem":"Web","inLanguage":"ko-KR",
+"url":"https://kimsungjin0702.github.io/retire/annuity/","description":"연 7% 최저보증 종신연금의 월 수령액과 목표 연금액에 필요한 월 보험료를 계산하는 개인연금 계산기.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+"author":{"@type":"Organization","name":"김성진의 보험경제"}}
+</script>
+<style>
+  /* 은퇴소득 시뮬레이터와 같은 도구 계열로 보이도록 팔레트·부품을 그대로 쓴다 */
+  :root {
+    --bg: #0E1826;
+    --panel: #162334;
+    --panel-alt: #101B2A;
+    --border: #28394F;
+    --track: #2C3E56;
+    --grid: #233247;
+    --text-primary: #EEF1F5;
+    --text-secondary: #9DAEC5;
+    --text-muted: #6C8099;
+    --gold: #C9A24B;
+    --life: #25AB78;      /* 평생 나오는 돈 */
+    --pay:  #5E82D7;      /* 내가 내는 돈 */
+    --ok:   #7FD9AE;
+    --danger: #E0644A;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR",
+                 "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden; word-break: keep-all; overflow-wrap: break-word;
+  }
+  body { -webkit-tap-highlight-color: rgba(201,162,75,.15); -webkit-touch-callout: none; }
+  @media (display-mode: standalone) { body { overscroll-behavior-y: none; } }
+  h1, .subtitle, .row-top, .stepper, .step, .seg-btn, .tab, .legend, .diag, .card-title {
+    -webkit-user-select: none; user-select: none;
+  }
+  .wrap {
+    max-width: 900px; margin: 0 auto;
+    padding-block: 18px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  h1 { font-size: 22px; font-weight: 700; margin: 0 0 6px; letter-spacing: -.02em; }
+  .subtitle { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin: 0 0 6px; }
+  .subtitle.small { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; }
+  .subtitle a { color: var(--gold); }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 14px; margin-bottom: 16px;
+  }
+  .card-title { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+  .card-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.55; }
+
+  /* ── 시뮬레이터에서 넘어왔을 때 ── */
+  .from-sim {
+    border-radius: 9px; padding: 13px 15px; margin-bottom: 14px;
+    background: rgba(201,162,75,.12); border: 1px solid rgba(201,162,75,.5);
+    font-size: 13.5px; line-height: 1.65; color: #E4D3A8;
+  }
+  .from-sim b { color: var(--gold); font-size: 15px; }
+
+  /* ── 모드 탭 ── */
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tab {
+    -webkit-appearance: none; appearance: none; flex: 1; min-height: 50px; padding: 0 8px;
+    border: 1px solid var(--border); border-radius: 9px;
+    background: var(--panel-alt); color: var(--text-secondary);
+    font-size: 15px; font-weight: 700; font-family: inherit;
+    cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  .tab.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+
+  /* ── 입력 ── */
+  .seg-group { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+  .seg-btn {
+    -webkit-appearance: none; appearance: none; flex: 1 1 60px; min-height: 44px; padding: 0 6px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--panel-alt); color: var(--text-secondary);
+    font-size: 14px; font-weight: 600; font-family: inherit;
+    cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  .seg-btn.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .seg-btn:disabled { opacity: .28; cursor: default; }
+  .seg-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 7px; }
+
+  .slider-row { margin-bottom: 8px; }
+  .row-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 2px; }
+  .row-top .label { font-size: 13.5px; color: var(--text-secondary); line-height: 1.35; }
+  .stepper { display: flex; align-items: center; flex-shrink: 0; }
+  .stepper .value {
+    font-size: 14px; font-weight: 700; color: var(--gold);
+    min-width: 82px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .step {
+    -webkit-appearance: none; appearance: none; width: 34px; height: 34px; flex-shrink: 0;
+    padding: 0; margin: 0; border: 1px solid var(--border); border-radius: 8px;
+    background: var(--panel-alt); color: var(--text-primary);
+    font-size: 19px; line-height: 1; font-family: inherit;
+    cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  .step:active { background: var(--gold); color: #0E1826; border-color: var(--gold); }
+  input[type=range] {
+    -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 42px;
+    margin: 0; padding: 0; background: transparent;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  input[type=range]:focus { outline: none; }
+  input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: var(--track); border: 0; }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 28px; height: 28px; margin-top: -11px;
+    border-radius: 50%; background: var(--gold); border: 3px solid #0E1826; box-shadow: 0 1px 4px rgba(0,0,0,.55);
+  }
+  input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--track); border: 0; }
+  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--gold); border: 3px solid #0E1826; }
+  input[type=range]:focus::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(201,162,75,.45); }
+
+  .hint { font-size: 12.5px; color: var(--text-muted); background: var(--panel-alt);
+          border-radius: 6px; padding: 9px 11px; margin: 4px 0 14px; line-height: 1.6; }
+  .hint b { color: var(--text-secondary); }
+
+  /* ── 결과 ── */
+  .answer {
+    background: linear-gradient(180deg, rgba(37,171,120,.14), rgba(37,171,120,.05));
+    border: 1px solid rgba(37,171,120,.5); border-radius: 12px;
+    padding: 20px 18px; margin-bottom: 16px; text-align: center;
+  }
+  .answer .k { font-size: 14px; color: var(--ok); margin-bottom: 6px; }
+  .answer .v { font-size: 40px; font-weight: 800; color: #fff; letter-spacing: -.03em; line-height: 1.15; }
+  .answer .v .u { font-size: 20px; font-weight: 700; color: var(--ok); }
+  .answer .s { font-size: 13.5px; color: var(--text-secondary); margin-top: 9px; line-height: 1.6; }
+  .answer.warn { background: rgba(224,100,74,.12); border-color: rgba(224,100,74,.5); }
+  .answer.warn .k { color: #F3B2A2; }
+
+  .stat-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .stat {
+    flex: 1 1 150px; min-width: 0; background: var(--panel);
+    border: 1px solid var(--border); border-radius: 10px; padding: 13px 14px;
+  }
+  .stat .k { font-size: 12.5px; color: var(--text-muted); margin-bottom: 6px; line-height: 1.4; }
+  .stat .v { font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
+  .stat .s { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; line-height: 1.45; }
+
+  .chart-box svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+  .legend { display: flex; gap: 8px 16px; flex-wrap: wrap; margin-bottom: 12px; font-size: 13px; }
+  .legend .item { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+  .legend .sw { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--grid); }
+  thead th { font-size: 12px; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tr.hl td { background: rgba(201,162,75,.10); font-weight: 700; }
+
+  .points { display: grid; gap: 12px; }
+  @media (min-width: 720px) { .points { grid-template-columns: repeat(3, 1fr); } }
+  .point { border-top: 3px solid var(--life); padding-top: 11px; }
+  .point h3 { font-size: 16px; font-weight: 700; margin: 0 0 5px; }
+  .point p { font-size: 13.5px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+
+  .disclaimer { margin-top: 30px; padding: 18px 16px; border-radius: 10px;
+                background: var(--panel-alt); border: 1px solid var(--border); }
+  .disclaimer h2 { font-size: 15px; font-weight: 700; margin: 0 0 10px; color: var(--text-secondary); }
+  .disclaimer ul { margin: 0; padding-left: 18px; }
+  .disclaimer li { font-size: 13px; line-height: 1.65; color: var(--text-muted); margin-bottom: 6px; }
+  .disclaimer li b { color: var(--text-secondary); }
+  .disclaimer .line { font-size: 12.5px; line-height: 1.65; color: var(--text-muted);
+                      margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--border); }
+  .diag { font-size: 11px; color: var(--text-muted); margin-top: 18px; text-align: center; }
+  .err-banner { background:#3A1410; border:1px solid var(--danger); border-radius:8px;
+                padding:12px 14px; margin-bottom:16px; font-size:12px; line-height:1.6;
+                color:#F5C7BC; word-break:break-all; display:none; }
+  .notice { background: rgba(224,100,74,.14); border: 1px solid rgba(224,100,74,.5);
+            border-radius: 8px; padding: 12px 14px; margin-bottom: 16px;
+            font-size: 13px; line-height: 1.6; color: #F0C9BE; }
+  .notice b { color: #fff; }
+
+  /* ───────────── 홈페이지 공통 틀 ───────────── */
+  .shell { display: block; }
+  .side { margin-bottom: 18px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-bottom: 13px; }
+  .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #1B2A44; }
+  .brand-text b { display: block; font-size: 16.5px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; line-height: 1.25; }
+  .brand-text em { display: block; font-size: 11.5px; font-style: normal; color: var(--gold); margin-top: 2px; letter-spacing: .02em; }
+  .nav { display: flex; gap: 7px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+         margin: 0 0 4px; padding-bottom: 3px; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex: 0 0 auto; min-height: 42px; display: flex; align-items: center; padding: 0 14px;
+           border-radius: 8px; border: 1px solid var(--border); background: var(--panel-alt);
+           color: var(--text-secondary); font-size: 13.5px; font-weight: 600; text-decoration: none;
+           white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+  .nav a.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .side-contact { display: none; }
+  .side-contact:empty { display: none !important; }
+  .main { min-width: 0; }
+
+  .foot { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--border);
+          font-size: 12.5px; line-height: 1.75; color: var(--text-muted); }
+  .foot .fb { font-size: 14.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+  .foot a { color: var(--gold); }
+  .foot-links { margin: 10px 0 0; padding: 0; list-style: none; display: flex; gap: 8px 16px; flex-wrap: wrap; }
+  .foot-links a { font-weight: 600; }
+
+  @media (min-width: 1100px) {
+    .wrap { max-width: 1400px; }
+    .shell { display: grid; grid-template-columns: 246px minmax(0, 1fr); gap: 30px; align-items: start; }
+    .side { position: -webkit-sticky; position: sticky; top: 18px; margin-bottom: 0;
+            background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; }
+    .brand { margin-bottom: 16px; }
+    .brand-logo { width: 54px; height: 54px; }
+    .nav { flex-direction: column; overflow: visible; gap: 6px; margin: 0; padding: 0; }
+    .nav a { width: 100%; }
+    .side-contact:not(:empty) { display: block; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--border);
+                    font-size: 12.5px; line-height: 1.75; color: var(--text-muted); }
+    .side-contact .sb { font-size: 13px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 5px; }
+    .side-contact a { color: var(--gold); }
+    .main { max-width: 880px; }
+    .shell.wide .main { max-width: none; }
+  }
+
+  .next-cta { display: block; padding: 15px 16px; border-radius: 9px;
+    background: rgba(201,162,75,.12); border: 1px solid rgba(201,162,75,.52);
+    text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .next-cta:active { background: rgba(201,162,75,.24); }
+  .next-cta .nc-t { display: block; font-size: 15.5px; font-weight: 700; color: var(--gold); line-height: 1.45; }
+  .next-cta .nc-s { display: block; margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+  .next-cta .nc-s b { color: var(--text-primary); }
+  .next-cta .nc-a { display: block; margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--text-primary); }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="shell">
+  <aside class="side">
+    <a class="brand" href="https://kimsungjin0702.github.io/retire/">
+      <img class="brand-logo" src="data:image/webp;base64,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" alt="김성진의 보험경제" width="54" height="54" loading="eager" decoding="async" />
+      <span class="brand-text"><b>김성진의 보험경제</b><em>은퇴 · 연금 · 간병 설계</em></span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="https://kimsungjin0702.github.io/retire/">은퇴소득 시뮬레이터</a>
+      <a href="https://kimsungjin0702.github.io/retire/annuity/" class="on">개인 연금보험 계산기</a>
+      <a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a>
+    </nav>
+    <div class="side-contact" id="sideContact"></div>
+  </aside>
+  <main class="main">
+  <h1>개인 연금보험 수령액 계산기</h1>
+  <p class="subtitle">투자수익률과 상관없이 <b>연 7%를 최저보증</b>하고, 연금이 시작되면 <b>사망할 때까지</b> 나오는 변액연금 기준입니다.</p>
+  <p class="subtitle small">숫자만 넣어 보세요. 입력한 내용은 이 기기 밖으로 나가지 않습니다.
+    &nbsp;·&nbsp; <a href="https://kimsungjin0702.github.io/retire/">은퇴소득 시뮬레이터 →</a></p>
+
+  <div class="notice" id="jsBlockedNotice">
+    ⚠️ 자바스크립트가 실행되지 않아 계산이 되지 않는 상태입니다. 이 페이지를 <b>Chrome · Safari · 삼성인터넷</b>으로 열어 주세요.
+  </div>
+  <div class="err-banner" id="errBanner"></div>
+
+  <div class="from-sim" id="fromSim" style="display:none"></div>
+  <div class="tabs">
+    <button type="button" class="tab on" id="tabA">얼마 나올까?</button>
+    <button type="button" class="tab" id="tabB">얼마 넣어야 할까?</button>
+  </div>
+
+  <div class="answer" id="answer"><div class="k">계산 중</div><div class="v">—</div></div>
+
+  <div class="card">
+    <div class="card-title">내 조건 넣기</div>
+    <div class="card-sub">나이와 성별에 따라 적용되는 조건이 자동으로 바뀝니다.</div>
+
+    <div class="slider-row">
+      <div class="row-top">
+        <span class="label">지금 나이 (가입 나이)</span>
+        <span class="stepper">
+          <button type="button" class="step" data-t="joinAge" data-d="-1" aria-label="감소">−</button>
+          <span class="value" id="v-joinAge">40세</span>
+          <button type="button" class="step" data-t="joinAge" data-d="1" aria-label="증가">+</button>
+        </span>
+      </div>
+      <input type="range" id="joinAge" min="15" max="65" step="1" value="40" aria-label="가입 나이" />
+    </div>
+
+    <div class="seg-label">성별</div>
+    <div class="seg-group" id="sexGroup">
+      <button type="button" class="seg-btn on" data-sex="M">남성</button>
+      <button type="button" class="seg-btn" data-sex="F">여성</button>
+    </div>
+
+    <div class="seg-label">납입 기간</div>
+    <div class="seg-group" id="payGroup"></div>
+
+    <div class="slider-row">
+      <div class="row-top">
+        <span class="label">연금 받기 시작할 나이</span>
+        <span class="stepper">
+          <button type="button" class="step" data-t="startAge" data-d="-1" aria-label="감소">−</button>
+          <span class="value" id="v-startAge">65세</span>
+          <button type="button" class="step" data-t="startAge" data-d="1" aria-label="증가">+</button>
+        </span>
+      </div>
+      <input type="range" id="startAge" min="35" max="80" step="1" value="65" aria-label="연금 개시 나이" />
+    </div>
+    <div class="hint" id="ruleHint"></div>
+
+    <div class="slider-row" id="rowPremium">
+      <div class="row-top">
+        <span class="label">매달 낼 보험료</span>
+        <span class="stepper">
+          <button type="button" class="step" data-t="premium" data-d="-1" aria-label="감소">−</button>
+          <span class="value" id="v-premium">30만원</span>
+          <button type="button" class="step" data-t="premium" data-d="1" aria-label="증가">+</button>
+        </span>
+      </div>
+      <input type="range" id="premium" min="1" max="300" step="1" value="30" aria-label="월 보험료(만원)" />
+    </div>
+
+    <div class="slider-row" id="rowTarget" style="display:none">
+      <div class="row-top">
+        <span class="label">평생 받고 싶은 월 연금액</span>
+        <span class="stepper">
+          <button type="button" class="step" data-t="target" data-d="-1" aria-label="감소">−</button>
+          <span class="value" id="v-target">50만원</span>
+          <button type="button" class="step" data-t="target" data-d="1" aria-label="증가">+</button>
+        </span>
+      </div>
+      <input type="range" id="target" min="1" max="500" step="1" value="50" aria-label="목표 월 연금액(만원)" />
+      <div class="hint">은퇴소득 시뮬레이터에서 <b>매달 ○○만원 모자란다</b>고 나왔다면, 그 숫자를 여기에 넣어 보세요.</div>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="k">평생 받는 월 연금</div><div class="v" id="s-monthly" style="color:#25AB78">—</div><div class="s" id="s-monthly-sub"></div></div>
+    <div class="stat"><div class="k">총 납입액</div><div class="v" id="s-paid" style="color:#5E82D7">—</div><div class="s" id="s-paid-sub"></div></div>
+    <div class="stat"><div class="k">낸 돈을 다 돌려받는 나이</div><div class="v" id="s-breakeven" style="color:#C9A24B">—</div><div class="s" id="s-breakeven-sub"></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">언제 내고, 언제부터 받나</div>
+    <div class="card-sub">가로줄이 시간입니다. 파란 구간에 돈을 내고, 초록 구간부터는 <b>죽을 때까지</b> 받습니다.</div>
+    <div class="legend">
+      <span class="item"><span class="sw" style="background:#5E82D7"></span>보험료 내는 기간</span>
+      <span class="item"><span class="sw" style="background:#25AB78"></span>연금 받는 기간 (평생)</span>
+      <span class="item"><span class="sw" style="background:rgba(201,162,75,.45)"></span>연 7% 보증 구간</span>
+    </div>
+    <div class="chart-box" id="timeline"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">오래 살수록 커지는 금액</div>
+    <div class="card-sub">연금은 <b>사망할 때까지</b> 나옵니다. 몇 살까지 받느냐에 따라 총액이 이렇게 달라집니다.</div>
+    <table>
+      <thead><tr><th>이 나이까지 받으면</th><th class="num">누적 수령액</th><th class="num">낸 돈 대비</th></tr></thead>
+      <tbody id="cumBody"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">이 상품의 핵심 세 가지</div>
+    <div class="card-sub" id="pointSub"></div>
+    <div class="points">
+      <div class="point">
+        <h3>연 7% 최저보증</h3>
+        <p>변액연금이지만 <b>투자수익률이 아무리 나빠도</b> 연금의 기준이 되는 금액은 연 7%(단리)로 쌓입니다. 주가가 빠져도 연금액 계산의 바닥은 지켜집니다.</p>
+      </div>
+      <div class="point">
+        <h3>투자 결과와 무관</h3>
+        <p>펀드 수익이 좋으면 적립금이 더 커질 수 있지만, <b>나빠도 보증된 기준금액으로</b> 연금이 산출됩니다. 시장을 안 봐도 되는 구조입니다.</p>
+      </div>
+      <div class="point">
+        <h3>죽을 때까지 지급</h3>
+        <p>정해진 기간만 주고 끝나는 연금이 아닙니다. <b>100세를 살아도 계속</b> 나옵니다. 오래 살 위험을 상품이 대신 떠안는 구조입니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <h2>계산 기준과 한계</h2>
+    <ul>
+      <li>연금액은 <b>평생연금기준금액 × 평생연금 지급률 × (1 + 장기유지가산율)</b> 로 산출하며, 지급률과 가산율은 해당 상품의 공시표를 그대로 적용했습니다.</li>
+      <li>평생연금기준금액은 <b>납입보험료에 연 단리 7%</b>(보증기간 경과 후 5%)를 적용해 계산한 추정치입니다. 실제 적립 방식·사업비 차감은 상품 약관을 따릅니다.</li>
+      <li>이 계산기는 <b>가입설계서가 아닙니다.</b> 실제 가입 조건과 금액은 반드시 보험사 가입설계서로 확인하십시오.</li>
+      <li>중도 해지 시에는 해지환급금이 납입한 보험료보다 <b>적을 수 있습니다.</b> 특히 초기에는 손실이 큽니다.</li>
+      <li>연금소득세 등 세금과 사업비는 반영되어 있지 않습니다.</li>
+    </ul>
+    <p class="line">이 도구는 노후 준비 금액을 가늠해 보기 위한 <b>일반 정보 제공용 참고 자료</b>입니다. 변액보험은 투자 실적에 따라 적립금이 변동하며 원금 손실이 발생할 수 있습니다. 가입 전 상품설명서와 약관을 반드시 확인하십시오.</p>
+  </div>
+
+  <div class="diag" id="diag">—</div>
+  <footer class="foot">
+    <span class="fb">김성진의 보험경제</span>
+    CFP(국제공인재무설계사) · 보험업 20년<br />
+    은퇴설계 · 연금 · 장기요양(간병) 상담
+    <div id="footContact"></div>
+    <ul class="foot-links">
+      <li><a href="https://kimsungjin0702.github.io/retire/">은퇴소득 시뮬레이터</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a></li>
+    </ul>
+    <p style="margin:12px 0 0">이 사이트의 계산 결과는 이해를 돕기 위한 일반 정보이며, 특정 금융상품의 권유나 가입 안내가 아닙니다.
+      실제 수령액과 급여는 해당 기관과 상품 약관에 따릅니다.</p>
+  </footer>
+  </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  function showError(msg) {
+    try { var b = document.getElementById("errBanner");
+      b.style.display = "block"; b.innerHTML = "⚠️ 화면 오류: " + String(msg); } catch (e) {}
+  }
+  window.onerror = function (m, s, l, c) { showError(m + " (" + l + ":" + c + ")"); return false; };
+
+  try {
+  function $(id) { return document.getElementById(id); }
+  function comma(n) {
+    var s = String(Math.round(Math.abs(n))), out = "", c = 0;
+    for (var i = s.length - 1; i >= 0; i--) { out = s.charAt(i) + out; c++; if (c % 3 === 0 && i > 0) out = "," + out; }
+    return (n < 0 ? "-" : "") + out;
+  }
+  function won(v) {                      // 원 단위 → 읽기 쉬운 한글
+    var a = Math.abs(v);
+    if (a >= 100000000) { var e = v / 100000000; return (Math.round(e * 100) % 100 === 0 ? String(Math.round(e)) : e.toFixed(2).replace(/0$/, "")) + "억원"; }
+    if (a >= 10000) return comma(v / 10000) + "만원";
+    return comma(v) + "원";
+  }
+  function manwon(v) { // 만원 단위 값 → 표시
+    var a = Math.abs(v);
+    if (a >= 10000) { var e = v / 10000; return (Math.round(e * 10) % 10 === 0 ? String(Math.round(e)) : e.toFixed(1)) + "억원"; }
+    return comma(v) + "만원";
+  }
+
+  /* ── 상품 기준표 (첨부 공시자료) ─────────────────────────────
+     지급률: [개시나이 하한, [남, 여]]  ·  가산율: [연금개시전 보험기간 하한, %] */
+  var RATE = {
+    start:  [[35,[2.50,2.30]],[40,[2.90,2.70]],[45,[2.90,2.70]],[50,[3.30,3.10]],
+             [55,[4.25,3.95]],[60,[5.05,4.85]],[65,[5.60,5.35]],[70,[5.95,5.75]]],
+    master: [[51,[3.60,3.40]],[55,[4.25,3.95]],[60,[5.10,4.90]],[65,[5.65,5.40]],[70,[6.05,5.85]]]
+  };
+  var BONUS = {
+    start:  [[25,15],[30,18],[35,20],[40,30]],
+    master: [[20,7],[25,14.5],[30,17.5],[35,19.5],[40,29]]
+  };
+  var K = 1.0113544;   // 월지급 환산계수 (공시 예시 2건에서 역산, 오차 0.2원)
+
+  function pick(tbl, v) { var r = null; for (var i = 0; i < tbl.length; i++) if (v >= tbl[i][0]) r = tbl[i][1]; return r; }
+
+  function tierOf(joinAge) {
+    if (joinAge <= 30) return { p: "start",  guar: 40, minStart: 35, pays: [5,7,10,12,15,20] };
+    if (joinAge <= 50) return { p: "master", guar: 30, minStart: 51, pays: [5,7,10,12,15,20] };
+    return { p: "master", guar: 20, minStart: joinAge + 12, pays: [5,7] };
+  }
+
+  // 평생연금기준금액 — 납입보험료마다 경과기간만큼 단리 가산 (보증 후에는 5%)
+  function baseAmount(P, payYears, joinAge, startAge) {
+    var t = tierOf(joinAge), T = startAge - joinAge, G = t.guar, sum = 0, k, sk, a, b;
+    for (k = 0; k < payYears * 12; k++) {
+      sk = k / 12;
+      a = Math.max(0, Math.min(T, G) - sk);
+      b = Math.max(0, T - Math.max(sk, G));
+      sum += P * (1 + 0.07 * a + 0.05 * b);
+    }
+    return sum;
+  }
+
+  function calc(P, payYears, joinAge, startAge, male) {
+    var t = tierOf(joinAge), T = startAge - joinAge;
+    var r = pick(RATE[t.p], startAge);
+    if (!r) return null;
+    var bonus = pick(BONUS[t.p], T) || 0;
+    var base = baseAmount(P, payYears, joinAge, startAge);
+    return { base: base, rate: r[male ? 0 : 1], bonus: bonus, tier: t,
+             monthly: base * (r[male ? 0 : 1] / 100) * (1 + bonus / 100) / 12 * K };
+  }
+
+  /* ── 상태 ── */
+  var mode = "A", sex = "M", payYears = 10;
+  var ids = ["joinAge", "startAge", "premium", "target"];
+  function val(id) { return Number($(id).value); }
+
+  /* ── 타임라인 ── */
+  function svgEl(tag, at) { var e = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (var k in at) if (Object.prototype.hasOwnProperty.call(at, k)) e.setAttribute(k, at[k]); return e; }
+  function svgText(at, s) { var t = svgEl("text", at); t.appendChild(document.createTextNode(s)); return t; }
+  function estW(s, fs) { var w = 0, i, c; for (i = 0; i < s.length; i++) { c = s.charCodeAt(i);
+    w += (c > 0x1100) ? fs : (c === 32 ? fs * .32 : fs * .56); } return w; }
+
+  function drawTimeline(box, joinAge, payYears, startAge, endAge, guarEnd) {
+    var W = box.clientWidth || 320, narrow = W < 520;
+    var fs = narrow ? 12 : 13, rowH = 30, gap = 12;
+    var m = { top: 26, right: 8, bottom: 28, left: narrow ? 56 : 72 };
+    var plotW = W - m.left - m.right, plotH = rowH * 2 + gap, H = m.top + plotH + m.bottom;
+    var minA = joinAge, maxA = endAge;
+    function x(a) { return m.left + ((a - minA) / (maxA - minA)) * plotW; }
+    var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H,
+                             preserveAspectRatio: "xMidYMid meet", role: "img" });
+
+    // 7% 보증 구간 배경
+    var gEnd = Math.min(guarEnd, maxA);
+    if (gEnd > joinAge) {
+      svg.appendChild(svgEl("rect", { x: x(joinAge), y: m.top - 8, width: Math.max(0, x(gEnd) - x(joinAge)),
+        height: plotH + 16, fill: "rgba(201,162,75,.16)", rx: 4 }));
+      var gl = "연 7% 보증 " + (guarEnd - joinAge) + "년";
+      if (x(gEnd) - x(joinAge) < estW(gl, fs) + 8) gl = "7% 보증";
+      if (x(gEnd) - x(joinAge) >= estW(gl, fs) + 6)
+        svg.appendChild(svgText({ x: (x(joinAge) + x(gEnd)) / 2, y: m.top - 13, "text-anchor": "middle",
+          "font-size": fs, fill: "#E0C07A", "font-weight": "700" }, gl));
+    }
+
+    var rows = [
+      { name: "보험료", from: joinAge, to: joinAge + payYears, color: "#5E82D7",
+        txt: joinAge + "~" + (joinAge + payYears) + "세 (" + payYears + "년)" },
+      { name: "연금", from: startAge, to: maxA, color: "#25AB78",
+        txt: startAge + "세부터 평생" }
+    ];
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i], y = m.top + i * (rowH + gap), cy = y + rowH / 2 + 5;
+      svg.appendChild(svgText({ x: m.left - 9, y: cy, "text-anchor": "end", "font-size": fs,
+                                fill: "#9DAEC5" }, r.name));
+      svg.appendChild(svgEl("rect", { x: m.left, y: y + rowH / 2 - 2, width: plotW, height: 4, fill: "#233247", rx: 2 }));
+      var bx = x(r.from), bw = Math.max(8, x(Math.min(r.to, maxA)) - bx);
+      svg.appendChild(svgEl("rect", { x: bx, y: y, width: bw, height: rowH, fill: r.color, rx: 4 }));
+      var tw = estW(r.txt, fs);
+      if (bw >= tw + 16)
+        svg.appendChild(svgText({ x: bx + bw / 2, y: cy, "text-anchor": "middle", "font-size": fs,
+          fill: "#0E1826", "font-weight": "700" }, r.txt));
+      else if (bx + bw + 8 + tw <= W - m.right)
+        svg.appendChild(svgText({ x: bx + bw + 8, y: cy, "font-size": fs, fill: "#9DAEC5" }, r.txt));
+      else
+        svg.appendChild(svgText({ x: bx - 8, y: cy, "text-anchor": "end", "font-size": fs, fill: "#9DAEC5" }, r.txt));
+    }
+
+    // 나이 축
+    var step = narrow ? 10 : 5, ticks = [], a;
+    var first = Math.ceil(minA / step) * step;
+    for (a = first; a <= maxA; a += step) ticks.push(a);
+    if (!ticks.length || ticks[0] - minA >= step * .7) ticks.unshift(minA);
+    if (ticks[ticks.length - 1] !== maxA) ticks.push(maxA);
+    for (i = 0; i < ticks.length; i++) {
+      var tx = x(ticks[i]), an = "middle";
+      if (tx <= m.left + 14) { an = "start"; tx = m.left; }
+      else if (tx >= W - m.right - 14) { an = "end"; tx = W - m.right; }
+      svg.appendChild(svgText({ x: tx, y: H - 7, "text-anchor": an, "font-size": fs, fill: "#6C8099" }, ticks[i] + "세"));
+    }
+    box.innerHTML = ""; box.appendChild(svg);
+  }
+
+  /* ── 납입기간 버튼 ── */
+  function buildPayButtons(t, maxPay) {
+    var g = $("payGroup"), html = "", i;
+    for (i = 0; i < t.pays.length; i++) {
+      var y = t.pays[i], dis = y > maxPay;
+      html += '<button type="button" class="seg-btn' + (y === payYears && !dis ? " on" : "") + '"' +
+              ' data-pay="' + y + '"' + (dis ? " disabled" : "") + '>' + y + '년</button>';
+    }
+    g.innerHTML = html;
+    var btns = g.querySelectorAll(".seg-btn");
+    for (i = 0; i < btns.length; i++) bindPay(btns[i]);
+  }
+  function bindPay(b) {
+    b.addEventListener("click", function () {
+      if (b.disabled) return;
+      payYears = Number(b.getAttribute("data-pay"));
+      render();
+    }, false);
+  }
+
+  /* ── 메인 렌더 ── */
+  function render() {
+    var joinAge = val("joinAge");
+    var t = tierOf(joinAge);
+
+    // 개시 나이 범위를 가입 나이에 맞춰 조정
+    var minStart = Math.max(t.minStart, joinAge + 1);
+    var sa = $("startAge");
+    sa.min = minStart; sa.max = 80;
+    if (val("startAge") < minStart) sa.value = minStart;
+    if (val("startAge") > 80) sa.value = 80;
+    var startAge = val("startAge");
+    var defer = startAge - joinAge;
+
+    // 납입기간은 개시 전까지만 가능
+    var maxPay = Math.min(20, defer);
+    var ok = false, i;
+    for (i = 0; i < t.pays.length; i++) if (t.pays[i] === payYears && t.pays[i] <= maxPay) ok = true;
+    if (!ok) { payYears = 0;
+      for (i = 0; i < t.pays.length; i++) if (t.pays[i] <= maxPay) payYears = t.pays[i]; }
+    buildPayButtons(t, maxPay);
+
+    $("v-joinAge").textContent = joinAge + "세";
+    $("v-startAge").textContent = startAge + "세";
+    $("v-premium").textContent = comma(val("premium")) + "만원";
+    $("v-target").textContent = comma(val("target")) + "만원";
+
+    var tierTxt = joinAge <= 30 ? "30세 이전 가입 — 연 7% 보증 40년"
+                : joinAge <= 50 ? "31~50세 가입 — 연 7% 보증 30년"
+                : "51세 이후 가입 — 연 7% 보증 20년";
+    $("ruleHint").innerHTML = "<b>" + tierTxt + "</b> (이후 5%)<br>" +
+      "연금은 빨라야 <b>" + minStart + "세</b>부터 받을 수 있고, 납입은 " +
+      t.pays.join("·") + "년 중에서 고릅니다." +
+      (joinAge > 50 ? "<br>51세 이후 가입은 납입 후 거치를 포함해 <b>12년</b>이 지나야 연금이 시작됩니다." : "");
+
+    if (!payYears) {
+      $("answer").className = "answer warn";
+      $("answer").innerHTML = '<div class="k">조건을 다시 봐주세요</div>' +
+        '<div class="v" style="font-size:22px">연금 개시까지 기간이 짧아<br>가능한 납입기간이 없습니다</div>' +
+        '<div class="s">연금 받기 시작할 나이를 뒤로 미뤄 보세요.</div>';
+      $("s-monthly").textContent = "—"; $("s-paid").textContent = "—"; $("s-breakeven").textContent = "—";
+      $("s-monthly-sub").textContent = ""; $("s-paid-sub").textContent = ""; $("s-breakeven-sub").textContent = "";
+      $("cumBody").innerHTML = ""; $("timeline").innerHTML = ""; $("pointSub").textContent = "";
+      return;
+    }
+
+    // 1원 납입 기준으로 뽑아두면 양방향 계산이 모두 비례식으로 끝난다
+    var unit = calc(1, payYears, joinAge, startAge, sex === "M");
+    if (!unit) { $("answer").innerHTML = '<div class="k">—</div><div class="v">계산할 수 없는 조건입니다</div>'; return; }
+
+    var premium, monthlyPension;
+    if (mode === "A") {
+      premium = val("premium") * 10000;
+      monthlyPension = unit.monthly * premium;
+    } else {
+      var need = val("target") * 10000 / unit.monthly;
+      premium = Math.ceil(need / 10000) * 10000;   // 실제로 넣을 수 있는 단위(만원)로 올림
+      monthlyPension = unit.monthly * premium;     // 올림한 보험료 기준으로 다시 계산
+    }
+    var paid = premium * payYears * 12;
+    var breakEven = startAge + paid / (monthlyPension * 12);
+
+    // 큰 답
+    if (mode === "A") {
+      $("answer").className = "answer";
+      $("answer").innerHTML =
+        '<div class="k">' + startAge + '세부터 평생, 매달</div>' +
+        '<div class="v">' + comma(Math.round(monthlyPension / 10000)) + '<span class="u">만원</span></div>' +
+        '<div class="s">월 ' + comma(val("premium")) + '만원을 ' + payYears + '년 내면 ' +
+        '(총 ' + manwon(paid / 10000) + ') 받게 되는 금액입니다.</div>';
+    } else {
+      $("answer").className = "answer";
+      $("answer").innerHTML =
+        '<div class="k">' + startAge + '세부터 평생 월 ' + comma(val("target")) + '만원을 받으려면</div>' +
+        '<div class="v">매달 ' + comma(premium / 10000) + '<span class="u">만원</span></div>' +
+        '<div class="s">' + payYears + '년 동안 내면 됩니다 (총 ' + manwon(paid / 10000) + ').<br>' +
+        '이 금액이면 실제로는 월 ' + manwon(monthlyPension / 10000) + '이 나옵니다.</div>';
+    }
+
+    $("s-monthly").textContent = manwon(monthlyPension / 10000);
+    $("s-monthly-sub").textContent = "연 " + manwon(monthlyPension * 12 / 10000);
+    $("s-paid").textContent = manwon(paid / 10000);
+    $("s-paid-sub").textContent = "월 " + comma(premium / 10000) + "만원 × " + payYears + "년";
+    $("s-breakeven").textContent = Math.ceil(breakEven) + "세";
+    $("s-breakeven-sub").textContent = "연금 받고 " + Math.ceil(breakEven - startAge) + "년이면 원금 회수";
+
+    // 누적 수령액 표
+    var ages = [80, 85, 90, 95, 100], html = "";
+    for (i = 0; i < ages.length; i++) {
+      if (ages[i] <= startAge) continue;
+      var cum = monthlyPension * 12 * (ages[i] - startAge);
+      var ratio = cum / paid;
+      html += '<tr' + (ages[i] === 90 ? ' class="hl"' : '') + '><td>' + ages[i] + '세</td>' +
+              '<td class="num">' + manwon(cum / 10000) + '</td>' +
+              '<td class="num" style="color:' + (ratio >= 1 ? "#7FD9AE" : "#E0644A") + '">' +
+              ratio.toFixed(1) + '배</td></tr>';
+    }
+    $("cumBody").innerHTML = html;
+
+    $("pointSub").innerHTML = "지금 조건 — 적용 지급률 <b>" + unit.rate + "%</b>, 장기유지가산율 <b>" +
+      unit.bonus + "%</b> (연금개시 전 보험기간 " + defer + "년)";
+
+    drawTimeline($("timeline"), joinAge, payYears, startAge, 95, joinAge + t.guar);
+  }
+
+  /* ── 이벤트 ── */
+  var i2, el;
+  for (i2 = 0; i2 < ids.length; i2++) {
+    el = $(ids[i2]);
+    el.addEventListener("input", render, false);
+    el.addEventListener("change", render, false);
+  }
+  var passiveOk = false;
+  try { window.addEventListener("t", null, Object.defineProperty({}, "passive", {
+    get: function () { passiveOk = true; return false; } })); } catch (e0) {}
+  var wheelOpts = passiveOk ? { passive: false } : false;
+  function bindWheel(e2) {
+    e2.addEventListener("wheel", function (ev) {
+      if (document.activeElement !== e2) return;
+      var st = Number(e2.getAttribute("step")) || 1;
+      if (ev.shiftKey) st *= 5;
+      var nx = Number(e2.value) + (ev.deltaY < 0 ? 1 : -1) * st;
+      var mn = Number(e2.min), mx = Number(e2.max);
+      if (nx < mn) nx = mn; if (nx > mx) nx = mx;
+      if (nx === Number(e2.value)) return;
+      e2.value = nx; render(); ev.preventDefault();
+    }, wheelOpts);
+  }
+  for (i2 = 0; i2 < ids.length; i2++) bindWheel($(ids[i2]));
+
+  var steps = document.querySelectorAll(".step");
+  function bindStep(b) {
+    b.addEventListener("click", function () {
+      var tgt = $(b.getAttribute("data-t")), d = Number(b.getAttribute("data-d"));
+      var st = Number(tgt.getAttribute("step")) || 1;
+      var nx = Number(tgt.value) + d * st, mn = Number(tgt.min), mx = Number(tgt.max);
+      if (nx < mn) nx = mn; if (nx > mx) nx = mx;
+      tgt.value = nx; render();
+    }, false);
+  }
+  for (i2 = 0; i2 < steps.length; i2++) bindStep(steps[i2]);
+
+  var sexBtns = $("sexGroup").querySelectorAll(".seg-btn");
+  function bindSex(b) {
+    b.addEventListener("click", function () {
+      sex = b.getAttribute("data-sex");
+      for (var j = 0; j < sexBtns.length; j++)
+        sexBtns[j].className = "seg-btn" + (sexBtns[j].getAttribute("data-sex") === sex ? " on" : "");
+      render();
+    }, false);
+  }
+  for (i2 = 0; i2 < sexBtns.length; i2++) bindSex(sexBtns[i2]);
+
+  function setMode(m) {
+    mode = m;
+    $("tabA").className = "tab" + (m === "A" ? " on" : "");
+    $("tabB").className = "tab" + (m === "B" ? " on" : "");
+    $("rowPremium").style.display = (m === "A") ? "" : "none";
+    $("rowTarget").style.display  = (m === "B") ? "" : "none";
+    render();
+  }
+  $("tabA").addEventListener("click", function () { setMode("A"); }, false);
+  $("tabB").addEventListener("click", function () { setMode("B"); }, false);
+
+  var rt = null, lastW = window.innerWidth;
+  window.addEventListener("resize", function () {
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    if (rt) clearTimeout(rt); rt = setTimeout(render, 180);
+  }, false);
+  window.addEventListener("orientationchange", function () { setTimeout(render, 300); }, false);
+
+  // 은퇴소득 시뮬레이터에서 넘어온 부족액(?target=만원) 받기
+  var fromSim = 0;
+  try {
+    var qm = String(window.location.search || "").match(/[?&]target=(\d{1,3})/);
+    if (qm) fromSim = Math.max(1, Math.min(500, parseInt(qm[1], 10) || 0));
+  } catch (eq) { fromSim = 0; }
+  if (fromSim > 0) {
+    $("target").value = fromSim;
+    $("fromSim").innerHTML =
+      '은퇴소득 시뮬레이터에서 <b>매달 ' + fromSim + '만원</b> 모자란다고 나왔습니다.<br>' +
+      '그만큼을 평생 받으려면 보험료가 얼마인지 아래에 바로 계산해 두었습니다.';
+    $("fromSim").style.display = "";
+    setMode("B");
+  }
+
+  render();
+  var n = $("jsBlockedNotice"); if (n && n.parentNode) n.parentNode.removeChild(n);
+  $("diag").textContent = "정상 작동 중 · 화면폭 " + window.innerWidth + "px · v2";
+
+  } catch (err) { showError((err && err.message) ? err.message : String(err)); }
+})();
+</script>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   연락처 설정 — 아래 따옴표 안의 값만 바꾸면 모든 페이지에 반영됩니다.
+   비워 두면 그 줄은 화면에 나오지 않습니다.
+   ───────────────────────────────────────────────────────────── */
+var CONTACT = {
+  tel:     "010-2142-0193",
+  kakao:   "https://open.kakao.com/o/sr9z0Zqi",
+  youtube: "https://www.youtube.com/@%EA%B9%80%EC%84%B1%EC%A7%84%EC%9D%98%EB%B3%B4%ED%97%98%EA%B2%BD%EC%A0%9C",
+  blog:    ""                  /* 블로그 주소가 생기면 여기에 */
+};
+(function () {
+  try {
+    var rows = [];
+    if (CONTACT.tel)     rows.push('<a href="tel:' + CONTACT.tel.replace(/[^0-9+]/g, "") + '">' + CONTACT.tel + '</a>');
+    if (CONTACT.kakao)   rows.push('<a href="' + CONTACT.kakao + '" target="_blank" rel="noopener">카카오톡 상담</a>');
+    if (CONTACT.youtube) rows.push('<a href="' + CONTACT.youtube + '" target="_blank" rel="noopener">유튜브 채널</a>');
+    if (CONTACT.blog)    rows.push('<a href="' + CONTACT.blog + '" target="_blank" rel="noopener">블로그</a>');
+    if (!rows.length) return;
+    var s = document.getElementById("sideContact");
+    if (s) { s.innerHTML = '<span class="sb">상담 문의</span>' + rows.join("<br />"); }
+    var f = document.getElementById("footContact");
+    if (f) { f.innerHTML = '<div style="margin-top:8px">' + rows.join(' &nbsp;·&nbsp; ') + '</div>'; }
+  } catch (e) {}
+})();
+</script>
+
+<script>
+(function () {
+  try {
+    var nav = document.querySelector(".nav"), on = nav && nav.querySelector("a.on");
+    if (!nav || !on) return;
+    if (nav.scrollWidth > nav.clientWidth + 4) {
+      nav.scrollLeft = Math.max(0, on.offsetLeft - 12);
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
