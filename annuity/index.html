@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="color-scheme" content="dark" />
+<meta name="color-scheme" content="light" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="개인연금 계산기" />
 <meta name="format-detection" content="telephone=no" />
 <title>개인 연금보험 수령액 계산기 | 종신연금 월 수령액·필요 보험료 — 김성진의 보험경제</title>
@@ -38,21 +38,22 @@
 <style>
   /* 은퇴소득 시뮬레이터와 같은 도구 계열로 보이도록 팔레트·부품을 그대로 쓴다 */
   :root {
-    --bg: #0E1826;
-    --panel: #162334;
-    --panel-alt: #101B2A;
-    --border: #28394F;
-    --track: #2C3E56;
-    --grid: #233247;
-    --text-primary: #EEF1F5;
-    --text-secondary: #9DAEC5;
-    --text-muted: #6C8099;
-    --gold: #C9A24B;
-    --life: #25AB78;      /* 평생 나오는 돈 */
-    --pay:  #5E82D7;      /* 내가 내는 돈 */
-    --ok:   #7FD9AE;
-    --danger: #E0644A;
-    color-scheme: dark;
+    --bg: #FFFFFF;
+    --panel: #FFFFFF;
+    --panel-alt: #F4F7FB;
+    --border: #D8E0EB;
+    --track: #DDE4EE;
+    --grid: #E6ECF3;
+    --text-primary: #15212E;
+    --text-secondary: #47586E;
+    --text-muted: #6E7F94;
+    --gold: #8A6A14;
+    --gold-fill: #C9A24B;
+    --life: #07915B;      /* 평생 나오는 돈 */
+    --pay:  #0555B7;      /* 내가 내는 돈 */
+    --ok:   #0E7A4F;
+    --danger: #C0442A;
+    color-scheme: light;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -91,7 +92,7 @@
   .from-sim {
     border-radius: 9px; padding: 13px 15px; margin-bottom: 14px;
     background: rgba(201,162,75,.12); border: 1px solid rgba(201,162,75,.5);
-    font-size: 13.5px; line-height: 1.65; color: #E4D3A8;
+    font-size: 13.5px; line-height: 1.65; color: #6E5610;
   }
   .from-sim b { color: var(--gold); font-size: 15px; }
 
@@ -104,7 +105,7 @@
     font-size: 15px; font-weight: 700; font-family: inherit;
     cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
   }
-  .tab.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .tab.on { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
 
   /* ── 입력 ── */
   .seg-group { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
@@ -115,7 +116,7 @@
     font-size: 14px; font-weight: 600; font-family: inherit;
     cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
   }
-  .seg-btn.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .seg-btn.on { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
   .seg-btn:disabled { opacity: .28; cursor: default; }
   .seg-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 7px; }
 
@@ -134,7 +135,7 @@
     font-size: 19px; line-height: 1; font-family: inherit;
     cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
   }
-  .step:active { background: var(--gold); color: #0E1826; border-color: var(--gold); }
+  .step:active { background: var(--gold-fill); color: #0E1826; border-color: var(--gold-fill); }
   input[type=range] {
     -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 42px;
     margin: 0; padding: 0; background: transparent;
@@ -144,10 +145,10 @@
   input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: var(--track); border: 0; }
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none; width: 28px; height: 28px; margin-top: -11px;
-    border-radius: 50%; background: var(--gold); border: 3px solid #0E1826; box-shadow: 0 1px 4px rgba(0,0,0,.55);
+    border-radius: 50%; background: var(--gold-fill); border: 3px solid #FFFFFF; box-shadow: 0 1px 4px rgba(20,40,70,.20);
   }
   input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--track); border: 0; }
-  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--gold); border: 3px solid #0E1826; }
+  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--gold-fill); border: 3px solid #FFFFFF; }
   input[type=range]:focus::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(201,162,75,.45); }
 
   .hint { font-size: 12.5px; color: var(--text-muted); background: var(--panel-alt);
@@ -161,11 +162,11 @@
     padding: 20px 18px; margin-bottom: 16px; text-align: center;
   }
   .answer .k { font-size: 14px; color: var(--ok); margin-bottom: 6px; }
-  .answer .v { font-size: 40px; font-weight: 800; color: #fff; letter-spacing: -.03em; line-height: 1.15; }
+  .answer .v { font-size: 40px; font-weight: 800; color: var(--text-primary); letter-spacing: -.03em; line-height: 1.15; }
   .answer .v .u { font-size: 20px; font-weight: 700; color: var(--ok); }
   .answer .s { font-size: 13.5px; color: var(--text-secondary); margin-top: 9px; line-height: 1.6; }
   .answer.warn { background: rgba(224,100,74,.12); border-color: rgba(224,100,74,.5); }
-  .answer.warn .k { color: #F3B2A2; }
+  .answer.warn .k { color: #8C3A20; }
 
   .stat-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
   .stat {
@@ -203,19 +204,19 @@
   .disclaimer .line { font-size: 12.5px; line-height: 1.65; color: var(--text-muted);
                       margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--border); }
   .diag { font-size: 11px; color: var(--text-muted); margin-top: 18px; text-align: center; }
-  .err-banner { background:#3A1410; border:1px solid var(--danger); border-radius:8px;
+  .err-banner { background:#FDEDE8; border:1px solid var(--danger); border-radius:8px;
                 padding:12px 14px; margin-bottom:16px; font-size:12px; line-height:1.6;
-                color:#F5C7BC; word-break:break-all; display:none; }
+                color:#8C2C14; word-break:break-all; display:none; }
   .notice { background: rgba(224,100,74,.14); border: 1px solid rgba(224,100,74,.5);
             border-radius: 8px; padding: 12px 14px; margin-bottom: 16px;
-            font-size: 13px; line-height: 1.6; color: #F0C9BE; }
-  .notice b { color: #fff; }
+            font-size: 13px; line-height: 1.6; color: #8C3A20; }
+  .notice b { color: #7A2A12; }
 
   /* ───────────── 홈페이지 공통 틀 ───────────── */
   .shell { display: block; }
   .side { margin-bottom: 18px; }
   .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-bottom: 13px; }
-  .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #1B2A44; }
+  .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #EDF1F7; }
   .brand-text b { display: block; font-size: 16.5px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; line-height: 1.25; }
   .brand-text em { display: block; font-size: 11.5px; font-style: normal; color: var(--gold); margin-top: 2px; letter-spacing: .02em; }
   .nav { display: flex; gap: 7px; overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -225,7 +226,7 @@
            border-radius: 8px; border: 1px solid var(--border); background: var(--panel-alt);
            color: var(--text-secondary); font-size: 13.5px; font-weight: 600; text-decoration: none;
            white-space: nowrap; -webkit-tap-highlight-color: transparent; }
-  .nav a.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .nav a.on { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
   .side-contact { display: none; }
   .side-contact:empty { display: none !important; }
   .main { min-width: 0; }
@@ -262,6 +263,32 @@
   .next-cta .nc-s { display: block; margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
   .next-cta .nc-s b { color: var(--text-primary); }
   .next-cta .nc-a { display: block; margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--text-primary); }
+
+
+  /* ───────── 흰 배경 마감 ───────── */
+  .panel-controls, .card, .stat, .stat-card, .hub-i {
+    box-shadow: 0 1px 2px rgba(20,40,70,.05), 0 1px 10px rgba(20,40,70,.04);
+  }
+  @media (min-width: 1100px) {
+    .side { box-shadow: 0 1px 2px rgba(20,40,70,.05), 0 1px 10px rgba(20,40,70,.04); }
+  }
+  .brand-logo { border: 1px solid var(--border); box-shadow: 0 1px 4px rgba(20,40,70,.10); }
+  .nav a { background: #FFFFFF; }
+  .nav a.on { color: #241B00; }
+  .seg-btn.on, .tab.on, .step:active { color: #241B00; }
+  .sticky-summary { -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+                    box-shadow: 0 2px 10px rgba(20,40,70,.06); }
+  .next-cta { background: rgba(201,162,75,.10); border-color: rgba(138,106,20,.40); }
+  .next-cta:active { background: rgba(201,162,75,.20); }
+  .from-sim { background: rgba(201,162,75,.10); border-color: rgba(138,106,20,.40); color: #5E4A0E; }
+  .from-sim b { color: var(--gold); }
+  .err-banner { color: #8C2C14; border-color: #D98A74; }
+  .faq summary::before, .faq details[open] summary::before { color: var(--gold); }
+  details.sec > summary, .sec > summary { background: #FFFFFF; }
+  input[type=range]::-webkit-slider-thumb { box-shadow: 0 1px 3px rgba(20,40,70,.28), 0 0 0 1px rgba(20,40,70,.12); }
+  input[type=range]::-moz-range-thumb { box-shadow: 0 1px 3px rgba(20,40,70,.28), 0 0 0 1px rgba(20,40,70,.12); }
+  .total-bar { color: #FFFFFF; }
+  ::selection { background: rgba(201,162,75,.30); }
 
 </style>
 </head>
@@ -364,17 +391,17 @@
   </div>
 
   <div class="stat-row">
-    <div class="stat"><div class="k">평생 받는 월 연금</div><div class="v" id="s-monthly" style="color:#25AB78">—</div><div class="s" id="s-monthly-sub"></div></div>
-    <div class="stat"><div class="k">총 납입액</div><div class="v" id="s-paid" style="color:#5E82D7">—</div><div class="s" id="s-paid-sub"></div></div>
-    <div class="stat"><div class="k">낸 돈을 다 돌려받는 나이</div><div class="v" id="s-breakeven" style="color:#C9A24B">—</div><div class="s" id="s-breakeven-sub"></div></div>
+    <div class="stat"><div class="k">평생 받는 월 연금</div><div class="v" id="s-monthly" style="color:#07915B">—</div><div class="s" id="s-monthly-sub"></div></div>
+    <div class="stat"><div class="k">총 납입액</div><div class="v" id="s-paid" style="color:#0555B7">—</div><div class="s" id="s-paid-sub"></div></div>
+    <div class="stat"><div class="k">낸 돈을 다 돌려받는 나이</div><div class="v" id="s-breakeven" style="color:#8A6A14">—</div><div class="s" id="s-breakeven-sub"></div></div>
   </div>
 
   <div class="card">
     <div class="card-title">언제 내고, 언제부터 받나</div>
     <div class="card-sub">가로줄이 시간입니다. 파란 구간에 돈을 내고, 초록 구간부터는 <b>죽을 때까지</b> 받습니다.</div>
     <div class="legend">
-      <span class="item"><span class="sw" style="background:#5E82D7"></span>보험료 내는 기간</span>
-      <span class="item"><span class="sw" style="background:#25AB78"></span>연금 받는 기간 (평생)</span>
+      <span class="item"><span class="sw" style="background:#0555B7"></span>보험료 내는 기간</span>
+      <span class="item"><span class="sw" style="background:#07915B"></span>연금 받는 기간 (평생)</span>
       <span class="item"><span class="sw" style="background:rgba(201,162,75,.45)"></span>연 7% 보증 구간</span>
     </div>
     <div class="chart-box" id="timeline"></div>
@@ -540,30 +567,30 @@
       if (x(gEnd) - x(joinAge) < estW(gl, fs) + 8) gl = "7% 보증";
       if (x(gEnd) - x(joinAge) >= estW(gl, fs) + 6)
         svg.appendChild(svgText({ x: (x(joinAge) + x(gEnd)) / 2, y: m.top - 13, "text-anchor": "middle",
-          "font-size": fs, fill: "#E0C07A", "font-weight": "700" }, gl));
+          "font-size": fs, fill: "#8A6A14", "font-weight": "700" }, gl));
     }
 
     var rows = [
-      { name: "보험료", from: joinAge, to: joinAge + payYears, color: "#5E82D7",
+      { name: "보험료", from: joinAge, to: joinAge + payYears, color: "#0555B7",
         txt: joinAge + "~" + (joinAge + payYears) + "세 (" + payYears + "년)" },
-      { name: "연금", from: startAge, to: maxA, color: "#25AB78",
+      { name: "연금", from: startAge, to: maxA, color: "#07915B",
         txt: startAge + "세부터 평생" }
     ];
     for (var i = 0; i < rows.length; i++) {
       var r = rows[i], y = m.top + i * (rowH + gap), cy = y + rowH / 2 + 5;
       svg.appendChild(svgText({ x: m.left - 9, y: cy, "text-anchor": "end", "font-size": fs,
-                                fill: "#9DAEC5" }, r.name));
-      svg.appendChild(svgEl("rect", { x: m.left, y: y + rowH / 2 - 2, width: plotW, height: 4, fill: "#233247", rx: 2 }));
+                                fill: "#47586E" }, r.name));
+      svg.appendChild(svgEl("rect", { x: m.left, y: y + rowH / 2 - 2, width: plotW, height: 4, fill: "#E6ECF3", rx: 2 }));
       var bx = x(r.from), bw = Math.max(8, x(Math.min(r.to, maxA)) - bx);
       svg.appendChild(svgEl("rect", { x: bx, y: y, width: bw, height: rowH, fill: r.color, rx: 4 }));
       var tw = estW(r.txt, fs);
       if (bw >= tw + 16)
         svg.appendChild(svgText({ x: bx + bw / 2, y: cy, "text-anchor": "middle", "font-size": fs,
-          fill: "#0E1826", "font-weight": "700" }, r.txt));
+          fill: "#FFFFFF", "font-weight": "700" }, r.txt));
       else if (bx + bw + 8 + tw <= W - m.right)
-        svg.appendChild(svgText({ x: bx + bw + 8, y: cy, "font-size": fs, fill: "#9DAEC5" }, r.txt));
+        svg.appendChild(svgText({ x: bx + bw + 8, y: cy, "font-size": fs, fill: "#47586E" }, r.txt));
       else
-        svg.appendChild(svgText({ x: bx - 8, y: cy, "text-anchor": "end", "font-size": fs, fill: "#9DAEC5" }, r.txt));
+        svg.appendChild(svgText({ x: bx - 8, y: cy, "text-anchor": "end", "font-size": fs, fill: "#47586E" }, r.txt));
     }
 
     // 나이 축
@@ -576,7 +603,7 @@
       var tx = x(ticks[i]), an = "middle";
       if (tx <= m.left + 14) { an = "start"; tx = m.left; }
       else if (tx >= W - m.right - 14) { an = "end"; tx = W - m.right; }
-      svg.appendChild(svgText({ x: tx, y: H - 7, "text-anchor": an, "font-size": fs, fill: "#6C8099" }, ticks[i] + "세"));
+      svg.appendChild(svgText({ x: tx, y: H - 7, "text-anchor": an, "font-size": fs, fill: "#6E7F94" }, ticks[i] + "세"));
     }
     box.innerHTML = ""; box.appendChild(svg);
   }
@@ -695,7 +722,7 @@
       var ratio = cum / paid;
       html += '<tr' + (ages[i] === 90 ? ' class="hl"' : '') + '><td>' + ages[i] + '세</td>' +
               '<td class="num">' + manwon(cum / 10000) + '</td>' +
-              '<td class="num" style="color:' + (ratio >= 1 ? "#7FD9AE" : "#E0644A") + '">' +
+              '<td class="num" style="color:' + (ratio >= 1 ? "#0E7A4F" : "#C0442A") + '">' +
               ratio.toFixed(1) + '배</td></tr>';
     }
     $("cumBody").innerHTML = html;

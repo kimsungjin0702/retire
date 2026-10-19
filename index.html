@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="color-scheme" content="dark" />
+<meta name="color-scheme" content="light" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="은퇴 시뮬레이터" />
 <meta name="format-detection" content="telephone=no" />
 <title>은퇴소득 통합 시뮬레이터 | 국민연금·퇴직연금·주택연금 노후자금 계산기 — 김성진의 보험경제</title>
@@ -40,28 +40,29 @@
 </script>
 <style>
   :root {
-    --bg: #0E1826;
-    --panel: #162334;
-    --panel-alt: #101B2A;
-    --border: #28394F;
-    --track: #2C3E56;
-    --grid: #233247;
-    --text-primary: #EEF1F5;
-    --text-secondary: #9DAEC5;
-    --text-muted: #6C8099;
-    --gold: #C9A24B;          /* UI 강조색 (슬라이더·숫자) */
+    --bg: #FFFFFF;
+    --panel: #FFFFFF;
+    --panel-alt: #F4F7FB;
+    --border: #D8E0EB;
+    --track: #DDE4EE;
+    --grid: #E6ECF3;
+    --text-primary: #15212E;
+    --text-secondary: #47586E;
+    --text-muted: #6E7F94;
+    --gold: #8A6A14;
+    --gold-fill: #C9A24B;          /* UI 강조색 (슬라이더·숫자) */
     /* 평생 나오는 돈 = 초록 계열 / 언젠가 끊기는 돈 = 파랑 계열 */
-    --np:    #25AB78;         /* 국민연금 */
-    --occ:   #008459;         /* 직역연금(공무원·사학·군인) */
-    --house: #6ED6A6;         /* 주택연금 */
-    --irp:   #5E82D7;         /* 퇴직연금 */
-    --pp:    #95B6FE;         /* 개인연금 */
+    --np:    #07915B;         /* 국민연금 */
+    --occ:   #01603A;         /* 직역연금(공무원·사학·군인) */
+    --house: #3CC383;         /* 주택연금 */
+    --irp:   #0555B7;         /* 퇴직연금 */
+    --pp:    #5089DC;         /* 개인연금 */
     --ink-on-fill: #0E1826;   /* 색 위에 얹는 글자 */
-    --danger: #E0644A;        /* 부족·경고 */
-    --ok:     #7FD9AE;        /* 여유 */
-    --green: #25AB78;
-    --blue: #698FE5;
-    --brick: #E0644A;
+    --danger: #C0442A;        /* 부족·경고 */
+    --ok:     #0E7A4F;        /* 여유 */
+    --green: #07915B;
+    --blue: #1E5FA8;
+    --brick: #C0442A;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -104,13 +105,13 @@
   .notice {
     background: rgba(189,92,66,0.14); border: 1px solid rgba(189,92,66,0.5);
     border-radius: 8px; padding: 12px 14px; margin-bottom: 16px;
-    font-size: 13px; line-height: 1.6; color: #F0C9BE;
+    font-size: 13px; line-height: 1.6; color: #8C3A20;
   }
-  .notice b { color: #fff; }
+  .notice b { color: #7A2A12; }
   .err-banner {
-    background: #3A1410; border: 1px solid var(--brick); border-radius: 8px;
+    background: #FDEDE8; border: 1px solid var(--brick); border-radius: 8px;
     padding: 12px 14px; margin-bottom: 16px; font-size: 12px; line-height: 1.6;
-    color: #F5C7BC; word-break: break-all; display: none;
+    color: #8C2C14; word-break: break-all; display: none;
   }
   .diag { font-size: 11px; color: var(--text-muted); margin-top: 20px; text-align: center; }
   .disclaimer {
@@ -131,7 +132,7 @@
   .sticky-summary {
     position: -webkit-sticky; position: sticky; top: 0; z-index: 20;
     display: none;
-    background: rgba(14,24,38,0.96);
+    background: rgba(255,255,255,0.96);
     border-bottom: 1px solid var(--border);
     margin: 0 -14px 16px; padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
   }
@@ -200,7 +201,7 @@
     cursor: pointer; touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
-  .step:active { background: var(--gold); color: #0E1826; border-color: var(--gold); }
+  .step:active { background: var(--gold-fill); color: #0E1826; border-color: var(--gold-fill); }
   .step:disabled { opacity: 0.3; }
 
   input[type=range] {
@@ -217,21 +218,21 @@
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none;
     width: 28px; height: 28px; margin-top: -11px;
-    border-radius: 50%; background: var(--gold);
-    border: 3px solid #0E1826; box-shadow: 0 1px 4px rgba(0,0,0,0.55);
+    border-radius: 50%; background: var(--gold-fill);
+    border: 3px solid #FFFFFF; box-shadow: 0 1px 4px rgba(20,40,70,.20);
   }
   input[type=range]::-moz-range-track {
     height: 6px; border-radius: 3px; background: var(--track); border: 0;
   }
   input[type=range]::-moz-range-thumb {
-    width: 22px; height: 22px; border-radius: 50%; background: var(--gold);
-    border: 3px solid #0E1826; box-shadow: 0 1px 4px rgba(0,0,0,0.55);
+    width: 22px; height: 22px; border-radius: 50%; background: var(--gold-fill);
+    border: 3px solid #FFFFFF; box-shadow: 0 1px 4px rgba(20,40,70,.20);
   }
   input[type=range]:focus::-webkit-slider-thumb {
-    box-shadow: 0 0 0 4px rgba(201,162,75,0.45), 0 1px 4px rgba(0,0,0,0.55);
+    box-shadow: 0 0 0 4px rgba(201,162,75,0.45), 0 1px 4px rgba(20,40,70,.20);
   }
   input[type=range]:focus::-moz-range-thumb {
-    box-shadow: 0 0 0 4px rgba(201,162,75,0.45), 0 1px 4px rgba(0,0,0,0.55);
+    box-shadow: 0 0 0 4px rgba(201,162,75,0.45), 0 1px 4px rgba(20,40,70,.20);
   }
 
   .np-note {
@@ -258,7 +259,7 @@
   }
   .switch .slider-ui::before {
     content: ""; position: absolute; width: 26px; height: 26px; left: 3px; top: 3px;
-    border-radius: 50%; background: #C3CEDD; transition: transform 0.18s, background 0.18s;
+    border-radius: 50%; background: #8A9AAE; transition: transform 0.18s, background 0.18s;
   }
   .switch input:checked + .slider-ui { background: var(--brick); }
   .switch input:checked + .slider-ui::before { transform: translateX(22px); background: #fff; }
@@ -332,7 +333,7 @@
     background: repeating-linear-gradient(45deg, rgba(224,100,74,.16) 0 6px, rgba(224,100,74,.05) 6px 12px);
     border: 1px dashed rgba(224,100,74,.55); border-radius: 4px;
     display: flex; align-items: center; padding-left: 8px;
-    font-size: 12.5px; color: #F0A08C; font-weight: 600;
+    font-size: 12.5px; color: #B23A1E; font-weight: 600;
   }
   .need-line {
     position: absolute; top: -4px; bottom: -4px; width: 2px;
@@ -352,7 +353,7 @@
     font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
     white-space: nowrap;
   }
-  .verdict.short { background: rgba(224,100,74,.18); color: #F0A08C; }
+  .verdict.short { background: rgba(224,100,74,.18); color: #B23A1E; }
   .verdict.ok    { background: rgba(127,217,174,.14); color: var(--ok); }
   .verdict.even  { background: var(--panel-alt); color: var(--text-secondary); }
 
@@ -384,9 +385,9 @@
   .short-result .v { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
   .short-result .m { flex-basis: 100%; font-size: 13.5px; line-height: 1.6; }
   .sr-bad  { background: rgba(224,100,74,.13); border-color: rgba(224,100,74,.5); }
-  .sr-bad .k, .sr-bad .v { color: #FF8E70; } .sr-bad .m { color: #F3B2A2; }
+  .sr-bad .k, .sr-bad .v { color: #A83418; } .sr-bad .m { color: #8C3A20; }
   .sr-good { background: rgba(127,217,174,.10); border-color: rgba(127,217,174,.45); }
-  .sr-good .k, .sr-good .v { color: var(--ok); } .sr-good .m { color: #A8E4C6; }
+  .sr-good .k, .sr-good .v { color: var(--ok); } .sr-good .m { color: #0B6B45; }
 
   /* ---------- 다음 단계 연결 ---------- */
   .next-cta {
@@ -411,9 +412,9 @@
     font-size: 16px; line-height: 1.6; border: 1px solid;
   }
   .verdict-banner b { font-size: 20px; }
-  .vb-bad  { background: rgba(224,100,74,.13); border-color: rgba(224,100,74,.55); color: #F3B2A2; }
-  .vb-bad b { color: #FF8E70; }
-  .vb-good { background: rgba(127,217,174,.10); border-color: rgba(127,217,174,.45); color: #A8E4C6; }
+  .vb-bad  { background: rgba(224,100,74,.13); border-color: rgba(224,100,74,.55); color: #8C3A20; }
+  .vb-bad b { color: #A83418; }
+  .vb-good { background: rgba(127,217,174,.10); border-color: rgba(127,217,174,.45); color: #0B6B45; }
   .vb-good b { color: var(--ok); }
 
   /* ---------- 종류 선택 버튼 ---------- */
@@ -426,7 +427,7 @@
     font-size: 14px; font-family: inherit; font-weight: 600;
     cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
   }
-  .seg-btn.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .seg-btn.on { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
   .opt-body.off { opacity: .35; pointer-events: none; }
 
   .scenario-row { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -434,7 +435,7 @@
     flex: 1 1 140px; min-width: 0; background: var(--panel-alt);
     border: 1px solid var(--border); border-radius: 8px; padding: 11px 12px;
   }
-  .scenario-card.active { border-color: var(--gold); background: rgba(201,162,75,0.08); }
+  .scenario-card.active { border-color: var(--gold-fill); background: rgba(201,162,75,0.08); }
   .scenario-card .s-label { font-size: 12px; color: var(--text-muted); }
   .scenario-card .s-monthly { font-size: 16px; font-weight: 700; margin-top: 6px; }
   .scenario-card .s-total { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
@@ -462,7 +463,7 @@
   .shell { display: block; }
   .side { margin-bottom: 18px; }
   .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-bottom: 13px; }
-  .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #1B2A44; }
+  .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #EDF1F7; }
   .brand-text b { display: block; font-size: 16.5px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; line-height: 1.25; }
   .brand-text em { display: block; font-size: 11.5px; font-style: normal; color: var(--gold); margin-top: 2px; letter-spacing: .02em; }
   .nav { display: flex; gap: 7px; overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -472,7 +473,7 @@
            border-radius: 8px; border: 1px solid var(--border); background: var(--panel-alt);
            color: var(--text-secondary); font-size: 13.5px; font-weight: 600; text-decoration: none;
            white-space: nowrap; -webkit-tap-highlight-color: transparent; }
-  .nav a.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .nav a.on { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
   .side-contact { display: none; }
   .side-contact:empty { display: none !important; }
   .main { min-width: 0; }
@@ -506,7 +507,7 @@
   .hub-i { display: block; padding: 14px 15px; border-radius: 9px; background: var(--panel-alt);
            border: 1px solid var(--border); text-decoration: none;
            -webkit-tap-highlight-color: transparent; }
-  .hub-i:active { border-color: var(--gold); }
+  .hub-i:active { border-color: var(--gold-fill); }
   .hub-i b { display: block; font-size: 15px; font-weight: 700; color: var(--gold); line-height: 1.45; margin-bottom: 6px; }
   .hub-i span { display: block; font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
   .prose { margin-top: 14px; }
@@ -514,6 +515,32 @@
   .prose h2:first-child { margin-top: 0; }
   .prose p { font-size: 14px; line-height: 1.8; color: var(--text-secondary); margin: 0 0 10px; }
   .prose p b { color: var(--text-primary); }
+
+
+  /* ───────── 흰 배경 마감 ───────── */
+  .panel-controls, .card, .stat, .stat-card, .hub-i {
+    box-shadow: 0 1px 2px rgba(20,40,70,.05), 0 1px 10px rgba(20,40,70,.04);
+  }
+  @media (min-width: 1100px) {
+    .side { box-shadow: 0 1px 2px rgba(20,40,70,.05), 0 1px 10px rgba(20,40,70,.04); }
+  }
+  .brand-logo { border: 1px solid var(--border); box-shadow: 0 1px 4px rgba(20,40,70,.10); }
+  .nav a { background: #FFFFFF; }
+  .nav a.on { color: #241B00; }
+  .seg-btn.on, .tab.on, .step:active { color: #241B00; }
+  .sticky-summary { -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+                    box-shadow: 0 2px 10px rgba(20,40,70,.06); }
+  .next-cta { background: rgba(201,162,75,.10); border-color: rgba(138,106,20,.40); }
+  .next-cta:active { background: rgba(201,162,75,.20); }
+  .from-sim { background: rgba(201,162,75,.10); border-color: rgba(138,106,20,.40); color: #5E4A0E; }
+  .from-sim b { color: var(--gold); }
+  .err-banner { color: #8C2C14; border-color: #D98A74; }
+  .faq summary::before, .faq details[open] summary::before { color: var(--gold); }
+  details.sec > summary, .sec > summary { background: #FFFFFF; }
+  input[type=range]::-webkit-slider-thumb { box-shadow: 0 1px 3px rgba(20,40,70,.28), 0 0 0 1px rgba(20,40,70,.12); }
+  input[type=range]::-moz-range-thumb { box-shadow: 0 1px 3px rgba(20,40,70,.28), 0 0 0 1px rgba(20,40,70,.12); }
+  .total-bar { color: #FFFFFF; }
+  ::selection { background: rgba(201,162,75,.30); }
 
 </style>
 </head>
@@ -545,9 +572,9 @@
 
   <div class="sticky-summary" id="stickyBar">
     <div class="row">
-      <div class="cell"><div class="k">소득 공백기</div><div class="v" id="sb-gap" style="color:#BD5C42">5년</div></div>
-      <div class="cell"><div class="k">고갈(리스크 제외)</div><div class="v" id="sb-dep1" style="color:#4C86BE">90세+</div></div>
-      <div class="cell"><div class="k">고갈(리스크 포함)</div><div class="v" id="sb-dep2" style="color:#BD5C42">85세</div></div>
+      <div class="cell"><div class="k">소득 공백기</div><div class="v" id="sb-gap" style="color:#B04125">5년</div></div>
+      <div class="cell"><div class="k">고갈(리스크 제외)</div><div class="v" id="sb-dep1" style="color:#1E5FA8">90세+</div></div>
+      <div class="cell"><div class="k">고갈(리스크 포함)</div><div class="v" id="sb-dep2" style="color:#B04125">85세</div></div>
     </div>
   </div>
 
@@ -871,24 +898,24 @@
       <div class="stat-row">
         <div class="stat-card">
           <div class="label">소득 공백기</div>
-          <div class="value" id="stat-gap" style="color:#BD5C42">5년</div>
+          <div class="value" id="stat-gap" style="color:#B04125">5년</div>
           <div class="sub" id="stat-gap-sub">60세 은퇴 → 65세 국민연금 개시</div>
         </div>
         <div class="stat-card">
           <div class="label">자산 고갈 예상 나이 (리스크 미반영)</div>
-          <div class="value" id="stat-depNoRisk" style="color:#4C86BE">90세 이후</div>
+          <div class="value" id="stat-depNoRisk" style="color:#1E5FA8">90세 이후</div>
           <div class="sub" id="stat-depNoRisk-sub"></div>
         </div>
         <div class="stat-card">
           <div class="label">자산 고갈 예상 나이 (리스크 반영)</div>
-          <div class="value" id="stat-depRisk" style="color:#BD5C42">85세</div>
+          <div class="value" id="stat-depRisk" style="color:#B04125">85세</div>
           <div class="sub" id="stat-depRisk-sub"></div>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title">연금이 언제부터 언제까지 나오나</div>
-        <div class="card-sub">가로줄 하나가 연금 하나입니다. 줄이 그려진 기간에만 그 연금이 나옵니다. <b style="color:#F0A08C">붉은 칸</b>은 국민연금이 아직 안 나오는 기간입니다.</div>
+        <div class="card-sub">가로줄 하나가 연금 하나입니다. 줄이 그려진 기간에만 그 연금이 나옵니다. <b style="color:#B23A1E">붉은 칸</b>은 국민연금이 아직 안 나오는 기간입니다.</div>
         <div class="legend" id="incomeLegend"></div>
         <div class="chart-box" id="timelineChart"></div>
       </div>
@@ -903,8 +930,8 @@
         <div class="card-title">모아둔 돈이 언제까지 버티나</div>
         <div class="card-sub">선이 <b>0</b>에 닿는 순간이 금융자산이 바닥나는 나이입니다.</div>
         <div class="legend" id="assetLegend">
-          <span class="item"><span class="swatch" style="background:#698FE5"></span>리스크 미반영</span>
-          <span class="item"><span class="swatch dashed" style="border-color:#E0644A"></span>리스크 반영</span>
+          <span class="item"><span class="swatch" style="background:#1E5FA8"></span>리스크 미반영</span>
+          <span class="item"><span class="swatch dashed" style="border-color:#C0442A"></span>리스크 반영</span>
         </div>
         <div class="chart-box" id="assetChart"></div>
         <div class="readout" id="assetHover">그래프를 손가락으로 문지르면 해당 나이의 남은 돈이 표시됩니다</div>
@@ -995,10 +1022,10 @@
 
   // 대비 검증기(OKLab ΔE) 통과 조합 — 정상시력 21.2 / 색약 17.4
   var COLORS = {
-    np: "#25AB78", occ: "#008459", house: "#6ED6A6", irp: "#5E82D7", pp: "#95B6FE",
-    danger: "#E0644A", ok: "#7FD9AE",
-    grid: "#233247", panel: "#162334", inkOnFill: "#0E1826",
-    textMuted: "#6C8099", textSecondary: "#9DAEC5", textPrimary: "#EEF1F5"
+    np: "#07915B", occ: "#01603A", house: "#3CC383", irp: "#0555B7", pp: "#5089DC",
+    danger: "#C0442A", ok: "#0E7A4F",
+    grid: "#E6ECF3", panel: "#FFFFFF", inkOnFill: "#0E1826",
+    textMuted: "#6E7F94", textSecondary: "#47586E", textPrimary: "#15212E"
   };
   COLORS.green = COLORS.np; COLORS.blue = COLORS.irp; COLORS.brick = COLORS.danger;
 
@@ -1262,7 +1289,7 @@
       if (gw < estWidth(gLab, fs - 1) + 4) gLab = "";
       if (gLab) {
         svg.appendChild(svgText({ x: gx + gw / 2, y: margin.top - 12, "text-anchor": "middle",
-          "font-size": fs - 1, fill: "#F0A08C", "font-weight": "700" }, gLab));
+          "font-size": fs - 1, fill: "#B23A1E", "font-weight": "700" }, gLab));
       }
     } else {
       svg.appendChild(svgText({ x: xScale(retireAge), y: margin.top - 12, "text-anchor": "middle",
