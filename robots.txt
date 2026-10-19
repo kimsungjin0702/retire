@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kimsungjin0702.github.io/retire/sitemap.xml

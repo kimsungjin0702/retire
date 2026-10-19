@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="간병 계산기" />
+<meta name="format-detection" content="telephone=no" />
+<title>간병·장기요양 비용 계산기 | 2026년 재가급여 월 한도액·본인부담금 — 김성진의 보험경제</title>
+<meta name="description" content="2026년 노인장기요양보험 등급별 재가급여 월 한도액과 본인부담금을 계산합니다. 방문요양·주야간보호 비용, 요양원 시설급여, 병원 간병비까지 한 화면에서 확인하는 무료 간병비 계산기 — 김성진의 보험경제." />
+<meta name="author" content="김성진의 보험경제" />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="김성진의 보험경제" />
+<meta property="og:title" content="간병·장기요양 비용 계산기 | 2026년 재가급여 한도와 본인부담금" />
+<meta property="og:description" content="등급과 이용 형태만 고르면 한 달 본인부담금과 공단이 내주지 않는 돈이 바로 나옵니다." />
+<meta property="og:locale" content="ko_KR" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230E1826'/%3E%3Cpath d='M32 50C22 42 14 36 14 28a10 10 0 0 1 18-6 10 10 0 0 1 18 6c0 8-8 14-18 22z' fill='%2325AB78'/%3E%3C/svg%3E" />
+<link rel="canonical" href="https://kimsungjin0702.github.io/retire/care/" />
+<meta name="keywords" content="연금,은퇴,노후준비,노후자금,간병,재가급여,장기요양,국민연금,퇴직연금,개인연금,주택연금,은퇴설계" />
+<meta property="og:url" content="https://kimsungjin0702.github.io/retire/care/" />
+<meta property="og:image" content="https://kimsungjin0702.github.io/retire/og.jpg" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="600" />
+<meta name="twitter:image" content="https://kimsungjin0702.github.io/retire/og.jpg" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"김성진의 보험경제","url":"https://kimsungjin0702.github.io/retire/",
+"inLanguage":"ko-KR","publisher":{"@type":"Organization","name":"김성진의 보험경제","url":"https://kimsungjin0702.github.io/retire/","logo":"https://kimsungjin0702.github.io/retire/og.jpg"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"간병·장기요양 비용 계산기",
+"applicationCategory":"FinanceApplication","operatingSystem":"Web","inLanguage":"ko-KR",
+"url":"https://kimsungjin0702.github.io/retire/care/","description":"2026년 노인장기요양보험 등급별 재가급여 월 한도액과 본인부담금, 방문요양·주야간보호 비용과 병원 간병비를 계산하는 도구.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+"author":{"@type":"Organization","name":"김성진의 보험경제"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"ko-KR","mainEntity":[
+{"@type":"Question","name":"장기요양등급은 어떻게 신청하나요?","acceptedAnswer":{"@type":"Answer","text":"국민건강보험공단 지사나 The건강보험 앱, 1577-1000으로 신청합니다. 공단 직원이 방문조사를 하고 의사소견서를 받아 등급판정위원회가 등급을 정합니다. 신청부터 결과까지 보통 30일 안팎이 걸립니다."}},
+{"@type":"Question","name":"2026년 장기요양 재가급여 월 한도액은 얼마인가요?","acceptedAnswer":{"@type":"Answer","text":"2026년 기준 1등급 2,512,900원, 2등급 2,331,200원, 3등급 1,528,200원, 4등급 1,409,700원, 5등급 1,208,900원, 인지지원등급 676,320원입니다. 일반 본인부담률은 재가급여 15%, 시설급여 20%입니다."}},
+{"@type":"Question","name":"재가급여 한도를 넘기면 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"한도 안쪽은 공단이 85%를 부담하지만 넘어간 금액은 100% 본인 부담입니다. 방문요양과 주야간보호를 함께 이용할 때는 한 달 합계가 한도를 넘지 않는지 미리 계산해야 합니다."}},
+{"@type":"Question","name":"요양원(시설급여) 비용은 얼마나 드나요?","acceptedAnswer":{"@type":"Answer","text":"2026년 기준 1등급 하루 93,070원, 2등급 86,340원, 3~5등급 81,540원이며 본인부담은 20%입니다. 30일이면 1등급 기준 약 279만원 중 56만원 정도가 본인 부담이고, 식사재료비·이미용비 등 비급여가 월 40만~60만원 추가됩니다."}},
+{"@type":"Question","name":"병원 간병비도 장기요양보험에서 나오나요?","acceptedAnswer":{"@type":"Answer","text":"나오지 않습니다. 장기요양보험은 집에서 받는 재가급여와 요양원 시설급여를 위한 제도입니다. 병원에 입원해 간병인을 쓰는 비용은 전액 본인 부담이며, 2026년 수도권 기준 1:1 개인 간병은 하루 15만원 안팎입니다."}},
+{"@type":"Question","name":"가족이 직접 돌보면 돈이 나오나요?","acceptedAnswer":{"@type":"Answer","text":"섬·벽지 등 장기요양기관을 이용하기 어려운 지역의 요건을 갖추면 가족요양비로 2026년 기준 월 240,450원이 지급됩니다. 가족이 요양보호사 자격을 취득해 가족요양 급여를 받는 방법은 별도의 조건이 있어 공단 확인이 필요합니다."}}
+]}
+</script>
+<style>
+  /* 은퇴소득 시뮬레이터와 같은 도구 계열로 보이도록 팔레트·부품을 그대로 쓴다 */
+  :root {
+    --bg: #0E1826;
+    --panel: #162334;
+    --panel-alt: #101B2A;
+    --border: #28394F;
+    --track: #2C3E56;
+    --grid: #233247;
+    --text-primary: #EEF1F5;
+    --text-secondary: #9DAEC5;
+    --text-muted: #6C8099;
+    --gold: #C9A24B;
+    --life: #25AB78;      /* 평생 나오는 돈 */
+    --pay:  #5E82D7;      /* 내가 내는 돈 */
+    --ok:   #7FD9AE;
+    --danger: #E0644A;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR",
+                 "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden; word-break: keep-all; overflow-wrap: break-word;
+  }
+  body { -webkit-tap-highlight-color: rgba(201,162,75,.15); -webkit-touch-callout: none; }
+  @media (display-mode: standalone) { body { overscroll-behavior-y: none; } }
+  h1, .subtitle, .row-top, .stepper, .step, .seg-btn, .tab, .legend, .diag, .card-title {
+    -webkit-user-select: none; user-select: none;
+  }
+  .wrap {
+    max-width: 900px; margin: 0 auto;
+    padding-block: 18px 48px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  h1 { font-size: 22px; font-weight: 700; margin: 0 0 6px; letter-spacing: -.02em; }
+  .subtitle { font-size: 14px; line-height: 1.6; color: var(--text-secondary); margin: 0 0 6px; }
+  .subtitle.small { font-size: 13px; color: var(--text-muted); margin-bottom: 18px; }
+  .subtitle a { color: var(--gold); }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px 14px; margin-bottom: 16px;
+  }
+  .card-title { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+  .card-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.55; }
+
+  /* ── 시뮬레이터에서 넘어왔을 때 ── */
+  .from-sim {
+    border-radius: 9px; padding: 13px 15px; margin-bottom: 14px;
+    background: rgba(201,162,75,.12); border: 1px solid rgba(201,162,75,.5);
+    font-size: 13.5px; line-height: 1.65; color: #E4D3A8;
+  }
+  .from-sim b { color: var(--gold); font-size: 15px; }
+
+  /* ── 모드 탭 ── */
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tab {
+    -webkit-appearance: none; appearance: none; flex: 1; min-height: 50px; padding: 0 8px;
+    border: 1px solid var(--border); border-radius: 9px;
+    background: var(--panel-alt); color: var(--text-secondary);
+    font-size: 15px; font-weight: 700; font-family: inherit;
+    cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  .tab.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+
+  /* ── 입력 ── */
+  .seg-group { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+  .seg-btn {
+    -webkit-appearance: none; appearance: none; flex: 1 1 60px; min-height: 44px; padding: 0 6px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--panel-alt); color: var(--text-secondary);
+    font-size: 14px; font-weight: 600; font-family: inherit;
+    cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  .seg-btn.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .seg-btn:disabled { opacity: .28; cursor: default; }
+  .seg-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 7px; }
+
+  .slider-row { margin-bottom: 8px; }
+  .row-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 2px; }
+  .row-top .label { font-size: 13.5px; color: var(--text-secondary); line-height: 1.35; }
+  .stepper { display: flex; align-items: center; flex-shrink: 0; }
+  .stepper .value {
+    font-size: 14px; font-weight: 700; color: var(--gold);
+    min-width: 82px; text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .step {
+    -webkit-appearance: none; appearance: none; width: 34px; height: 34px; flex-shrink: 0;
+    padding: 0; margin: 0; border: 1px solid var(--border); border-radius: 8px;
+    background: var(--panel-alt); color: var(--text-primary);
+    font-size: 19px; line-height: 1; font-family: inherit;
+    cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  .step:active { background: var(--gold); color: #0E1826; border-color: var(--gold); }
+  input[type=range] {
+    -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 42px;
+    margin: 0; padding: 0; background: transparent;
+    touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  }
+  input[type=range]:focus { outline: none; }
+  input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: var(--track); border: 0; }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none; width: 28px; height: 28px; margin-top: -11px;
+    border-radius: 50%; background: var(--gold); border: 3px solid #0E1826; box-shadow: 0 1px 4px rgba(0,0,0,.55);
+  }
+  input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--track); border: 0; }
+  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--gold); border: 3px solid #0E1826; }
+  input[type=range]:focus::-webkit-slider-thumb { box-shadow: 0 0 0 4px rgba(201,162,75,.45); }
+
+  .hint { font-size: 12.5px; color: var(--text-muted); background: var(--panel-alt);
+          border-radius: 6px; padding: 9px 11px; margin: 4px 0 14px; line-height: 1.6; }
+  .hint b { color: var(--text-secondary); }
+
+  /* ── 결과 ── */
+  .answer {
+    background: linear-gradient(180deg, rgba(37,171,120,.14), rgba(37,171,120,.05));
+    border: 1px solid rgba(37,171,120,.5); border-radius: 12px;
+    padding: 20px 18px; margin-bottom: 16px; text-align: center;
+  }
+  .answer .k { font-size: 14px; color: var(--ok); margin-bottom: 6px; }
+  .answer .v { font-size: 40px; font-weight: 800; color: #fff; letter-spacing: -.03em; line-height: 1.15; }
+  .answer .v .u { font-size: 20px; font-weight: 700; color: var(--ok); }
+  .answer .s { font-size: 13.5px; color: var(--text-secondary); margin-top: 9px; line-height: 1.6; }
+  .answer.warn { background: rgba(224,100,74,.12); border-color: rgba(224,100,74,.5); }
+  .answer.warn .k { color: #F3B2A2; }
+
+  .stat-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .stat {
+    flex: 1 1 150px; min-width: 0; background: var(--panel);
+    border: 1px solid var(--border); border-radius: 10px; padding: 13px 14px;
+  }
+  .stat .k { font-size: 12.5px; color: var(--text-muted); margin-bottom: 6px; line-height: 1.4; }
+  .stat .v { font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
+  .stat .s { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; line-height: 1.45; }
+
+  .chart-box svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+  .legend { display: flex; gap: 8px 16px; flex-wrap: wrap; margin-bottom: 12px; font-size: 13px; }
+  .legend .item { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+  .legend .sw { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--grid); }
+  thead th { font-size: 12px; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tr.hl td { background: rgba(201,162,75,.10); font-weight: 700; }
+
+  .points { display: grid; gap: 12px; }
+  @media (min-width: 720px) { .points { grid-template-columns: repeat(3, 1fr); } }
+  .point { border-top: 3px solid var(--life); padding-top: 11px; }
+  .point h3 { font-size: 16px; font-weight: 700; margin: 0 0 5px; }
+  .point p { font-size: 13.5px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+
+  .disclaimer { margin-top: 30px; padding: 18px 16px; border-radius: 10px;
+                background: var(--panel-alt); border: 1px solid var(--border); }
+  .disclaimer h2 { font-size: 15px; font-weight: 700; margin: 0 0 10px; color: var(--text-secondary); }
+  .disclaimer ul { margin: 0; padding-left: 18px; }
+  .disclaimer li { font-size: 13px; line-height: 1.65; color: var(--text-muted); margin-bottom: 6px; }
+  .disclaimer li b { color: var(--text-secondary); }
+  .disclaimer .line { font-size: 12.5px; line-height: 1.65; color: var(--text-muted);
+                      margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--border); }
+  .diag { font-size: 11px; color: var(--text-muted); margin-top: 18px; text-align: center; }
+  .err-banner { background:#3A1410; border:1px solid var(--danger); border-radius:8px;
+                padding:12px 14px; margin-bottom:16px; font-size:12px; line-height:1.6;
+                color:#F5C7BC; word-break:break-all; display:none; }
+  .notice { background: rgba(224,100,74,.14); border: 1px solid rgba(224,100,74,.5);
+            border-radius: 8px; padding: 12px 14px; margin-bottom: 16px;
+            font-size: 13px; line-height: 1.6; color: #F0C9BE; }
+  .notice b { color: #fff; }
+
+  /* ── 간병 페이지 전용 ── */
+  .total-track { position: relative; height: 34px; margin: 26px 0 6px; }
+  .total-bar { height: 34px; border-radius: 5px; display: flex; align-items: center;
+               padding-left: 11px; font-size: 13.5px; font-weight: 700; color: #0E1826;
+               white-space: nowrap; overflow: hidden; }
+  .total-need { position: absolute; top: -5px; bottom: -5px; width: 2px;
+                background: var(--text-primary); opacity: .9; }
+  .total-flag { position: absolute; top: -21px; font-size: 12px; font-weight: 600;
+                color: var(--text-primary); white-space: nowrap; }
+  .total-flag.before { transform: translateX(-100%); padding-right: 7px; }
+  .total-flag.after  { padding-left: 7px; }
+  .ledger { margin-top: 20px; }
+  .ledger-row { display: flex; justify-content: space-between; align-items: baseline;
+                gap: 10px; padding: 9px 0; font-size: 14.5px; }
+  .ledger-row.head { font-weight: 700; border-top: 1px solid var(--grid); }
+  .ledger-row.sub { font-size: 13px; color: var(--text-secondary); padding: 4px 0 4px 14px; }
+  .ledger-row .amt { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .ledger-row.sub .amt { font-weight: 600; }
+  .short-result { margin-top: 16px; padding: 15px 16px; border-radius: 9px; border: 1px solid;
+                  display: flex; justify-content: space-between; align-items: center;
+                  gap: 12px; flex-wrap: wrap; }
+  .short-result .k { font-size: 15px; font-weight: 700; }
+  .short-result .v { font-size: 24px; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
+  .short-result .m { flex-basis: 100%; font-size: 13.5px; line-height: 1.6; }
+  .sr-bad  { background: rgba(224,100,74,.13); border-color: rgba(224,100,74,.5); }
+  .sr-bad .k, .sr-bad .v { color: #FF8E70; } .sr-bad .m { color: #F3B2A2; }
+  .sr-good { background: rgba(127,217,174,.10); border-color: rgba(127,217,174,.45); }
+  .sr-good .k, .sr-good .v { color: var(--ok); } .sr-good .m { color: #A8E4C6; }
+  .faq details { border-bottom: 1px solid var(--grid); }
+  .faq details:last-child { border-bottom: 0; }
+  .faq summary { cursor: pointer; padding: 14px 0; font-size: 15px; font-weight: 700;
+                 list-style: none; min-height: 24px; -webkit-tap-highlight-color: transparent; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::before { content: "+ "; color: var(--gold); font-weight: 700; }
+  .faq details[open] summary::before { content: "− "; }
+  .faq details > div { padding: 0 0 14px 16px; font-size: 13.5px; line-height: 1.75;
+                       color: var(--text-secondary); }
+  .faq details > div b { color: var(--text-primary); }
+
+  .next-cta { display: block; padding: 15px 16px; border-radius: 9px;
+    background: rgba(201,162,75,.12); border: 1px solid rgba(201,162,75,.52);
+    text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .next-cta:active { background: rgba(201,162,75,.24); }
+  .next-cta .nc-t { display: block; font-size: 15.5px; font-weight: 700; color: var(--gold); line-height: 1.45; }
+  .next-cta .nc-s { display: block; margin-top: 6px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+  .next-cta .nc-s b { color: var(--text-primary); }
+  .next-cta .nc-a { display: block; margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--text-primary); }
+
+  /* ───────────── 홈페이지 공통 틀 ───────────── */
+  .shell { display: block; }
+  .side { margin-bottom: 18px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-bottom: 13px; }
+  .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #1B2A44; }
+  .brand-text b { display: block; font-size: 16.5px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; line-height: 1.25; }
+  .brand-text em { display: block; font-size: 11.5px; font-style: normal; color: var(--gold); margin-top: 2px; letter-spacing: .02em; }
+  .nav { display: flex; gap: 7px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+         margin: 0 0 4px; padding-bottom: 3px; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex: 0 0 auto; min-height: 42px; display: flex; align-items: center; padding: 0 14px;
+           border-radius: 8px; border: 1px solid var(--border); background: var(--panel-alt);
+           color: var(--text-secondary); font-size: 13.5px; font-weight: 600; text-decoration: none;
+           white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+  .nav a.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .side-contact { display: none; }
+  .side-contact:empty { display: none !important; }
+  .main { min-width: 0; }
+
+  .foot { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--border);
+          font-size: 12.5px; line-height: 1.75; color: var(--text-muted); }
+  .foot .fb { font-size: 14.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+  .foot a { color: var(--gold); }
+  .foot-links { margin: 10px 0 0; padding: 0; list-style: none; display: flex; gap: 8px 16px; flex-wrap: wrap; }
+  .foot-links a { font-weight: 600; }
+
+  @media (min-width: 1100px) {
+    .wrap { max-width: 1400px; }
+    .shell { display: grid; grid-template-columns: 246px minmax(0, 1fr); gap: 30px; align-items: start; }
+    .side { position: -webkit-sticky; position: sticky; top: 18px; margin-bottom: 0;
+            background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; }
+    .brand { margin-bottom: 16px; }
+    .brand-logo { width: 54px; height: 54px; }
+    .nav { flex-direction: column; overflow: visible; gap: 6px; margin: 0; padding: 0; }
+    .nav a { width: 100%; }
+    .side-contact:not(:empty) { display: block; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--border);
+                    font-size: 12.5px; line-height: 1.75; color: var(--text-muted); }
+    .side-contact .sb { font-size: 13px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 5px; }
+    .side-contact a { color: var(--gold); }
+    .main { max-width: 880px; }
+    .shell.wide .main { max-width: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="shell">
+  <aside class="side">
+    <a class="brand" href="https://kimsungjin0702.github.io/retire/">
+      <img class="brand-logo" src="data:image/webp;base64,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" alt="김성진의 보험경제" width="54" height="54" loading="eager" decoding="async" />
+      <span class="brand-text"><b>김성진의 보험경제</b><em>은퇴 · 연금 · 간병 설계</em></span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="https://kimsungjin0702.github.io/retire/">은퇴소득 시뮬레이터</a>
+      <a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a>
+      <a href="https://kimsungjin0702.github.io/retire/care/" class="on">간병·장기요양 계산기</a>
+    </nav>
+    <div class="side-contact" id="sideContact"></div>
+  </aside>
+  <main class="main">
+  <h1>간병·장기요양 비용 계산기</h1>
+  <p class="subtitle">노인장기요양보험 <b>재가급여</b>를 쓰면 한 달에 내 돈이 얼마나 나가는지, <b>공단이 내주지 않는 돈</b>은 얼마인지 2026년 기준으로 계산합니다.</p>
+  <p class="subtitle small">등급과 이용 형태만 고르시면 됩니다. 입력한 내용은 이 기기 밖으로 나가지 않습니다.
+    &nbsp;·&nbsp; <a href="https://kimsungjin0702.github.io/retire/">은퇴소득 시뮬레이터 →</a></p>
+
+  <div class="notice" id="jsBlockedNotice">
+    ⚠️ 자바스크립트가 실행되지 않아 계산이 되지 않는 상태입니다. 이 페이지를 <b>Chrome · Safari · 삼성인터넷</b>으로 열어 주세요.
+  </div>
+  <div class="err-banner" id="errBanner"></div>
+
+  <div class="answer" id="answer"><div class="k">계산 중</div><div class="v">—</div></div>
+
+  <div class="card">
+    <div class="card-title">내 상황 넣기</div>
+    <div class="card-sub">등급을 모르시면 짐작으로 고르셔도 됩니다. 등급에 따라 한 달에 쓸 수 있는 한도가 달라집니다.</div>
+
+    <div class="seg-label">장기요양등급</div>
+    <div class="seg-group" id="gradeBtns">
+      <button type="button" class="seg-btn" data-g="0">1등급</button>
+      <button type="button" class="seg-btn" data-g="1">2등급</button>
+      <button type="button" class="seg-btn on" data-g="2">3등급</button>
+      <button type="button" class="seg-btn" data-g="3">4등급</button>
+      <button type="button" class="seg-btn" data-g="4">5등급</button>
+      <button type="button" class="seg-btn" data-g="5">인지지원</button>
+    </div>
+    <div class="hint" id="gradeHint"></div>
+
+    <div class="seg-label" style="margin-top:18px">방문요양 — 요양보호사가 집으로 옵니다</div>
+    <div class="slider-row">
+      <div class="row-top">
+        <span class="label">일주일에 몇 번</span>
+        <span class="stepper">
+          <button type="button" class="step" data-t="visitDays" data-d="-1" aria-label="감소">−</button>
+          <span class="value" id="v-visitDays">주 3회</span>
+          <button type="button" class="step" data-t="visitDays" data-d="1" aria-label="증가">+</button>
+        </span>
+      </div>
+      <input type="range" id="visitDays" min="0" max="7" step="1" value="3" aria-label="방문요양 주 횟수" />
+    </div>
+    <div class="slider-row">
+      <div class="row-top">
+        <span class="label">한 번 오면 몇 시간</span>
+        <span class="stepper">
+          <button type="button" class="step" data-t="visitMin" data-d="-1" aria-label="감소">−</button>
+          <span class="value" id="v-visitMin">3시간</span>
+          <button type="button" class="step" data-t="visitMin" data-d="1" aria-label="증가">+</button>
+        </span>
+      </div>
+      <input type="range" id="visitMin" min="30" max="240" step="30" value="180" aria-label="방문요양 1회 시간" />
+      <div class="hint" id="visitHint"></div>
+    </div>
+
+    <div class="seg-label" style="margin-top:18px">주·야간보호 — 낮 동안 센터에서 모십니다</div>
+    <div class="slider-row">
+      <div class="row-top">
+        <span class="label">일주일에 몇 번</span>
+        <span class="stepper">
+          <button type="button" class="step" data-t="dayDays" data-d="-1" aria-label="감소">−</button>
+          <span class="value" id="v-dayDays">주 0회</span>
+          <button type="button" class="step" data-t="dayDays" data-d="1" aria-label="증가">+</button>
+        </span>
+      </div>
+      <input type="range" id="dayDays" min="0" max="7" step="1" value="0" aria-label="주야간보호 주 횟수" />
+    </div>
+    <div class="seg-label" style="margin-top:10px">하루 몇 시간 계시나</div>
+    <div class="seg-group" id="dayHourBtns">
+      <button type="button" class="seg-btn" data-h="3">3시간</button>
+      <button type="button" class="seg-btn" data-h="6">6시간</button>
+      <button type="button" class="seg-btn on" data-h="8">8시간</button>
+      <button type="button" class="seg-btn" data-h="10">10시간</button>
+      <button type="button" class="seg-btn" data-h="13">13시간</button>
+    </div>
+
+    <div class="seg-label" style="margin-top:18px">본인부담률</div>
+    <div class="seg-group" id="rateBtns">
+      <button type="button" class="seg-btn on" data-r="15">일반 15%</button>
+      <button type="button" class="seg-btn" data-r="9">감경 9%</button>
+      <button type="button" class="seg-btn" data-r="6">감경 6%</button>
+      <button type="button" class="seg-btn" data-r="0">수급자 0%</button>
+    </div>
+    <div class="hint">기초생활수급자는 <b>0%</b>, 소득과 재산이 낮으면 <b>6% 또는 9%</b>로 줄어듭니다. 해당되는지는 국민건강보험공단(1577-1000)에서 확인합니다.</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><div class="k">한 달 내 돈</div><div class="v" id="s-own" style="color:#E0644A">—</div><div class="s" id="s-own-sub"></div></div>
+    <div class="stat"><div class="k">공단이 내주는 돈</div><div class="v" id="s-nhis" style="color:#25AB78">—</div><div class="s" id="s-nhis-sub"></div></div>
+    <div class="stat"><div class="k">1년이면 내 돈</div><div class="v" id="s-year" style="color:#C9A24B">—</div><div class="s" id="s-year-sub"></div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">한 달 돈이 어떻게 나뉘나</div>
+    <div class="card-sub">막대가 이번 달 이용한 금액이고, <b>흰 세로선이 등급 한도</b>입니다. 선을 넘어간 만큼은 공단이 한 푼도 보태주지 않습니다.</div>
+    <div class="total-track" id="track"></div>
+    <div class="ledger" id="ledger"></div>
+    <div class="short-result" id="over"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">2026년 장기요양 등급별 재가급여 월 한도액</div>
+    <div class="card-sub">집에서 받는 서비스(방문요양·방문목욕·방문간호·주야간보호·단기보호)를 모두 합쳐 한 달에 이만큼까지만 공단이 부담합니다.</div>
+    <table id="limitTable">
+      <thead><tr><th>등급</th><th>어떤 상태인가</th><th class="num">월 한도액</th><th class="num">일반 본인부담(15%)</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="hint" style="margin-top:12px">복지용구(미끄럼방지 매트, 보행기, 전동침대 등)는 이 한도와 <b>별도로 연 160만원</b>까지 쓸 수 있고, 본인부담은 15%입니다.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">병원에 입원하면 이야기가 달라집니다</div>
+    <div class="card-sub">장기요양보험은 <b>집과 요양원</b>을 위한 제도입니다. 병원에 입원해서 간병인을 쓰는 비용은 여기서 <b>한 푼도 나오지 않습니다.</b></div>
+    <table>
+      <thead><tr><th>간병 형태</th><th class="num">하루</th><th class="num">한 달(30일)</th><th class="num">공단·건보 지원</th></tr></thead>
+      <tbody>
+        <tr><td>1:1 개인 간병 (수도권)</td><td class="num">150,000원</td><td class="num">450만원</td><td class="num" style="color:#E0644A">없음</td></tr>
+        <tr><td>공동 간병 (간병인 1명이 6명)</td><td class="num">35,000원</td><td class="num">105만원</td><td class="num" style="color:#E0644A">없음</td></tr>
+        <tr class="hl"><td>간호·간병 통합서비스 병동</td><td class="num">약 22,340원</td><td class="num">약 67만원</td><td class="num" style="color:#25AB78">건보 적용</td></tr>
+      </tbody>
+    </table>
+    <div class="hint" style="margin-top:12px">간병비는 2026년 수도권 시세 참고치입니다. 지역과 환자 상태에 따라 달라집니다. 간호·간병 통합서비스는 병동 수가 제한되어 원할 때 바로 들어가기 어려운 경우가 많습니다.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">오래 사는 것이 왜 위험이 되나</div>
+    <div class="card-sub">돈이 떨어지는 문제와 몸이 아픈 문제는 보통 <b>같은 시기에</b> 옵니다.</div>
+    <div class="points">
+      <div class="point"><h3>연금은 줄지 않지만</h3><p>국민연금과 종신연금은 죽을 때까지 같은 금액이 나옵니다. 그런데 간병이 시작되면 나가는 돈만 갑자기 늘어납니다.</p></div>
+      <div class="point"><h3>기간이 깁니다</h3><p>장기요양 인정을 받은 뒤 서비스를 이용하는 기간은 몇 달이 아니라 몇 년 단위입니다. 한 달 부담이 작아도 누적되면 금액이 커집니다.</p></div>
+      <div class="point"><h3>가족의 소득도 멈춥니다</h3><p>자녀가 간병을 맡으면 간병비는 아끼지만 그만큼 일을 못 합니다. 눈에 안 보이는 가장 큰 비용입니다.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">자주 묻는 질문</div>
+    <div class="faq">
+      <details><summary>장기요양등급은 어떻게 신청하나요?</summary><div>국민건강보험공단 지사나 <b>The건강보험</b> 앱, 1577-1000으로 신청합니다. 공단 직원이 집으로 방문해 조사하고, 의사소견서를 받아 등급판정위원회에서 등급을 정합니다. 신청부터 결과까지 보통 30일 안팎이 걸립니다.</div></details>
+      <details><summary>등급 없이도 방문요양을 받을 수 있나요?</summary><div>등급이 없으면 장기요양보험 급여를 쓸 수 없습니다. 전액 본인 부담으로 민간 돌봄서비스를 이용하거나, 지자체 노인돌봄 사업을 알아보셔야 합니다.</div></details>
+      <details><summary>한도를 넘기면 어떻게 되나요?</summary><div>한도 안쪽은 공단이 85%를 부담하지만, 넘어간 금액은 <b>100% 본인 부담</b>입니다. 방문요양과 주야간보호를 같이 쓰실 때는 한 달 합계가 한도를 넘지 않는지 미리 계산해 보셔야 합니다.</div></details>
+      <details><summary>요양원(시설급여)은 얼마나 드나요?</summary><div>2026년 기준 1등급은 하루 93,070원, 2등급 86,340원, 3~5등급 81,540원이고 본인부담은 <b>20%</b>입니다. 30일이면 1등급 기준 약 279만원 중 56만원 정도가 본인 부담입니다. 여기에 식사재료비·간식비·이미용비·상급침실료 같은 <b>비급여가 따로</b> 붙어 월 40만~60만원이 더 들어갑니다.</div></details>
+      <details><summary>가족이 직접 돌보면 돈이 나오나요?</summary><div>섬·벽지처럼 장기요양기관이 없는 지역 등 일정 요건을 갖추면 <b>가족요양비</b>로 2026년 기준 월 240,450원이 나옵니다. 금액이 크지 않아 실제 간병 비용을 메우기는 어렵습니다. 가족이 요양보호사 자격을 따서 <b>가족요양</b>으로 급여를 받는 방법은 별도의 조건이 있으니 공단에 확인하셔야 합니다.</div></details>
+      <details><summary>2026년에 달라진 점이 있나요?</summary><div>장기요양보험료율이 소득의 0.9448%로 올랐고, 급여비용은 평균 2.95% 인상됐습니다. 1·2등급 중증 수급자는 방문요양에 시간당 2,000원(하루 최대 6,000원) 가산이 붙고, 방문간호는 처음 3회 본인부담이 면제됩니다. 가족휴가제 단기보호는 연 12일, 종일방문요양은 연 24회로 늘었습니다.</div></details>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">다음으로 보실 것</div>
+    <a class="next-cta" href="https://kimsungjin0702.github.io/retire/">
+      <span class="nc-t">내 노후자금, 예상 수명까지 버틸까?</span>
+      <span class="nc-s">국민연금·퇴직연금·주택연금을 다 넣고 <b>몇 살에 돈이 떨어지는지</b> 봅니다. 간병이 시작되는 나이도 같이 넣어 계산합니다.</span>
+      <span class="nc-a">은퇴소득 통합 시뮬레이터 열기 →</span>
+    </a>
+    <a class="next-cta" href="https://kimsungjin0702.github.io/retire/annuity/" style="margin-top:12px">
+      <span class="nc-t">평생 나오는 돈을 얼마나 만들어 둘까?</span>
+      <span class="nc-s">매달 얼마를 넣으면 죽을 때까지 월 얼마가 나오는지 계산합니다.</span>
+      <span class="nc-a">개인 연금보험 수령액 계산기 열기 →</span>
+    </a>
+  </div>
+
+  <div class="disclaimer">
+    <h2>계산 기준과 한계</h2>
+    <ul>
+      <li>2026년 노인장기요양보험 <b>급여비용(수가)과 등급별 월 한도액</b>을 기준으로 계산했습니다. 금액은 매년 1월에 고시로 바뀝니다.</li>
+      <li>한 달 이용 횟수는 <b>일주일 횟수 × 4.345주</b>로 환산해 반올림했습니다. 실제 청구는 그 달의 실제 이용일 기준이므로 1~2회 차이가 날 수 있습니다.</li>
+      <li>1·2등급 중증 가산, 야간·휴일 가산, 방문목욕·방문간호·단기보호는 계산에 넣지 않았습니다. 실제 금액은 이보다 늘어날 수 있습니다.</li>
+      <li>주·야간보호의 식사·간식비는 기관마다 달라 <b>하루 6,000원으로 가정한 추정치</b>입니다.</li>
+      <li>간병비는 2026년 수도권 시세 참고치이며 공시 가격이 아닙니다.</li>
+      <li>복지용구(연 160만원 한도)와 시설급여(요양원)는 계산에 들어가지 않습니다.</li>
+    </ul>
+    <p class="line">이 도구는 장기요양 비용을 가늠해 보기 위한 <b>일반 정보 제공용 참고 자료</b>이며, 특정 금융상품의 권유나 가입 안내가 아닙니다. 정확한 등급·한도·본인부담금은 국민건강보험공단(1577-1000) 또는 노인장기요양보험 누리집에서 확인하시기 바랍니다.</p>
+  </div>
+
+  <div class="diag" id="diag">—</div>
+  <footer class="foot">
+    <span class="fb">김성진의 보험경제</span>
+    CFP(국제공인재무설계사) · 보험업 20년<br />
+    은퇴설계 · 연금 · 장기요양(간병) 상담
+    <div id="footContact"></div>
+    <ul class="foot-links">
+      <li><a href="https://kimsungjin0702.github.io/retire/">은퇴소득 시뮬레이터</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a></li>
+    </ul>
+    <p style="margin:12px 0 0">이 사이트의 계산 결과는 이해를 돕기 위한 일반 정보이며, 특정 금융상품의 권유나 가입 안내가 아닙니다.
+      실제 수령액과 급여는 해당 기관과 상품 약관에 따릅니다.</p>
+  </footer>
+  </main>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  function showError(msg) {
+    try {
+      var b = document.getElementById("errBanner");
+      if (!b) return;
+      b.style.display = "block";
+      b.innerHTML = "⚠️ 화면 오류가 발생했습니다<br>" + String(msg);
+    } catch (e) {}
+  }
+  window.onerror = function (msg, src, line, col) {
+    showError(msg + " (" + line + ":" + col + ")"); return false;
+  };
+
+  try {
+
+  /* ── 2026년 노인장기요양보험 기준값 ───────────────────────────────
+     월 한도액·수가는 보건복지부 고시 기준, 간병비는 수도권 시세 참고치 */
+  var GRADES = ["1등급", "2등급", "3등급", "4등급", "5등급", "인지지원등급"];
+  var LIMIT  = [2512900, 2331200, 1528200, 1409700, 1208900, 676320];
+  var GSTATE = [
+    "거의 모든 일상생활에 도움이 필요한 상태 (인정점수 95점 이상)",
+    "상당 부분 도움이 필요한 상태 (75~95점)",
+    "부분적으로 도움이 필요한 상태 (60~75점)",
+    "일정 부분 도움이 필요한 상태 (51~60점)",
+    "치매가 있고 45~51점인 상태",
+    "치매가 있으나 45점 미만인 상태"
+  ];
+  var GHINT = [
+    "거의 모든 일상생활에 도움이 필요한 상태입니다. 요양원 입소도 가능합니다.",
+    "상당 부분 도움이 필요한 상태입니다. 요양원 입소도 가능합니다.",
+    "부분적으로 도움이 필요한 상태입니다. 요양원은 조건이 맞아야 들어갑니다.",
+    "일정 부분 도움이 필요한 상태입니다. 집에서 받는 서비스가 중심입니다.",
+    "치매가 있는 분께 주는 등급입니다. 집에서 받는 서비스가 중심입니다.",
+    "치매가 있으나 점수가 낮은 분께 주는 등급입니다. <b>주·야간보호와 복지용구 중심</b>으로 이용하며, 방문요양을 쓸 수 있는지는 공단에 확인하셔야 합니다. 요양원 입소는 되지 않습니다."
+  ];
+
+  // 방문요양 1회 급여비용 (분 → 원)
+  var VISIT = { 30:17450, 60:25320, 90:34120, 120:43430, 150:50640, 180:57020, 210:63530, 240:70080 };
+  // 주·야간보호 1일 급여비용 [1,2,3,4,5,인지] (시간 → 등급별)
+  var DAYC = {
+    3:  [41820, 38720, 35740, 34120, 32490, 32490],
+    6:  [56060, 51930, 47940, 46300, 44650, 44650],
+    8:  [69730, 64590, 59640, 58010, 56360, 56360],
+    10: [76820, 71160, 65750, 64090, 62460, 56360],
+    13: [82370, 76310, 70500, 68860, 67240, 56360]
+  };
+  var MEAL_PER_DAY = 6000;   // 주야간보호 식사·간식비 추정
+  var WEEKS = 4.345;
+
+  var grade = 2, dayHour = 8, rate = 15;
+
+  function $(id) { return document.getElementById(id); }
+  function comma(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function won(n) { return comma(n) + "원"; }
+  function manwon(n) {
+    var m = n / 10000;
+    if (m >= 1000) return (m / 10000 >= 1 ? (m / 10000).toFixed(2) + "억원" : comma(Math.round(m)) + "만원");
+    return comma(Math.round(m)) + "만원";
+  }
+  function hourLabel(min) {
+    if (min < 60) return min + "분";
+    var h = Math.floor(min / 60), m = min % 60;
+    return h + "시간" + (m ? " " + m + "분" : "");
+  }
+
+  /* ── 핵심 계산 ──────────────────────────────────────────────── */
+  function compute() {
+    var vDays = Number($("visitDays").value);
+    var vMin  = Number($("visitMin").value);
+    var dDays = Number($("dayDays").value);
+
+    var vCount = Math.round(vDays * WEEKS);
+    var dCount = Math.round(dDays * WEEKS);
+
+    var vCost = (VISIT[vMin] || 0) * vCount;
+    var dCost = (DAYC[dayHour] ? DAYC[dayHour][grade] : 0) * dCount;
+    var total = vCost + dCost;
+
+    var limit  = LIMIT[grade];
+    var inside = Math.min(total, limit);
+    var over   = Math.max(0, total - limit);
+
+    var ownInside = Math.round(inside * rate / 100);
+    var nhis      = inside - ownInside;
+    var meal      = dCount * MEAL_PER_DAY;
+    var own       = ownInside + over + meal;
+
+    return { vDays:vDays, vMin:vMin, dDays:dDays, vCount:vCount, dCount:dCount,
+             vCost:vCost, dCost:dCost, total:total, limit:limit, inside:inside,
+             over:over, ownInside:ownInside, nhis:nhis, meal:meal, own:own };
+  }
+
+  /* ── 화면 그리기 ────────────────────────────────────────────── */
+  function render() {
+    var r = compute();
+
+    $("v-visitDays").textContent = "주 " + r.vDays + "회";
+    $("v-visitMin").textContent  = hourLabel(r.vMin);
+    $("v-dayDays").textContent   = "주 " + r.dDays + "회";
+    $("gradeHint").innerHTML     = GHINT[grade];
+    $("visitHint").innerHTML     = r.vDays === 0 ? "방문요양을 쓰지 않는 경우입니다."
+      : "1회 " + hourLabel(r.vMin) + " × 주 " + r.vDays + "회 → 한 달 약 <b>" + r.vCount + "회</b>, 1회 급여비용 " + won(VISIT[r.vMin]);
+
+    // 큰 답
+    var a = $("answer");
+    if (r.total === 0) {
+      a.className = "answer";
+      a.innerHTML = '<div class="k">이용 계획을 넣어 주세요</div><div class="v">—</div>' +
+        '<div class="s">방문요양이나 주·야간보호를 주 몇 회 쓰실지 고르시면 한 달 비용이 바로 나옵니다.</div>';
+    } else {
+      a.className = "answer" + (r.over > 0 ? " warn" : "");
+      a.innerHTML =
+        '<div class="k">' + GRADES[grade] + ' · 한 달에 내 돈으로 나가는 돈</div>' +
+        '<div class="v">' + comma(r.own) + '<span class="u">원</span></div>' +
+        '<div class="s">공단이 ' + won(r.nhis) + '을 내주고, 나머지를 본인이 부담합니다.' +
+        (r.over > 0 ? ' <b style="color:#FF8E70">한도를 ' + won(r.over) + ' 넘겨 그만큼은 전액 본인 부담입니다.</b>' : '') +
+        '</div>';
+    }
+
+    $("s-own").textContent = won(r.own);
+    $("s-own-sub").textContent = r.own ? manwon(r.own) + " 정도" : "";
+    $("s-nhis").textContent = won(r.nhis);
+    $("s-nhis-sub").textContent = r.total ? "전체 이용액의 " + Math.round(r.nhis / (r.total + r.meal) * 100) + "%" : "";
+    $("s-year").textContent = manwon(r.own * 12);
+    $("s-year-sub").textContent = r.own ? "한 달 " + manwon(r.own) + " × 12개월" : "";
+
+    // 막대 — 이용액 대 한도
+    var t = $("track");
+    var tw = t.clientWidth || 300;
+    var max = Math.max(r.total, r.limit) * 1.1;
+    var barW = max > 0 ? Math.max(4, Math.round(r.total / max * tw)) : 4;
+    var limX = max > 0 ? Math.round(r.limit / max * tw) : 0;
+    var side = limX >= 150 ? "before" : "after";
+    t.innerHTML =
+      '<div class="total-bar" style="width:' + barW + 'px;background:' + (r.over > 0 ? '#E0644A' : '#25AB78') + '">' +
+        (barW >= 170 ? "이번 달 이용액 " + won(r.total) : (barW >= 92 ? won(r.total) : "")) + '</div>' +
+      '<span class="total-need" style="left:' + limX + 'px"></span>' +
+      '<span class="total-flag ' + side + '" style="left:' + limX + 'px">' + GRADES[grade] + ' 한도 ' + won(r.limit) + '</span>';
+
+    // 장부
+    var L = '';
+    L += '<div class="ledger-row head"><span>이번 달 서비스 이용액</span><span class="amt">' + won(r.total) + '</span></div>';
+    if (r.vCost) L += '<div class="ledger-row sub"><span>방문요양 ' + hourLabel(r.vMin) + ' × ' + r.vCount + '회</span><span class="amt">' + won(r.vCost) + '</span></div>';
+    if (r.dCost) L += '<div class="ledger-row sub"><span>주·야간보호 ' + dayHour + '시간 × ' + r.dCount + '일</span><span class="amt">' + won(r.dCost) + '</span></div>';
+    L += '<div class="ledger-row head"><span>공단이 내주는 돈</span><span class="amt" style="color:#7FD9AE">' + won(r.nhis) + '</span></div>';
+    L += '<div class="ledger-row sub"><span>한도 안쪽 ' + won(r.inside) + ' 중 ' + (100 - rate) + '%</span><span class="amt">' + won(r.nhis) + '</span></div>';
+    L += '<div class="ledger-row head"><span>내가 내는 돈</span><span class="amt" style="color:#FF8E70">' + won(r.own) + '</span></div>';
+    L += '<div class="ledger-row sub"><span>본인부담금 (한도 안쪽의 ' + rate + '%)</span><span class="amt">' + won(r.ownInside) + '</span></div>';
+    if (r.over)  L += '<div class="ledger-row sub"><span>한도 초과분 (전액 본인 부담)</span><span class="amt">' + won(r.over) + '</span></div>';
+    if (r.meal)  L += '<div class="ledger-row sub"><span>주·야간보호 식사·간식비 (비급여, 추정)</span><span class="amt">' + won(r.meal) + '</span></div>';
+    $("ledger").innerHTML = L;
+
+    // 한 줄 진단
+    var o = $("over");
+    if (r.total === 0) {
+      o.className = "short-result"; o.innerHTML = '';
+      o.style.display = "none";
+    } else if (r.over > 0) {
+      o.style.display = ""; o.className = "short-result sr-bad";
+      o.innerHTML = '<span class="k">한도를 넘긴 금액</span><span class="v">' + won(r.over) + '</span>' +
+        '<span class="m">이 금액은 공단이 한 푼도 보태주지 않습니다. 횟수나 시간을 줄이거나, 그만큼을 따로 준비해 두셔야 합니다.</span>';
+    } else {
+      o.style.display = ""; o.className = "short-result sr-good";
+      var left = r.limit - r.total;
+      o.innerHTML = '<span class="k">한도까지 남은 금액</span><span class="v">' + won(left) + '</span>' +
+        '<span class="m">아직 여유가 있습니다. 방문목욕·방문간호·단기보호를 더 쓰셔도 한도 안에서 공단이 ' + (100 - rate) + '%를 부담합니다.</span>';
+    }
+
+    $("diag").textContent = "정상 작동 중 · 화면폭 " + window.innerWidth + "px · 2026년 기준 · v1";
+  }
+
+  /* ── 등급별 한도표 ─────────────────────────────────────────── */
+  function drawTable() {
+    var h = '', i;
+    for (i = 0; i < GRADES.length; i++) {
+      h += '<tr' + (i === grade ? ' class="hl"' : '') + '>' +
+           '<td>' + GRADES[i] + '</td><td style="font-size:13px;color:var(--text-secondary)">' + GSTATE[i] + '</td>' +
+           '<td class="num">' + won(LIMIT[i]) + '</td>' +
+           '<td class="num">' + won(Math.round(LIMIT[i] * 0.15)) + '</td></tr>';
+    }
+    $("limitTable").getElementsByTagName("tbody")[0].innerHTML = h;
+  }
+
+  /* ── 입력 연결 ─────────────────────────────────────────────── */
+  function redraw() { render(); drawTable(); }
+
+  var sliders = ["visitDays", "visitMin", "dayDays"], si;
+  function bind(el) {
+    el.addEventListener("input", redraw, false);
+    el.addEventListener("change", redraw, false);
+    el.addEventListener("wheel", function (ev) {
+      if (document.activeElement !== el) return;
+      var st = Number(el.getAttribute("step")) || 1;
+      var mn = Number(el.getAttribute("min")), mx = Number(el.getAttribute("max"));
+      var cur = Number(el.value), nx = cur + (ev.deltaY < 0 ? st : -st);
+      if (nx < mn) nx = mn; if (nx > mx) nx = mx;
+      if (nx === cur) return;
+      el.value = nx; redraw(); ev.preventDefault();
+    }, { passive: false });
+  }
+  for (si = 0; si < sliders.length; si++) bind($(sliders[si]));
+
+  var steps = document.getElementsByClassName("step"), k;
+  function bindStep(b) {
+    b.addEventListener("click", function () {
+      var el = $(b.getAttribute("data-t"));
+      var st = Number(el.getAttribute("step")) || 1;
+      var d  = Number(b.getAttribute("data-d"));
+      var mn = Number(el.getAttribute("min")), mx = Number(el.getAttribute("max"));
+      var nx = Number(el.value) + d * st;
+      if (nx < mn) nx = mn; if (nx > mx) nx = mx;
+      el.value = nx; redraw();
+    }, false);
+  }
+  for (k = 0; k < steps.length; k++) bindStep(steps[k]);
+
+  function bindSeg(wrapId, attr, setter) {
+    var btns = $(wrapId).getElementsByTagName("button"), j;
+    function bb(b) {
+      b.addEventListener("click", function () {
+        var all = $(wrapId).getElementsByTagName("button"), q;
+        for (q = 0; q < all.length; q++) all[q].className = "seg-btn";
+        b.className = "seg-btn on";
+        setter(Number(b.getAttribute(attr)));
+        redraw();
+      }, false);
+    }
+    for (j = 0; j < btns.length; j++) bb(btns[j]);
+  }
+  bindSeg("gradeBtns",   "data-g", function (v) { grade = v; });
+  bindSeg("dayHourBtns", "data-h", function (v) { dayHour = v; });
+  bindSeg("rateBtns",    "data-r", function (v) { rate = v; });
+
+  var rt = null, lastW = window.innerWidth;
+  window.addEventListener("resize", function () {
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    if (rt) clearTimeout(rt); rt = setTimeout(render, 180);
+  }, false);
+  window.addEventListener("orientationchange", function () { setTimeout(render, 300); }, false);
+
+  redraw();
+  var n = $("jsBlockedNotice"); if (n && n.parentNode) n.parentNode.removeChild(n);
+
+  } catch (err) { showError((err && err.message) ? err.message : String(err)); }
+})();
+</script>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   연락처 설정 — 아래 따옴표 안의 값만 바꾸면 모든 페이지에 반영됩니다.
+   비워 두면 그 줄은 화면에 나오지 않습니다.
+   ───────────────────────────────────────────────────────────── */
+var CONTACT = {
+  tel:     "010-2142-0193",
+  kakao:   "https://open.kakao.com/o/sr9z0Zqi",
+  youtube: "https://www.youtube.com/@%EA%B9%80%EC%84%B1%EC%A7%84%EC%9D%98%EB%B3%B4%ED%97%98%EA%B2%BD%EC%A0%9C",
+  blog:    ""                  /* 블로그 주소가 생기면 여기에 */
+};
+(function () {
+  try {
+    var rows = [];
+    if (CONTACT.tel)     rows.push('<a href="tel:' + CONTACT.tel.replace(/[^0-9+]/g, "") + '">' + CONTACT.tel + '</a>');
+    if (CONTACT.kakao)   rows.push('<a href="' + CONTACT.kakao + '" target="_blank" rel="noopener">카카오톡 상담</a>');
+    if (CONTACT.youtube) rows.push('<a href="' + CONTACT.youtube + '" target="_blank" rel="noopener">유튜브 채널</a>');
+    if (CONTACT.blog)    rows.push('<a href="' + CONTACT.blog + '" target="_blank" rel="noopener">블로그</a>');
+    if (!rows.length) return;
+    var s = document.getElementById("sideContact");
+    if (s) { s.innerHTML = '<span class="sb">상담 문의</span>' + rows.join("<br />"); }
+    var f = document.getElementById("footContact");
+    if (f) { f.innerHTML = '<div style="margin-top:8px">' + rows.join(' &nbsp;·&nbsp; ') + '</div>'; }
+  } catch (e) {}
+})();
+</script>
+
+<script>
+(function () {
+  try {
+    var nav = document.querySelector(".nav"), on = nav && nav.querySelector("a.on");
+    if (!nav || !on) return;
+    if (nav.scrollWidth > nav.clientWidth + 4) {
+      nav.scrollLeft = Math.max(0, on.offsetLeft - 12);
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

@@ -9,17 +9,35 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="은퇴 시뮬레이터" />
 <meta name="format-detection" content="telephone=no" />
-<title>은퇴소득 통합 시뮬레이터 — 내 노후, 몇 살까지 버틸까</title>
-<meta name="description" content="국민연금·퇴직연금·개인연금·직역연금·주택연금을 한 화면에 넣고, 예상 수명까지 얼마가 모자라는지 바로 계산합니다. 설치 없이 무료로 쓰는 노후자금 계산기." />
+<title>은퇴소득 통합 시뮬레이터 | 국민연금·퇴직연금·주택연금 노후자금 계산기 — 김성진의 보험경제</title>
+<meta name="description" content="국민연금·퇴직연금·개인연금·직역연금·주택연금을 한 화면에 넣고 예상 수명까지 노후자금이 얼마나 모자라는지 계산합니다. 은퇴 준비와 노후 준비를 점검하는 무료 계산기 — 김성진의 보험경제." />
 <meta name="author" content="김성진의 보험경제" />
 <meta name="robots" content="index,follow" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="김성진의 보험경제" />
-<meta property="og:title" content="은퇴소득 통합 시뮬레이터 — 내 노후, 몇 살까지 버틸까" />
+<meta property="og:title" content="은퇴소득 통합 시뮬레이터 | 노후자금이 몇 살까지 버티는지 바로 계산" />
 <meta property="og:description" content="연금과 모아둔 돈으로 예상 수명까지 버틸 수 있는지, 모자라면 얼마인지 한 화면에서 확인하세요." />
 <meta property="og:locale" content="ko_KR" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230E1826'/%3E%3Crect x='12' y='34' width='8' height='18' rx='2' fill='%2325AB78'/%3E%3Crect x='28' y='24' width='8' height='28' rx='2' fill='%235E82D7'/%3E%3Crect x='44' y='14' width='8' height='38' rx='2' fill='%23C9A24B'/%3E%3C/svg%3E" />
+<link rel="canonical" href="https://kimsungjin0702.github.io/retire/" />
+<meta name="keywords" content="연금,은퇴,노후준비,노후자금,간병,재가급여,장기요양,국민연금,퇴직연금,개인연금,주택연금,은퇴설계" />
+<meta property="og:url" content="https://kimsungjin0702.github.io/retire/" />
+<meta property="og:image" content="https://kimsungjin0702.github.io/retire/og.jpg" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="600" />
+<meta name="twitter:image" content="https://kimsungjin0702.github.io/retire/og.jpg" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"김성진의 보험경제","url":"https://kimsungjin0702.github.io/retire/",
+"inLanguage":"ko-KR","publisher":{"@type":"Organization","name":"김성진의 보험경제","url":"https://kimsungjin0702.github.io/retire/","logo":"https://kimsungjin0702.github.io/retire/og.jpg"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"은퇴소득 통합 시뮬레이터",
+"applicationCategory":"FinanceApplication","operatingSystem":"Web","inLanguage":"ko-KR",
+"url":"https://kimsungjin0702.github.io/retire/","description":"국민연금·퇴직연금·개인연금·직역연금·주택연금과 보유 자산을 넣어 예상 수명까지의 노후자금 부족액을 계산하는 은퇴설계 시뮬레이터.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+"author":{"@type":"Organization","name":"김성진의 보험경제"}}
+</script>
 <style>
   :root {
     --bg: #0E1826;
@@ -439,10 +457,82 @@
     }
     .stat-card { flex: 1 1 100%; }
   }
+
+  /* ───────────── 홈페이지 공통 틀 ───────────── */
+  .shell { display: block; }
+  .side { margin-bottom: 18px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-bottom: 13px; }
+  .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #1B2A44; }
+  .brand-text b { display: block; font-size: 16.5px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; line-height: 1.25; }
+  .brand-text em { display: block; font-size: 11.5px; font-style: normal; color: var(--gold); margin-top: 2px; letter-spacing: .02em; }
+  .nav { display: flex; gap: 7px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+         margin: 0 0 4px; padding-bottom: 3px; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex: 0 0 auto; min-height: 42px; display: flex; align-items: center; padding: 0 14px;
+           border-radius: 8px; border: 1px solid var(--border); background: var(--panel-alt);
+           color: var(--text-secondary); font-size: 13.5px; font-weight: 600; text-decoration: none;
+           white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+  .nav a.on { background: var(--gold); border-color: var(--gold); color: #0E1826; }
+  .side-contact { display: none; }
+  .side-contact:empty { display: none !important; }
+  .main { min-width: 0; }
+
+  .foot { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--border);
+          font-size: 12.5px; line-height: 1.75; color: var(--text-muted); }
+  .foot .fb { font-size: 14.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+  .foot a { color: var(--gold); }
+  .foot-links { margin: 10px 0 0; padding: 0; list-style: none; display: flex; gap: 8px 16px; flex-wrap: wrap; }
+  .foot-links a { font-weight: 600; }
+
+  @media (min-width: 1100px) {
+    .wrap { max-width: 1400px; }
+    .shell { display: grid; grid-template-columns: 246px minmax(0, 1fr); gap: 30px; align-items: start; }
+    .side { position: -webkit-sticky; position: sticky; top: 18px; margin-bottom: 0;
+            background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; }
+    .brand { margin-bottom: 16px; }
+    .brand-logo { width: 54px; height: 54px; }
+    .nav { flex-direction: column; overflow: visible; gap: 6px; margin: 0; padding: 0; }
+    .nav a { width: 100%; }
+    .side-contact:not(:empty) { display: block; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--border);
+                    font-size: 12.5px; line-height: 1.75; color: var(--text-muted); }
+    .side-contact .sb { font-size: 13px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 5px; }
+    .side-contact a { color: var(--gold); }
+    .main { max-width: 880px; }
+    .shell.wide .main { max-width: none; }
+  }
+
+  .hub { display: grid; gap: 10px; }
+  @media (min-width: 760px) { .hub { grid-template-columns: repeat(3, 1fr); } }
+  .hub-i { display: block; padding: 14px 15px; border-radius: 9px; background: var(--panel-alt);
+           border: 1px solid var(--border); text-decoration: none;
+           -webkit-tap-highlight-color: transparent; }
+  .hub-i:active { border-color: var(--gold); }
+  .hub-i b { display: block; font-size: 15px; font-weight: 700; color: var(--gold); line-height: 1.45; margin-bottom: 6px; }
+  .hub-i span { display: block; font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
+  .prose { margin-top: 14px; }
+  .prose h2 { font-size: 16px; font-weight: 700; color: var(--text-primary); margin: 18px 0 7px; }
+  .prose h2:first-child { margin-top: 0; }
+  .prose p { font-size: 14px; line-height: 1.8; color: var(--text-secondary); margin: 0 0 10px; }
+  .prose p b { color: var(--text-primary); }
+
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="shell wide">
+  <aside class="side">
+    <a class="brand" href="https://kimsungjin0702.github.io/retire/">
+      <img class="brand-logo" src="data:image/webp;base64,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" alt="김성진의 보험경제" width="54" height="54" loading="eager" decoding="async" />
+      <span class="brand-text"><b>김성진의 보험경제</b><em>은퇴 · 연금 · 간병 설계</em></span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="https://kimsungjin0702.github.io/retire/" class="on">은퇴소득 시뮬레이터</a>
+      <a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a>
+      <a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a>
+    </nav>
+    <div class="side-contact" id="sideContact"></div>
+  </aside>
+  <main class="main">
   <h1>은퇴소득 통합 시뮬레이터</h1>
   <p class="subtitle">국민연금·퇴직연금·개인연금·직역연금·주택연금을 하나의 흐름으로 — 소득 공백과 간병 리스크까지 한 화면에서 진단합니다</p>
   <p class="subtitle" style="color:var(--text-muted)">아는 숫자만 넣어 보세요. 빈칸이 있어도 결과는 나옵니다. 입력한 내용은 <b>이 기기 밖으로 나가지 않습니다.</b></p>
@@ -827,6 +917,28 @@
     </div>
   </div>
 
+  <div class="card">
+    <div class="card-title">이 사이트에서 할 수 있는 것</div>
+    <div class="card-sub">은퇴 준비는 <b>얼마가 모자라나 → 어떻게 메우나 → 아플 때는 어떻게 되나</b> 순서로 보시면 쉽습니다. 세 가지를 각각 계산해 드립니다.</div>
+    <div class="hub">
+      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/"><b>① 노후자금이 몇 살까지 버티나</b><span>국민연금·퇴직연금·개인연금·직역연금·주택연금과 모아둔 돈을 한 화면에 넣고, 예상 수명까지 얼마가 모자라는지 계산합니다. (지금 보고 계신 화면)</span></a>
+      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/annuity/"><b>② 평생 나오는 돈을 얼마나 만들어 둘까</b><span>매달 얼마를 넣으면 죽을 때까지 월 얼마가 나오는지, 목표 금액을 받으려면 보험료가 얼마인지 계산합니다.</span></a>
+      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/care/"><b>③ 간병이 시작되면 돈이 얼마나 드나</b><span>2026년 노인장기요양보험 등급별 재가급여 월 한도액과 본인부담금, 방문요양·주야간보호 비용, 병원 간병비를 계산합니다.</span></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">은퇴 준비, 어디부터 봐야 할까</div>
+    <div class="prose">
+      <h2>① 소득 공백기 — 퇴직과 국민연금 사이의 몇 년</h2>
+      <p>대부분 60세 전후에 소득이 끊기지만 <b>국민연금은 65세부터</b> 나옵니다. 그 사이 몇 년은 들어오는 돈 없이 생활비만 나가는 기간입니다. 이 기간을 퇴직연금이나 모아둔 돈으로 버티고 나면, 정작 연금이 시작될 때 쓸 돈이 이미 줄어 있는 경우가 많습니다. 노후 준비의 첫 번째 질문은 <b>“이 공백이 몇 년이고, 그동안 얼마가 나가는가”</b>입니다.</p>
+      <h2>② 장수 리스크 — 돈보다 오래 사는 문제</h2>
+      <p>지금 60세인 분의 기대여명은 여든 중반이고, <b>절반은 그보다 더 오래 삽니다.</b> 모아둔 돈은 쓰면 없어지지만 국민연금과 종신형 개인연금은 죽을 때까지 나옵니다. 그래서 은퇴설계에서는 자산의 총액보다 <b>평생 나오는 돈이 생활비의 몇 퍼센트를 덮는가</b>를 먼저 봅니다. 모자라는 부분을 개인연금이나 주택연금으로 어떻게 메울지가 그다음 질문입니다.</p>
+      <h2>③ 간병 리스크 — 가장 늦게 오고 가장 큰 돈</h2>
+      <p>노인장기요양보험은 집에서 받는 <b>재가급여</b>와 요양원 <b>시설급여</b>를 지원하지만, 등급별 월 한도가 있고 한도를 넘긴 금액은 전액 본인 부담입니다. <b>병원에 입원해 간병인을 쓰는 비용은 아예 지원되지 않습니다.</b> 연금은 그대로인데 나가는 돈만 갑자기 늘어나는 시기여서, 노후 준비에서 가장 늦게 생각하지만 금액은 가장 큰 항목입니다.</p>
+    </div>
+  </div>
+
   <div class="disclaimer">
     <h2>계산 기준과 한계</h2>
     <ul>
@@ -841,6 +953,21 @@
   </div>
 
   <div class="diag" id="diag">—</div>
+  <footer class="foot">
+    <span class="fb">김성진의 보험경제</span>
+    CFP(국제공인재무설계사) · 보험업 20년<br />
+    은퇴설계 · 연금 · 장기요양(간병) 상담
+    <div id="footContact"></div>
+    <ul class="foot-links">
+      <li><a href="https://kimsungjin0702.github.io/retire/">은퇴소득 시뮬레이터</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a></li>
+    </ul>
+    <p style="margin:12px 0 0">이 사이트의 계산 결과는 이해를 돕기 위한 일반 정보이며, 특정 금융상품의 권유나 가입 안내가 아닙니다.
+      실제 수령액과 급여는 해당 기관과 상품 약관에 따릅니다.</p>
+  </footer>
+  </main>
+  </div>
 </div>
 
 <script>
@@ -1796,6 +1923,45 @@
   } catch (err) {
     showError((err && err.message) ? err.message : String(err));
   }
+})();
+</script>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   연락처 설정 — 아래 따옴표 안의 값만 바꾸면 모든 페이지에 반영됩니다.
+   비워 두면 그 줄은 화면에 나오지 않습니다.
+   ───────────────────────────────────────────────────────────── */
+var CONTACT = {
+  tel:     "010-2142-0193",
+  kakao:   "https://open.kakao.com/o/sr9z0Zqi",
+  youtube: "https://www.youtube.com/@%EA%B9%80%EC%84%B1%EC%A7%84%EC%9D%98%EB%B3%B4%ED%97%98%EA%B2%BD%EC%A0%9C",
+  blog:    ""                  /* 블로그 주소가 생기면 여기에 */
+};
+(function () {
+  try {
+    var rows = [];
+    if (CONTACT.tel)     rows.push('<a href="tel:' + CONTACT.tel.replace(/[^0-9+]/g, "") + '">' + CONTACT.tel + '</a>');
+    if (CONTACT.kakao)   rows.push('<a href="' + CONTACT.kakao + '" target="_blank" rel="noopener">카카오톡 상담</a>');
+    if (CONTACT.youtube) rows.push('<a href="' + CONTACT.youtube + '" target="_blank" rel="noopener">유튜브 채널</a>');
+    if (CONTACT.blog)    rows.push('<a href="' + CONTACT.blog + '" target="_blank" rel="noopener">블로그</a>');
+    if (!rows.length) return;
+    var s = document.getElementById("sideContact");
+    if (s) { s.innerHTML = '<span class="sb">상담 문의</span>' + rows.join("<br />"); }
+    var f = document.getElementById("footContact");
+    if (f) { f.innerHTML = '<div style="margin-top:8px">' + rows.join(' &nbsp;·&nbsp; ') + '</div>'; }
+  } catch (e) {}
+})();
+</script>
+
+<script>
+(function () {
+  try {
+    var nav = document.querySelector(".nav"), on = nav && nav.querySelector("a.on");
+    if (!nav || !on) return;
+    if (nav.scrollWidth > nav.clientWidth + 4) {
+      nav.scrollLeft = Math.max(0, on.offsetLeft - 12);
+    }
+  } catch (e) {}
 })();
 </script>
 </body>
