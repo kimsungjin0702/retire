@@ -678,7 +678,7 @@
 
   <div class="sticky-summary" id="stickyBar">
     <div class="row">
-      <div class="cell"><div class="k">소득 공백기</div><div class="v" id="sb-gap" style="color:#B04125">5년</div></div>
+      <div class="cell"><div class="k">평생연금 공백</div><div class="v" id="sb-gap" style="color:#B04125">5년</div></div>
       <div class="cell"><div class="k">고갈(리스크 제외)</div><div class="v" id="sb-dep1" style="color:#1E5FA8">90세+</div></div>
       <div class="cell"><div class="k">고갈(리스크 포함)</div><div class="v" id="sb-dep2" style="color:#B04125">85세</div></div>
     </div>
@@ -1004,7 +1004,7 @@
 
       <div class="stat-row">
         <div class="stat-card">
-          <div class="label">수입이 끊기는 기간</div>
+          <div class="label">평생 연금이 없는 기간<br><span class="lb-sub">죽을 때까지 나오는 연금이 시작되기 전</span></div>
           <div class="value" id="stat-gap" style="color:#B04125">5년</div>
           <div class="sub" id="stat-gap-sub">60세 은퇴 → 65세 국민연금 개시</div>
         </div>
@@ -1022,7 +1022,7 @@
 
       <div class="card">
         <div class="card-title">연금이 언제부터 언제까지 나오나</div>
-        <div class="card-sub">가로줄 하나가 연금 하나입니다. <b>줄이 그려진 기간에만</b> 그 연금이 나옵니다. <b style="color:#B23A1E">붉은 칸</b>은 은퇴는 했는데 국민연금은 아직 안 나오는, 수입이 끊기는 기간입니다.</div>
+        <div class="card-sub">가로줄 하나가 연금 하나입니다. <b>줄이 그려진 기간에만</b> 그 연금이 나옵니다. <b style="color:#B23A1E">붉은 칸</b>은 은퇴는 했는데 <b>죽을 때까지 나오는 연금(국민·직역·주택)이 아직 시작되지 않은</b> 기간입니다.</div>
         <div class="legend" id="incomeLegend"></div>
         <div class="chart-box" id="timelineChart"></div>
       </div>
@@ -1370,7 +1370,32 @@
   /* ── 연금 가동 기간 타임라인 ─────────────────────────────
      누적 영역그래프는 아래 층을 빼서 읽어야 해서 고령 고객에게 특히 어렵다.
      "어느 연금이 언제부터 언제까지 나오는가"만 가로줄로 보여준다. */
-  function buildTimeline(container, spans, minAge, maxAge, retireAge, npStartAge) {
+  /* 은퇴 후 '죽을 때까지 나오는 연금'이 처음 들어오는 나이를 찾는다.
+     국민연금만 보던 예전 방식은 직역연금 수급자를 공백으로 잘못 표시했다.
+     퇴직연금·개인연금은 정해진 기간만 나오는 돈이라 공백을 메우는 수단일 뿐,
+     공백이 끝났다고 보지 않는다. */
+  var LIFELONG = [["np", "국민연금"], ["occ", "직역연금"], ["house", "주택연금"]];
+  function firstLifelongAge(rows, fromAge) {
+    var i, k;
+    for (i = 0; i < rows.length; i++) {
+      if (rows[i].age < fromAge) continue;
+      for (k = 0; k < LIFELONG.length; k++) {
+        if (rows[i][LIFELONG[k][0]] > 0) return rows[i].age;
+      }
+    }
+    return null;
+  }
+  function firstLifelongLabel(row) {
+    if (!row) return "연금";
+    var best = null, k, v;
+    for (k = 0; k < LIFELONG.length; k++) {
+      v = row[LIFELONG[k][0]];
+      if (v > 0 && (best === null || v > best.v)) best = { v: v, n: LIFELONG[k][1] };
+    }
+    return best ? best.n : "연금";
+  }
+
+  function buildTimeline(container, spans, minAge, maxAge, retireAge, gapEndAge) {
     var width = boxWidth(container);
     var narrow = width < 520;
     var fs = narrow ? 15 : 16;
@@ -1388,9 +1413,9 @@
     });
 
     // 연금 공백 구간을 배경 띠로
-    var gapYears = npStartAge - retireAge;
+    var gapYears = gapEndAge - retireAge;
     if (gapYears > 0) {
-      var gx = xScale(retireAge), gw = xScale(npStartAge) - gx;
+      var gx = xScale(retireAge), gw = xScale(gapEndAge) - gx;
       svg.appendChild(svgEl("rect", { x: gx, y: margin.top - 7, width: gw, height: plotH + 14,
         fill: "rgba(224,100,74,0.14)", rx: 4 }));
       var gLab = "공백 " + gapYears + "년";
@@ -1803,6 +1828,12 @@
       });
     }
 
+    // 수입이 끊기는 기간 — 어떤 연금이든 처음 들어오는 나이까지
+    var gapEndAge = firstLifelongAge(incomeData, retireAge);
+    var gapFirstRow = (gapEndAge === null) ? null : incomeData[gapEndAge - startAge];
+    var gapYears = (gapEndAge === null) ? Math.max(0, endAge - retireAge)
+                                        : Math.max(0, gapEndAge - retireAge);
+
     var assetsNoRisk = initialAssets, assetsRisk = initialAssets;
     var depletionNoRisk = null, depletionRisk = null;
     var assetRows = [], age2, incRow, monthlyIncome, annualNet;
@@ -1818,13 +1849,15 @@
       assetRows.push({ age: age2, noRisk: Math.round(assetsNoRisk), risk: Math.round(assetsRisk) });
     }
 
-    var gapYears = Math.max(0, npStartAge - retireAge);
     var gapTxt = gapYears > 0 ? gapYears + "년" : "없음";
     $("stat-gap").textContent = gapTxt;
     $("stat-gap").style.color = gapYears > 0 ? COLORS.danger : COLORS.ok;
-    $("stat-gap-sub").textContent = gapYears > 0
-      ? (retireAge + "세 은퇴 → " + npStartAge + "세 국민연금 개시")
-      : "은퇴와 동시에 연금 개시";
+    $("stat-gap-sub").textContent =
+      (gapEndAge === null)
+        ? (retireAge + "세 은퇴 → " + endAge + "세까지 연금이 없습니다")
+        : (gapYears > 0
+            ? (retireAge + "세 은퇴 → " + gapEndAge + "세 " + firstLifelongLabel(gapFirstRow) + " 개시")
+            : ("은퇴와 동시에 " + firstLifelongLabel(gapFirstRow) + "이 나옵니다"));
 
     var dep1Txt = depletionNoRisk ? depletionNoRisk + "세" : endAge + "세 이후";
     var dep2Txt = depletionRisk ? depletionRisk + "세" : endAge + "세 이후";
@@ -1903,7 +1936,8 @@
       $("shortResult").className = "short-result sr-good";
       $("shortResult").innerHTML =
         '<span class="k">남는 돈</span><span class="v">' + formatManwon(-shortfall) + '</span>' +
-        '<span class="m">예상 수명까지 쓰고도 이만큼 남습니다. 매달 <b>' + comma(perMonth) + '만원</b>의 여유에 해당합니다.</span>';
+        '<span class="m">예상 수명까지 쓰고도 이만큼 남습니다.' +
+        (perMonth >= 1 ? ' 매달 <b>' + comma(perMonth) + '만원</b>의 여유에 해당합니다.' : ' 들어오는 돈과 쓰는 돈이 거의 딱 맞습니다.') + '</span>';
     }
 
     // 다음 단계 — 모자라는 돈을 개인연금으로 메우려면 얼마인가
@@ -1962,7 +1996,8 @@
     if (!spans.length) spans.push({ name: "연금", color: COLORS.np, from: null, to: null, forever: false });
     var tlMin = retireAge, si2;
     for (si2 = 0; si2 < spans.length; si2++) if (spans[si2].from !== null && spans[si2].from < tlMin) tlMin = spans[si2].from;
-    buildTimeline($("timelineChart"), spans, tlMin, endAge, retireAge, npBase > 0 ? npStartAge : retireAge);
+    buildTimeline($("timelineChart"), spans, tlMin, endAge, retireAge,
+                  (gapEndAge === null) ? endAge : gapEndAge);
 
     // 범례도 실제로 있는 연금만
     var lg = "", lgItems = [
