@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="내 돈 건강검진" />
+<meta name="format-detection" content="telephone=no" />
+<title>내 돈 건강검진 | 재무상태표·현금흐름 계산기 — 김성진의 보험경제</title>
+<meta name="description" content="직군을 고르고 수입·지출·빚·자산만 넣으면 세금·4대보험을 자동 계산해 재무 건강 점수, 매달 남는 돈, 순자산을 보여주는 무료 계산기" />
+<meta name="author" content="김성진의 보험경제" />
+<meta name="robots" content="index,follow" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="김성진의 보험경제" />
+<meta property="og:title" content="내 돈 건강검진 | 지금 내 재무 상태 점수로 확인" />
+<meta property="og:description" content="숫자만 넣으면 매달 남는 돈과 순자산, 재무 건강 점수를 바로 보여드려요." />
+<meta property="og:locale" content="ko_KR" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230E1826'/%3E%3Crect x='12' y='34' width='8' height='18' rx='2' fill='%2325AB78'/%3E%3Crect x='28' y='24' width='8' height='28' rx='2' fill='%235E82D7'/%3E%3Crect x='44' y='14' width='8' height='38' rx='2' fill='%23C9A24B'/%3E%3C/svg%3E" />
+<link rel="canonical" href="https://kimsungjin0702.github.io/retire/money/" />
+<meta name="keywords" content="재무상태표,현금흐름,가계부,재무설계,순자산,비상금,4대보험,실수령액,세금,재무 건강" />
+<meta property="og:url" content="https://kimsungjin0702.github.io/retire/money/" />
+<meta property="og:image" content="https://kimsungjin0702.github.io/retire/og.jpg" />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="600" />
+<meta name="twitter:image" content="https://kimsungjin0702.github.io/retire/og.jpg" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"김성진의 보험경제","url":"https://kimsungjin0702.github.io/retire/",
+"inLanguage":"ko-KR","publisher":{"@type":"Organization","name":"김성진의 보험경제","url":"https://kimsungjin0702.github.io/retire/","logo":"https://kimsungjin0702.github.io/retire/og.jpg"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"내 돈 건강검진",
+"applicationCategory":"FinanceApplication","operatingSystem":"Web","inLanguage":"ko-KR",
+"url":"https://kimsungjin0702.github.io/retire/money/","description":"직군을 고르고 수입·지출·빚·자산만 넣으면 세금·4대보험을 자동 계산해 재무 건강 점수, 매달 남는 돈, 순자산을 보여주는 무료 계산기",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},
+"author":{"@type":"Organization","name":"김성진의 보험경제"}}
+</script>
+<style>
+  :root { --panel:#FFFFFF; --panel-alt:#F4F7FB; --border:#D8E0EB; --text-primary:#15212E; --text-secondary:#47586E; --text-muted:#5F7186; --gold:#8A6A14; --gold-fill:#C9A24B; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
+    -webkit-text-size-adjust: 100%; word-break: keep-all; overflow-wrap: break-word; }
+  body { -webkit-tap-highlight-color: rgba(201,162,75,0.15); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding-block: 18px 48px;
+    padding-left: calc(16px + env(safe-area-inset-left)); padding-right: calc(16px + env(safe-area-inset-right)); }
+  @media (max-width: 899px) { .wrap { padding-block: 16px calc(44px + env(safe-area-inset-bottom));
+    padding-left: calc(14px + env(safe-area-inset-left)); padding-right: calc(14px + env(safe-area-inset-right)); } }
+  h1 { font-size: 24px; font-weight: 700; margin: 0 0 5px; letter-spacing: -0.02em; }
+  .subtitle { font-size: 16.5px; line-height: 1.5; color: var(--text-secondary); margin: 0 0 16px; }
+/* 사이트 공통 틀 (은퇴자금 계산기와 같음) */
+  .shell { display: block; }
+  .side { margin-bottom: 18px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-bottom: 13px; }
+  .brand-logo { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: block; background: #EDF1F7; }
+  .brand-text b { display: block; font-size: 20px; font-weight: 800; color: var(--text-primary); letter-spacing: -.01em; line-height: 1.25; }
+  .brand-text em i { font-style: normal; white-space: nowrap; }
+  .brand-text em { display: block; font-size: 15px; font-style: normal; color: var(--gold); margin-top: 2px; letter-spacing: .02em; }
+  .nav { display: flex; gap: 7px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+         margin: 0 0 4px; padding-bottom: 3px; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { flex: 0 0 auto; min-height: 42px; display: flex; align-items: center; padding: 0 14px;
+           border-radius: 8px; border: 1px solid var(--border); background: var(--panel-alt);
+           color: var(--text-secondary); font-size: 17px; font-weight: 600; text-decoration: none;
+           white-space: nowrap; -webkit-tap-highlight-color: transparent; }
+  .nav a.on { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
+  .side-contact { display: none; }
+  /* 하단 상담 안내 */
+  .cta-card { margin-top: 30px; padding: 20px 18px; border-radius: 12px;
+    background: rgba(201,162,75,.12); border: 1px solid rgba(201,162,75,.5); }
+  .cta-card:empty { display: none; }
+  .cta-card .cta-t { font-size: 21px; font-weight: 800; color: var(--gold); line-height: 1.4; }
+  .cta-card .cta-s { font-size: 17.5px; line-height: 1.7; color: var(--text-secondary); margin: 8px 0 15px; }
+  .cta-btns { display: flex; flex-wrap: wrap; gap: 9px; }
+  .cta-b { flex: 1 1 190px; min-height: 54px; display: flex; align-items: center; justify-content: center;
+    padding: 0 12px; text-align: center; border-radius: 9px; border: 1px solid var(--border);
+    background: var(--panel-alt); color: var(--text-primary); font-size: 18.5px; font-weight: 700;
+    text-decoration: none; -webkit-tap-highlight-color: transparent; }
+  .cta-b.primary { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
+  .side-contact:empty { display: none !important; }
+  .main { min-width: 0; }
+  details.card.more > summary {
+    list-style: none; cursor: pointer; user-select: none; -webkit-user-select: none;
+    font-size: 19.5px; font-weight: 700; color: var(--text-primary);
+    -webkit-tap-highlight-color: transparent;
+  }
+  details.card.more > summary::-webkit-details-marker { display: none; }
+  details.card.more > summary::before { content: "＋ "; color: var(--gold); }
+  details.card.more[open] > summary::before { content: "－ "; }
+  details.card.more > summary + * { margin-top: 14px; }
+
+  .foot { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--border);
+          font-size: 16px; line-height: 1.75; color: var(--text-muted); }
+  .foot .fb { font-size: 18px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 6px; }
+  .foot a { color: var(--gold); }
+  .foot-links { margin: 10px 0 0; padding: 0; list-style: none; display: flex; gap: 8px 16px; flex-wrap: wrap; }
+  .foot-links a { font-weight: 600; }
+
+  @media (min-width: 1100px) {
+    .wrap { max-width: 1400px; }
+    .shell { display: grid; grid-template-columns: 246px minmax(0, 1fr); gap: 30px; align-items: start; }
+    .side { position: -webkit-sticky; position: sticky; top: 18px; margin-bottom: 0;
+            background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; }
+    .brand { margin-bottom: 16px; }
+    .brand-logo { width: 54px; height: 54px; }
+    .nav { flex-direction: column; overflow: visible; gap: 6px; margin: 0; padding: 0; }
+    .nav a { width: 100%; }
+    .side-contact:not(:empty) { display: block; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--border);
+                    font-size: 16px; line-height: 1.75; color: var(--text-muted); }
+    .side-contact .sb { font-size: 16.5px; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 5px; }
+    .side-contact a { color: var(--gold); }
+    .main { max-width: 880px; }
+    .shell.wide .main { max-width: none; }
+  }
+
+
+  @media (min-width: 1100px) { .side { box-shadow: 0 1px 2px rgba(20,40,70,.05), 0 1px 10px rgba(20,40,70,.04); } }
+  .brand-logo { border: 1px solid var(--border); box-shadow: 0 1px 4px rgba(20,40,70,.10); }
+  .nav a { background: #FFFFFF; }
+  .nav a.on { color: #241B00; }
+
+</style>
+<style>
+/* ───── 내 돈 건강검진 ───── */
+
+/* 배치: 흰 머리말 → 고정 요약줄 → 직군 선택 → [왼쪽] 단계별 입력 / [오른쪽] 결과. 좁은 화면은 '결과' 단계로 결과를 따로 엶 */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F4F7FB; --ink:#15212E; --ink-2:#47586E; --muted:#5F7186; --line:#D8E0EB; --line-2:#E6ECF3;
+  --pri:#C9A24B; --pri-ink:#241B00; --pri-line:#E3CF9C; --accent:#8A6A14; --accent-ink:#FFFFFF; --accent-soft:#F8F1E1; --ring:rgba(201,162,75,.32);
+  --good:#0E7A4F; --good-soft:#DCF1E6; --warn:#8F5F0E; --warn-soft:#FAEBCB; --bad:#C0442A; --bad-soft:#F9DEDA; --none:#6E7A90; --none-soft:#E8ECF1;
+  --c-tax:#3C475C; --c-tax-fg:#FFFFFF; --c-fixed:#7A879C; --c-fixed-fg:#FFFFFF; --c-year:#C2CAD6; --c-year-fg:#15212E;
+  --c-debt:#C0442A; --c-debt-fg:#FFFFFF; --c-save:#1E5FA8; --c-save-fg:#FFFFFF; --c-left:#0E7A4F; --c-left-fg:#FFFFFF;
+  --a1:#173F75; --a1-fg:#FFFFFF; --a2:#2D5FA6; --a2-fg:#FFFFFF; --a3:#4E7EC0; --a3-fg:#FFFFFF; --a4:#9DBAE3; --a4-fg:#15212E; --a5:#CFDDF1; --a5-fg:#15212E;
+  --shadow:0 1px 2px rgba(20,40,70,.05),0 1px 10px rgba(20,40,70,.04);
+  --f:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+  --r:14px; color-scheme:light;
+}
+
+html{scroll-padding-top:110px}
+
+*,*::before,*::after{box-sizing:border-box}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+
+/* 고정 요약줄 */
+.sbar-wrap{position:-webkit-sticky;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:12px;margin:0 0 14px;box-shadow:0 2px 10px rgba(20,40,70,.06);font-family:var(--f)}
+.sbar{display:flex;align-items:center;gap:8px 22px;padding:9px 14px}
+.sb-item{display:flex;flex-direction:column;min-width:0}
+.sb-l{font-size:12.5px;color:var(--muted);font-weight:500;white-space:nowrap}
+.sb-v{font-size:19px;font-weight:700;line-height:1.25;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sb-v.pos{color:var(--good)} .sb-v.neg{color:var(--bad)}
+.sb-score{margin-left:auto;font-size:14px;font-weight:700;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.sb-score:empty{display:none}
+.sb-go{margin-left:auto;flex:none}
+
+.btn{appearance:none;font:inherit;font-weight:700;font-size:16px;min-height:50px;padding:0 18px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;line-height:1.2}
+.btn:hover{border-color:var(--ink-2)}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:var(--pri-ink)}
+.btn.sm{min-height:42px;font-size:14.5px;padding:0 14px}
+
+.app{display:grid;gap:16px;font-family:var(--f);color:var(--ink);font-size:16px;line-height:1.55}
+.exnote{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding:12px 16px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--pri-line)}
+.exnote p{margin:0;font-size:15.5px;font-weight:700}
+.err{margin:0;background:var(--bad-soft);color:var(--bad);padding:10px 14px;border-radius:12px;font-weight:600}
+
+/* 직군 선택 */
+.occ{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px 18px}
+.occ h2{margin:0;font-size:18px;font-weight:700}
+.occ-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,128px),1fr));gap:8px;margin-top:12px}
+.occ-opt{appearance:none;font:inherit;font-size:15px;font-weight:700;line-height:1.3;text-align:center;border:1.5px solid var(--line);background:var(--surface-2);border-radius:12px;padding:10px 8px;cursor:pointer;color:var(--ink);min-height:52px;min-width:0}
+.occ-opt:hover{border-color:var(--accent)}
+.occ-opt[aria-checked="true"]{background:var(--pri);border-color:var(--pri);color:var(--pri-ink)}
+
+.cols{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:start}
+.inputs{display:grid;gap:10px;min-width:0}
+
+/* 단계 표시 */
+.stepper{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 4px 10px;box-shadow:var(--shadow)}
+.stepper::before{content:"";position:absolute;left:10%;right:10%;top:28px;height:2px;background:var(--line)}
+.sp{position:relative;z-index:1;appearance:none;font:inherit;background:transparent;border:0;cursor:pointer;display:grid;justify-items:center;gap:3px;padding:2px;color:var(--ink-2);min-width:0}
+.sp-n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:15px;background:var(--surface);border:2px solid var(--line);color:var(--muted);transition:background-color .15s,border-color .15s}
+.sp-t{font-weight:700;font-size:14.5px;white-space:nowrap}
+.sp-v{font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.sp.done .sp-n{border-color:var(--accent);color:var(--accent)}
+.sp:hover .sp-n{border-color:var(--accent)}
+.sp[aria-selected="true"] .sp-n{background:var(--pri);border-color:var(--pri);color:var(--pri-ink)}
+.sp[aria-selected="true"] .sp-t{color:var(--ink)}
+
+/* 입력 */
+.step{display:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding-bottom:4px}
+.step.on{display:block}
+.step-h{padding:18px 20px 6px}
+.step-h h2{margin:0;font-size:21px;line-height:1.3;font-weight:700}
+.lead{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.grp{padding:12px 20px 2px}
+.grp + .grp{border-top:1px solid var(--line-2)}
+.grp.boxed{margin:10px 14px 0;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px 2px}
+.grp.boxed.alt{background:var(--surface-2)}
+.grp-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px}
+.grp-h h3{margin:0;font-size:15.5px;font-weight:700}
+.grp-h h3 i{font-style:normal;display:inline-block;margin-right:6px;padding:1px 8px;border-radius:6px;background:var(--accent);color:var(--accent-ink);font-size:12.5px;vertical-align:2px}
+.gs{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
+.grp-sub{margin:10px 0 0;padding-bottom:4px;font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.03em;border-bottom:1px solid var(--line-2)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,10.5rem);gap:4px 14px;align-items:center;padding-block:9px;border-bottom:1px dashed var(--line-2)}
+.row:last-child{border-bottom:0}
+.row.two{grid-template-columns:minmax(0,1fr)}
+.lab{min-width:0}
+.lab label{display:block;font-weight:600;font-size:16px;line-height:1.35}
+.hint{margin:2px 0 0;font-size:13px;color:var(--muted);line-height:1.4}
+.link{margin:3px 0 0;font-size:13px;font-weight:600;color:var(--accent);line-height:1.4}
+.link:empty{display:none}
+.link.warn{color:var(--bad)}
+.ins2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.fld{display:grid;grid-template-columns:minmax(0,1fr);gap:3px;min-width:0}
+.cap{font-size:12.5px;color:var(--muted);font-weight:600}
+.box{display:flex;align-items:center;gap:6px;min-width:0;height:50px;padding:0 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface-2);transition:border-color .15s,background-color .15s}
+.box:focus-within{border-color:var(--accent);background:var(--surface);box-shadow:0 0 0 3px var(--ring)}
+.box input{flex:1 1 0;width:100%;min-width:0;height:100%;padding:0;border:0;outline:none;background:transparent;color:var(--ink);font:inherit;font-size:19px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.box input::placeholder{color:var(--muted);opacity:.55;font-weight:400}
+.unit{flex:none;font-size:14px;color:var(--muted)}
+.echo{margin:0;font-size:12.5px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;line-height:1.4}
+.echo:empty{display:none}
+.echo.warn{color:var(--bad);font-weight:600;text-align:left}
+
+/* 세금 미니 요약 */
+.mini{margin:10px 14px 0;border:1.5px solid var(--pri-line);border-radius:14px;background:var(--accent-soft);overflow:hidden}
+.mini-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));text-align:center;padding:12px 6px}
+.mini-row div{display:grid;gap:1px;min-width:0;padding:0 4px}
+.mini-row div + div{border-left:1px solid var(--line)}
+.mini-row span{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.mini-row b{font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mini-row .neg b{color:var(--bad)} .mini-row .net b{color:var(--good)}
+.mini details{border-top:1px solid var(--line);background:var(--surface)}
+.mini summary{cursor:pointer;padding:9px 14px;font-size:13.5px;font-weight:600;color:var(--accent);list-style:none}
+.mini summary::-webkit-details-marker{display:none}
+.mini summary::after{content:" ▾"}
+.mini details[open] summary::after{content:" ▴"}
+.mini ul{list-style:none;margin:0;padding:0 14px 8px}
+.mini li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line-2);font-size:14px}
+.mini li:last-child{border-bottom:0}
+.mini li b{white-space:nowrap;font-variant-numeric:tabular-nums}
+.mini li.plus b{color:var(--good)}
+.mini-empty{margin:0;padding:12px 14px;font-size:14px;color:var(--ink-2);text-align:center}
+
+.step-total{margin:12px 20px 0;padding:12px 16px;border-radius:12px;background:var(--surface-2);display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 12px}
+.st-l{font-weight:600;color:var(--ink-2)}
+.st-v{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
+.step-nav{display:flex;gap:10px;padding:14px 20px 16px}
+.step-nav .pri{flex:1}
+
+/* 결과 */
+.results{display:flex;flex-direction:column;gap:14px;min-width:0}
+.back-m{align-self:flex-start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 20px;box-shadow:var(--shadow);min-width:0}
+.ch{margin:0 0 12px;font-size:18px;font-weight:700}
+.empty{margin:0;color:var(--muted);font-size:15px;padding:14px 0}
+
+.res-top{background:var(--surface);color:var(--ink);border:1.5px solid var(--pri-line)}
+.rt-eye{margin:0 0 12px;color:var(--accent);font-size:13.5px;font-weight:600;letter-spacing:.05em}
+.score{display:flex;align-items:center;gap:18px}
+.ring{flex:none;width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--rc) calc(var(--p) * 1%),var(--line-2) 0)}
+.ring-in{width:88px;height:88px;border-radius:50%;background:var(--surface);display:grid;place-items:center;align-content:center}
+.ring-in b{font-size:32px;line-height:1;font-variant-numeric:tabular-nums}
+.ring-in span{font-size:12.5px;color:var(--muted)}
+.grade b{display:block;font-size:22px;line-height:1.3}
+.grade span{font-size:14px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.kpi{display:grid;gap:2px;min-width:0}
+.kpi span{font-size:13.5px;color:var(--muted)}
+.kpi b{font-size:clamp(22px,3vw,28px);font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
+.kpi b.pos{color:var(--good)} .kpi b.neg{color:var(--bad)}
+.hl{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.hl span{padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink-2);font-size:13.5px;font-weight:600}
+.hl span.w{border-color:var(--bad-soft);background:var(--bad-soft);color:var(--bad)}
+
+.c-tax{background:var(--c-tax);color:var(--c-tax-fg)} .c-fixed{background:var(--c-fixed);color:var(--c-fixed-fg)} .c-year{background:var(--c-year);color:var(--c-year-fg)}
+.c-debt{background:var(--c-debt);color:var(--c-debt-fg)} .c-save{background:var(--c-save);color:var(--c-save-fg)} .c-left{background:var(--c-left);color:var(--c-left-fg)}
+.c-a1{background:var(--a1);color:var(--a1-fg)} .c-a2{background:var(--a2);color:var(--a2-fg)} .c-a3{background:var(--a3);color:var(--a3-fg)} .c-a4{background:var(--a4);color:var(--a4-fg)} .c-a5{background:var(--a5);color:var(--a5-fg)}
+.c-short{background:repeating-linear-gradient(45deg,var(--c-debt) 0 3px,transparent 3px 6px);border:1px solid var(--c-debt)}
+
+.fwrap{position:relative;margin-top:22px}
+.fbar{display:flex;height:44px;border-radius:10px;overflow:hidden;background:var(--none-soft)}
+.fs{display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;white-space:nowrap;font-size:12.5px;font-weight:700;transition:width .35s ease}
+.fs + .fs{box-shadow:inset 2px 0 0 var(--surface)}
+.fmark{position:absolute;top:-20px;bottom:-5px;width:0;border-left:2px dashed var(--ink)}
+.fmark em{position:absolute;top:0;font-style:normal;font-size:12px;font-weight:700;white-space:nowrap;color:var(--ink)}
+.fmark.r em{left:6px} .fmark.l em{right:6px}
+.lg{list-style:none;margin:12px 0 0;padding:0}
+.lg li{display:grid;grid-template-columns:14px minmax(0,1fr) auto 3.2em;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line-2)}
+.lg li:last-child{border-bottom:0}
+.lg li.zero{opacity:.45}
+.sw{width:14px;height:14px;border-radius:4px;display:block;flex:none}
+.lg-n{font-weight:600;min-width:0}
+.lg-v{font-weight:700;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lg-p{font-size:13.5px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.lg li.short .lg-v{color:var(--bad)}
+
+.t-area{height:220px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:end;border-bottom:2px solid var(--ink-2)}
+.t-cap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:6px;font-size:13.5px;color:var(--muted);font-weight:600;text-align:center}
+.tc{display:flex;flex-direction:column;min-height:3px;border-radius:10px 10px 0 0;overflow:hidden;transition:height .35s ease}
+.ts{display:flex;flex-direction:column;justify-content:center;gap:1px;padding:0 12px;min-height:0;overflow:hidden;transition:height .35s ease}
+.ts + .ts{box-shadow:inset 0 2px 0 var(--surface)}
+.ts span{font-size:12.5px;font-weight:600}
+.ts b{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
+.t-neg{display:flex;align-items:center;justify-content:center;height:100%;text-align:center;font-size:13px;color:var(--bad);font-weight:600;border:1.5px dashed var(--bad);border-bottom:0;border-radius:10px 10px 0 0;padding:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font-size:13.5px}
+.chips span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.chips b{font-variant-numeric:tabular-nums}
+.eq{margin:12px 0 0;padding:12px 14px;border-radius:10px;background:var(--surface-2);font-size:15px;line-height:1.6;text-align:center}
+.eq b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.eq .me{color:var(--good)}
+
+.ckl{list-style:none;margin:0;padding:0}
+.ckl li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line-2)}
+.ckl li:last-child{border-bottom:0}
+.ckl .nm{font-weight:600;line-height:1.3}
+.ckl .nm small{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+.ckl .vl{font-weight:700;font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{flex:none;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;text-align:center;min-width:3.6em}
+.s-good .pill{background:var(--good-soft);color:var(--good)} .s-good .vl{color:var(--good)}
+.s-warn .pill{background:var(--warn-soft);color:var(--warn)} .s-warn .vl{color:var(--warn)}
+.s-bad .pill{background:var(--bad-soft);color:var(--bad)} .s-bad .vl{color:var(--bad)}
+.s-none .pill{background:var(--none-soft);color:var(--none)} .s-none .vl{color:var(--none)}
+.sc-good{background:var(--good-soft);color:var(--good)} .sc-warn{background:var(--warn-soft);color:var(--warn)} .sc-bad{background:var(--bad-soft);color:var(--bad)}
+
+.acts{list-style:none;counter-reset:a;margin:0;padding:0;display:grid;gap:12px}
+.acts li{counter-increment:a;display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:center}
+.acts li::before{content:counter(a);width:30px;height:30px;border-radius:50%;background:var(--pri);color:var(--pri-ink);display:grid;place-items:center;font-weight:700;font-size:14.5px}
+.acts b{display:block;font-size:16px;line-height:1.35}
+.acts span{display:block;font-size:14px;color:var(--muted)}
+
+.next{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 16px;padding:14px 18px;border-radius:var(--r);border:1.5px dashed var(--accent);background:var(--surface);color:var(--ink);text-decoration:none;font-weight:600}
+.next:hover{background:var(--surface-2)}
+.next b{color:var(--accent);white-space:nowrap}
+.next small{display:block;margin-top:2px;font-size:12.5px;font-weight:500;color:var(--muted)}
+
+.mfoot{display:grid;gap:10px;margin-top:22px;font-size:14px;color:var(--muted)}
+.mfoot-btns{display:flex;flex-wrap:wrap;gap:10px}
+.mfoot details summary{cursor:pointer;font-weight:600;color:var(--ink-2);font-size:13.5px}
+.mfoot ul{margin:8px 0 0;padding-left:1.1em;display:grid;gap:3px;max-width:62em}
+.mfoot p{margin:0}
+.ns{padding:12px 0;font-weight:600;color:var(--bad)}
+
+@media (min-width:980px){
+  .cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+  .stepper{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .stepper::before{left:12.5%;right:12.5%}
+  .sp-res,.back-m,.sb-go{display:none}
+}
+@media (max-width:979.98px){
+  .results{display:none}
+  #app[data-step="5"] .results{display:flex}
+  #app[data-step="5"] #steps{display:none}
+  .sb-score{display:none}
+}
+@media (max-width:520px){
+  .occ{padding:14px}
+  .step-h,.grp{padding-left:16px;padding-right:16px}
+  .grp.boxed{margin-inline:10px;padding-inline:12px}
+  .mini{margin-inline:10px}
+  .step-total{margin-inline:16px}
+  .step-nav{padding-inline:16px}
+  .row{grid-template-columns:minmax(0,1fr) minmax(0,8.8rem)}
+  .card{padding:16px 16px 18px}
+  .sp-t{font-size:13.5px}
+  .sbar{gap:8px 16px}
+  .sb-v{font-size:17px}
+  .mini-row b{font-size:15.5px}
+}
+@media (max-width:400px){
+  .kpis{grid-template-columns:minmax(0,1fr)}
+  .ring{width:96px;height:96px}
+  .ring-in{width:74px;height:74px}
+  .ring-in b{font-size:27px}
+}
+@media (max-width:370px){
+  .row{grid-template-columns:minmax(0,1fr)}
+  .lg li{grid-template-columns:14px minmax(0,1fr) auto}
+  .lg-p{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .fs,.tc,.ts,.box,.sp-n{transition:none}
+}
+
+.app h2,.app h3{font-family:var(--f)}
+.page-sub{margin:0 0 14px;font-size:16px;color:var(--text-muted,#5F7186)}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="shell wide">
+  <aside class="side">
+    <a class="brand" href="https://kimsungjin0702.github.io/retire/">
+      <img class="brand-logo" src="data:image/webp;base64,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" alt="김성진의 보험경제" width="54" height="54" loading="eager" decoding="async" />
+      <span class="brand-text"><b>김성진의 보험경제</b><em>은퇴 · 연금 · <i>장기요양/간병</i> 설계</em></span>
+    </a>
+    <nav class="nav" aria-label="주요 메뉴">
+      <a href="https://kimsungjin0702.github.io/retire/money/" class="on">내 돈 건강검진</a>
+      <a href="https://kimsungjin0702.github.io/retire/">은퇴자금·노후자금 계산기</a>
+      <a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a>
+      <a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a>
+    </nav>
+    <div class="side-contact" id="sideContact"></div>
+  </aside>
+  <main class="main">
+  <h1>내 돈 건강검진</h1>
+  <p class="subtitle">수입 · 지출 · 빚 · 자산을 한 화면에서 · 모든 금액은 만원 단위</p>
+    <p class="subtitle" style="color:var(--text-muted)">입력한 내용은 <b>이 기기 밖으로 나가지 않습니다.</b></p>
+
+
+<div class="sbar-wrap" id="sbar">
+  <div class="sbar">
+    <div class="sb-item"><span class="sb-l" id="sbLeftL">매달 남는 돈</span><b class="sb-v" id="sbLeft">–</b></div>
+    <div class="sb-item"><span class="sb-l">순자산</span><b class="sb-v" id="sbNet">–</b></div>
+    <span class="sb-score" id="sbScore"></span>
+    <button type="button" class="btn sm pri sb-go" data-go="5">결과 보기</button>
+  </div>
+</div>
+
+<noscript><div class="wrap ns">자바스크립트가 꺼져 있어요. 크롬·사파리·삼성인터넷으로 열어 주세요.</div></noscript>
+
+<div class="app" id="app" data-step="1">
+  <p class="err" id="errBar" hidden>문제가 생겼어요. 새로 고쳐 주세요.</p>
+  <div class="exnote" id="exNote" hidden>
+    <p>지금 내 상황의 숫자만 넣으세요.</p>
+    <button type="button" class="btn sm pri" id="exClear">예시 지우기</button>
+  </div>
+
+  <section class="occ" aria-labelledby="occH">
+    <h2 id="occH">나는 어떤 일을 하나요?</h2>
+    <div class="occ-list" role="radiogroup" aria-labelledby="occH" id="occList"></div>
+  </section>
+
+  <div class="cols">
+    <section class="inputs" aria-label="숫자 넣기">
+      <div class="stepper" role="tablist" id="stepper"></div>
+      <div id="steps"></div>
+    </section>
+
+    <section class="results" id="results" aria-label="결과">
+      <button type="button" class="btn sm back-m" data-go="back">← 숫자 고치기</button>
+      <article class="card res-top" id="resTop"></article>
+      <article class="card"><h2 class="ch">한 달 돈의 흐름</h2><div id="flow"></div></article>
+      <article class="card"><h2 class="ch">내 재산</h2><div id="bs"></div></article>
+      <article class="card"><h2 class="ch">건강검진 8가지</h2><ul class="ckl" id="chk"></ul></article>
+      <article class="card"><h2 class="ch">이것부터 해 보세요</h2><ol class="acts" id="acts"></ol></article>
+      <a class="next" id="toRetire" href="https://kimsungjin0702.github.io/retire/" ><span>노후에도 버틸 수 있을까?<small>모아둔 돈·생활비가 자동으로 들어가요</small></span><b>은퇴자금 계산기 →</b></a>
+    </section>
+  </div>
+
+  <div class="mfoot">
+    <div class="mfoot-btns">
+      <button type="button" class="btn sm" id="btnEx">예시 숫자 보기</button>
+      <button type="button" class="btn sm" id="btnClear">모두 지우기</button>
+    </div>
+    <details>
+      <summary>계산 기준</summary>
+      <ul>
+        <li>2026년 세율·4대보험 요율로 계산한 추정치예요. 국민연금 9.5%, 건강보험 7.19%, 장기요양은 건강보험료의 13.14%, 고용보험 0.9%예요.</li>
+        <li>직장인·공무원·법인 대표는 실수령액으로 세전 월급을 거꾸로 추정해요(본인 1명 기준). 자영업·프리랜서·종교인은 따로 낼 종합소득세와 지역 국민연금·건강보험(재산분 제외)을 빼요.</li>
+        <li>건강검진 기준은 한국FP학회 「한국형 가계재무비율 도출 및 가이드라인 제안」(2013)을 따랐어요. 점수는 8가지 결과를 100점 만점으로 바꾼 값이에요.</li>
+      </ul>
+    </details>
+    
+  </div>
+</div>
+
+
+  <div class="cta-card" id="ctaCard"></div>
+
+  <footer class="foot">
+    <span class="fb">김성진의 보험경제</span>
+    CFP · 보험업 20년 · 은퇴설계 / 연금 / 장기요양(간병) 상담
+    <div id="footContact"></div>
+    <ul class="foot-links">
+      <li><a href="https://kimsungjin0702.github.io/retire/money/">내 돈 건강검진</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/">은퇴자금·노후자금 계산기</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a></li>
+      <li><a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a></li>
+    </ul>
+    <p style="margin:12px 0 0">계산 결과는 일반 정보이며 특정 금융상품의 권유가 아닙니다.</p>
+  </footer>
+  </main>
+  </div>
+</div>
+
+<script>
+
+(function(){
+'use strict';
+var D=document, APP=D.getElementById('app');
+window.addEventListener('error',function(){var b=D.getElementById('errBar');if(b)b.hidden=false;});
+var KEY='naedon-geongang-v3';
+
+/* ───────── 2026년 기준값 (금액 단위: 만원) ───────── */
+var P={
+  npsRate:0.095,          /* 국민연금 보험료율 (직장: 근로자·회사 반씩) */
+  npsMin:41, npsMax:659,  /* 기준소득월액 하한·상한 (2026.7~2027.6) */
+  hiRate:0.0719,          /* 건강보험료율 (직장: 근로자·회사 반씩) */
+  ltcRatio:0.1314,        /* 장기요양보험료 = 건강보험료 × 이 비율 */
+  eiRate:0.009,           /* 고용보험 근로자 부담 */
+  pubRate:0.09, pubCap:914, /* 공무원·사학연금 기여금 9%, 기준소득월액 상한 */
+  freeRate:[0.641,0.497], /* 단순경비율·초과율 (2025년 귀속 기타 자영업 940909) */
+  dependentMax:2000,      /* 건강보험 피부양자 연소득 기준 */
+  finSep:2000,            /* 금융소득 종합과세 기준 */
+  hiOtherBase:2000,       /* 직장가입자 보수 외 소득 기준 */
+  yuLimit:function(inc){return inc<=4000?600:inc<=6000?500:inc<=10000?400:200} /* 노란우산 소득공제 한도 */
+};
+
+var OCCS=[['worker','직장인'],['public','공무원·교원·군인'],['biz','자영업자'],['free','프리랜서 (3.3%)'],['ceo','법인 대표·임원'],['retire','은퇴·연금생활자'],['relig','종교인']];
+var OCC_NAME={};OCCS.forEach(function(o){OCC_NAME[o[0]]=o[1]});
+var MAIN={
+ worker:['월 실수령액',''],public:['월 실수령액',''],ceo:['월 실수령액',''],
+ biz:['월 순수입','매출 − 경비·부가세'],
+ free:['월 수입 (3.3% 뗀 후)',''],
+ retire:['월 연금 합계','국민·개인·기초연금 등'],
+ relig:['월 사례비','']
+};
+
+/* ───────── 단계별 항목 ───────── */
+function show(list){return function(o){return list.indexOf(o)>=0}}
+function step1(o){
+  return [
+   {t:'',items:[{id:'main',k:'m',l:MAIN[o][0],h:MAIN[o][1]}]},
+   {t:'그 밖의 수입',items:[
+    {id:'sp',k:'m',l:'배우자 실수령액'},
+    {id:'bonus',k:'y',l:'상여금·성과급',show:function(x){return x!=='retire'}},
+    {id:'rent_in',k:'m',l:'월세 수입'},
+    {id:'intdiv',k:'m',l:'이자·배당'},
+    {id:'oth',k:'m',l:'기타 수입',h:'정부지원금·용돈 등'}]}
+  ];
+}
+var LOANS=[{id:'mort',l:'주택담보대출'},{id:'jeon',l:'전세자금대출'},{id:'minus',l:'마이너스통장',io:1},{id:'loan',l:'신용·기타 대출',h:'신용대출·할부·학자금 등'}];
+var STEP2=[
+ {t:'매달 나가는 돈',tag:'고정비',boxed:1,items:[{k:'sub',l:'대출'}].concat(LOANS.map(function(x){return {id:'fx_'+x.id,k:x.io?'m':'ip',l:x.io?x.l+' 이자':x.l,h:x.h,ioId:x.io?'fx_'+x.id+'_i':null}})).concat([
+  {k:'sub',l:'생활'},
+  {id:'fx_rent',k:'m',l:'월세'},
+  {id:'fx_mgmt',k:'m',l:'관리비·공과금'},
+  {id:'fx_tel',k:'m',l:'통신비'},
+  {id:'fx_ins',k:'m',l:'보험료',h:'연금·저축보험 제외'},
+  {id:'fx_edu',k:'m',l:'자녀 교육·보육비'},
+  {id:'fx_parent',k:'m',l:'부모님 용돈'},
+  {id:'fx_card',k:'m',l:'월 카드값',h:'생활비 포함, 위 항목은 빼고'},
+  {id:'fx_etc',k:'m',l:'회비·후원금 등'},
+  {id:'fx_sub',k:'m',l:'OTT·AI 구독료'}])},
+ {t:'1년에 몇 번 나가는 돈',tag:'1년 합계',boxed:1,alt:1,items:[
+  {id:'yr_med',k:'y',l:'병원비 (미용 포함)'},
+  {id:'yr_trip',k:'y',l:'여행·취미'},
+  {id:'yr_event',k:'y',l:'명절·경조사'},
+  {id:'yr_tax',k:'y',l:'자동차세·재산세 등'}]}
+];
+var STEP3=[
+ {t:'',items:[
+  {id:'db_mort',k:'bal',l:'주택담보대출',link:'mort'},
+  {id:'db_jeon',k:'bal',l:'전세자금대출',link:'jeon'},
+  {id:'db_minus',k:'bal',l:'마이너스통장',link:'minus'},
+  {id:'db_loan',k:'bal',l:'신용·기타 대출',link:'loan'},
+  {id:'db_card',k:'bal',l:'카드 할부·리볼빙'}]}
+];
+var STEP4=[
+ {t:'저축',items:[
+  {id:'as_cash',k:'a',nm:1,l:'입출금·비상금'},
+  {id:'as_dep',k:'a',nm:1,l:'예금'},
+  {id:'as_sav',k:'a',l:'적금'},
+  {id:'as_cma',k:'a',l:'CMA'},
+  {id:'as_sub',k:'a',l:'주택청약'}]},
+ {t:'투자',items:[
+  {id:'as_stock',k:'a',l:'주식'},
+  {id:'as_fund',k:'a',l:'펀드'},
+  {id:'as_coin',k:'a',l:'코인'},
+  {id:'as_gold',k:'a',l:'금·기타 투자'}]},
+ {t:'연금',items:[
+  {id:'as_pen',k:'a',l:'연금저축·IRP'},
+  {id:'as_ret',k:'a',nm:1,l:'퇴직연금·퇴직금',show:show(['worker','public','ceo','relig','retire']),lab:{public:'퇴직수당 (예상)'}},
+  {id:'as_yu',k:'a',l:'노란우산공제',show:show(['biz','free','ceo'])},
+  {id:'as_insv',k:'a',l:'연금·저축보험',h:'해지환급금'}]},
+ {t:'부동산·기타',items:[
+  {id:'as_home',k:'a',nm:1,l:'사는 집 (시세)'},
+  {id:'as_dpst',k:'a',nm:1,l:'전·월세 보증금'},
+  {id:'as_realty',k:'a',nm:1,l:'그 밖의 부동산'},
+  {id:'as_car',k:'a',nm:1,l:'자동차'},
+  {id:'as_biz',k:'a',nm:1,l:'사업용 자산',h:'가게 보증금·설비',show:show(['biz','free'])},
+  {id:'as_etc',k:'a',nm:1,l:'기타'}]}
+];
+var STEPS_META=[
+ {title:'매달 들어오는 돈'},
+ {title:'나가는 돈'},
+ {title:'대출·빚',lead:'남은 금액만 넣으세요. 이자·원금은 지출에서 가져와요.'},
+ {title:'모아 둔 돈과 자산'}
+];
+var NEXT={1:'다음: 지출 →',2:'다음: 대출·빚 →',3:'다음: 자산 →',4:'결과 보기 →'};
+var LBL={good:'좋음',warn:'주의',bad:'점검',none:'–'};
+
+var EX={o:{occ:'worker'},
+ main:440,sp:250,bonus:500,
+ fx_mort_i:80,fx_mort_p:30,fx_loan_i:5,fx_loan_p:30,
+ fx_mgmt:28,fx_tel:18,fx_ins:55,fx_edu:70,fx_parent:10,fx_card:200,fx_etc:6,fx_sub:4,
+ yr_med:60,yr_trip:250,yr_event:120,yr_tax:80,
+ db_mort_b:25000,db_loan_b:900,
+ as_cash_b:350,as_dep_b:600,as_sav_b:600,as_sav_m:40,as_sub_b:600,as_sub_m:10,as_stock_b:1500,as_stock_m:20,as_fund_b:300,
+ as_pen_b:2400,as_pen_m:30,as_ret_b:3000,as_home_b:62000,as_car_b:1800};
+
+var V={}, MODE='example', STEP=1, LAST=1, KIND={};
+
+/* ───────── 숫자 표시 ───────── */
+function copy(o){return JSON.parse(JSON.stringify(o))}
+function has(id){return Object.prototype.hasOwnProperty.call(V,id)&&V[id]!==null&&V[id]!==undefined}
+function g(id){return has(id)?V[id]:0}
+function sum(ids){var s=0;for(var i=0;i<ids.length;i++)s+=g(ids[i]);return s}
+function occ(){var o=V.o&&V.o.occ;return OCC_NAME[o]?o:'worker'}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function fmt(v){var neg=v<0,n=Math.round(Math.abs(v));if(n===0)return '0원';var e=Math.floor(n/10000),m=n%10000;var s=e?e.toLocaleString('ko-KR')+'억'+(m?' '+m.toLocaleString('ko-KR')+'만원':'원'):m.toLocaleString('ko-KR')+'만원';return (neg?'−':'')+s}
+function fmtD(v){var a=Math.abs(v);if(a>0&&a<10){var r=Math.round(a*10)/10;if(r%1!==0)return (v<0?'−':'')+r.toFixed(1)+'만원';}return fmt(v)}
+function fmtS(v){var neg=v<0?'−':'',n=Math.round(Math.abs(v));if(n===0)return '0';if(n<10000)return neg+n.toLocaleString('ko-KR')+'만';var e=Math.round(n/1000)/10;return neg+(e%1===0?e.toFixed(0):e.toFixed(1))+'억'}
+function sgn(v){return Math.round(v)>0?'+'+fmt(v):fmt(v)}
+function pct(v){if(v==null||!isFinite(v))return '–';var r=v<10?Math.round(v*10)/10:Math.round(v);return r+'%'}
+function mo(v){return v>=99?'99개월+':(Math.round(v*10)/10).toFixed(1)+'개월'}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+
+/* ───────── 세금 계산 ───────── */
+function prog(b){ /* 종합소득세 기본세율 (과세표준, 만원) */
+  if(b<=0)return 0;
+  var T=[[1400,0.06,0,0],[5000,0.15,84,1400],[8800,0.24,624,5000],[15000,0.35,1536,8800],[30000,0.38,3706,15000],[50000,0.40,9406,30000],[100000,0.42,17406,50000],[Infinity,0.45,38406,100000]];
+  for(var i=0;i<T.length;i++)if(b<=T[i][0])return T[i][2]+(b-T[i][3])*T[i][1];
+  return 0;
+}
+function laborDed(t){var d=t<=500?t*0.7:t<=1500?350+(t-500)*0.4:t<=4500?750+(t-1500)*0.15:t<=10000?1200+(t-4500)*0.05:1475+(t-10000)*0.02;return Math.min(d,2000)}
+function laborCredit(tax,total){
+  var raw=tax<=130?tax*0.55:71.5+(tax-130)*0.3;
+  var lim=total<=3300?74:total<=7000?Math.max(66,74-(total-3300)*0.008):total<=12000?Math.max(50,66-(total-7000)*0.5):Math.max(20,50-(total-12000)*0.5);
+  return Math.min(raw,lim);
+}
+function religExp(x){return x<=2000?x*0.8:x<=4000?1600+(x-2000)*0.5:x<=6000?2600+(x-4000)*0.3:3200+(x-6000)*0.2}
+function npsOf(m,rate){if(m<=0)return 0;return clamp(m,P.npsMin,P.npsMax)*rate}
+function regionHi(m){return m>0?m*P.hiRate*(1+P.ltcRatio):0}
+
+/* 세전 월급 → 월급에서 빠지는 돈 (본인 1명 공제, 1년 기준으로 계산해 12로 나눔) */
+function laborCore(pay,kind){
+  var annual=pay*12,pen,penName,ei=P.eiRate;
+  if(kind==='public'){pen=Math.min(pay,P.pubCap)*P.pubRate;penName='공무원·사학연금';ei=0;}
+  else{pen=npsOf(pay,P.npsRate/2);penName='국민연금';}
+  if(kind==='ceo')ei=0;
+  var hi=pay*P.hiRate/2,ltc=hi*P.ltcRatio,eiv=pay*ei;
+  var ct=prog(annual-laborDed(annual)-150-pen*12-(hi+ltc+eiv)*12);
+  var det=Math.max(0,ct-laborCredit(ct,annual)-13);
+  var it=[[penName,pen],['건강보험',hi],['장기요양보험',ltc]];
+  if(ei>0)it.push(['고용보험',eiv]);
+  it.push(['소득세',det/12],['지방소득세',det*0.1/12]);
+  var tot=0;it.forEach(function(x){tot+=x[1]});
+  return {items:it,ded:tot};
+}
+function grossFromNet(net,kind){
+  if(net<=0)return 0;
+  var lo=net,hi=net*2+300;
+  for(var i=0;i<60;i++){var mid=(lo+hi)/2;if(mid-laborCore(mid,kind).ded<net)lo=mid;else hi=mid;}
+  return (lo+hi)/2;
+}
+
+/* 직군별 수입: w = 이미 떼고 들어온 돈, p = 따로 내야 하는 돈 */
+function incomeCalc(){
+  var o=occ(),m=g('main'),r={received:m,gross:0,items:[],withheld:0,toPay:0,hl:[],warns:[]};
+  function add(n,v,kind){if(Math.abs(v)<0.005)return;r.items.push([n,v,kind]);if(kind==='w')r.withheld+=v;else r.toPay+=v;}
+  if(o==='worker'||o==='public'||o==='ceo'){
+    var gp=grossFromNet(m,o);r.gross=gp;
+    if(m>0)laborCore(gp,o).items.forEach(function(x){add(x[0],x[1],'w')});
+    if(o==='ceo'){
+      var fin=g('intdiv')*12;
+      if(fin>P.finSep)r.warns.push(['이자·배당 종합과세 확인','1년 '+fmt(fin)+' · 2,000만원 초과']);
+      var other=(fin>1000?fin:0)+g('rent_in')*12;
+      if(other>P.hiOtherBase)add('건강보험 추가 (급여 외 소득)',(other-P.hiOtherBase)/12*P.hiRate*(1+P.ltcRatio),'p');
+    }
+  }else if(o==='biz'){
+    r.gross=m;
+    var inc=Math.max(0,m)*12,hiM=regionHi(inc/12),npsM=npsOf(inc/12,P.npsRate);
+    var amt=Math.max(0,inc-hiM*12);
+    var yu=Math.min(g('as_yu_m')*12,P.yuLimit(amt));
+    var tax=Math.max(0,prog(amt-150-npsM*12-yu)-7)*1.1;
+    add('종합소득세 (5월)',tax/12,'p');add('국민연금 (지역)',npsM,'p');add('건강보험 (지역)',hiM,'p');
+    if(tax>0)r.hl.push('5월 종합소득세 약 '+fmt(tax));
+  }else if(o==='free'){
+    var gf=m/0.967;r.gross=gf;
+    var rev=gf*12,rt=P.freeRate;
+    var incF=Math.max(0,rev-(Math.min(rev,4000)*rt[0]+Math.max(0,rev-4000)*rt[1]));
+    var npsF=npsOf(incF/12,P.npsRate),hiF=regionHi(incF/12);
+    var settle=Math.max(0,prog(incF-150-npsF*12)-7)*1.1-rev*0.033;
+    add('3.3% 원천징수',gf*0.033,'w');
+    add(settle>=0?'5월 추가 납부':'5월 환급',settle/12,'p');
+    add('국민연금 (지역)',npsF,'p');add('건강보험 (지역)',hiF,'p');
+    if(m>0)r.hl.push(settle<0?'5월 환급 예상 약 '+fmt(-settle):'5월 추가 납부 약 '+fmt(settle));
+  }else if(o==='retire'){
+    r.gross=m;
+    var yearInc=m*12+g('rent_in')*12+(g('intdiv')*12>1000?g('intdiv')*12:0);
+    if(yearInc>P.dependentMax){
+      add('건강보험 (지역)',regionHi(m*0.5+g('rent_in')+g('intdiv')),'p');
+      r.warns.push(['건강보험 피부양자 확인','연소득 2,000만원 초과']);
+      r.hl.push('건강보험 피부양자 탈락 가능');
+    }else if(m>0)r.hl.push('건강보험 피부양자 유지 가능');
+  }else{
+    r.gross=m;
+    var rp=Math.max(0,m)*12,rinc=rp-religExp(rp);
+    var npsG=npsOf(rinc/12,P.npsRate),hiG=regionHi(rinc/12);
+    add('종교인소득세',Math.max(0,prog(rinc-150-npsG*12)-7)*1.1/12,'p');add('국민연금',npsG,'p');add('건강보험',hiG,'p');
+  }
+  r.family=sum(['sp','rent_in','intdiv','oth'])+(o==='retire'?0:g('bonus')/12);
+  r.grossAll=r.gross+r.family;
+  r.tax=r.withheld+r.toPay;
+  r.usable=r.received+r.family-r.toPay;
+  return r;
+}
+
+/* ───────── 전체 계산 ───────── */
+function calc(){
+  var R={},I=incomeCalc();
+  R.I=I;R.occ=occ();
+  R.income=I.grossAll;R.tax=I.tax;R.netIncome=I.usable;
+  R.intH=sum(['fx_mort_i','fx_jeon_i']);R.intO=sum(['fx_minus_i','fx_loan_i']);
+  R.prinH=sum(['fx_mort_p','fx_jeon_p']);R.prinC=g('fx_loan_p');
+  R.principal=R.prinH+R.prinC;
+  R.fixed=R.intH+R.intO+sum(['fx_rent','fx_mgmt','fx_tel','fx_ins','fx_edu','fx_parent','fx_card','fx_etc','fx_sub']);
+  R.yearly=sum(['yr_med','yr_trip','yr_event','yr_tax'])/12;
+  R.living=R.fixed+R.yearly;
+  R.ins=g('fx_ins');
+  R.debtPay=R.intH+R.intO+R.principal;
+  R.consPay=R.intO+R.prinC;
+  R.save=sum(['as_sav_m','as_cma_m','as_sub_m','as_stock_m','as_fund_m','as_coin_m','as_gold_m','as_pen_m','as_yu_m','as_insv_m']);
+  R.out=R.tax+R.living+R.principal+R.save;
+  R.left=R.income-R.out;
+  R.cash=sum(['as_cash_b','as_dep_b','as_sav_b','as_cma_b']);
+  R.A={save:R.cash+g('as_sub_b'),inv:sum(['as_stock_b','as_fund_b','as_coin_b','as_gold_b']),pen:sum(['as_pen_b','as_ret_b','as_yu_b','as_insv_b']),home:sum(['as_home_b','as_dpst_b','as_realty_b']),etc:sum(['as_car_b','as_biz_b','as_etc_b'])};
+  R.fin=R.A.save+R.A.inv+R.A.pen;
+  R.assets=R.fin+R.A.home+R.A.etc;
+  R.houseDebt=sum(['db_mort_b','db_jeon_b']);
+  R.consDebt=sum(['db_minus_b','db_loan_b','db_card_b']);
+  R.debts=R.houseDebt+R.consDebt;
+  R.net=R.assets-R.debts;
+  R.emergM=(R.occ==='biz'||R.occ==='free')?6:4;
+  return R;
+}
+
+/* ───────── 건강검진 지표 (한국형 가계재무비율 가이드라인) ───────── */
+var CK=[
+ {key:'spend',name:'쓰는 돈 비율',crit:function(){return '70% 이하'},u:'p',
+  val:function(R){return R.income>0?(R.tax+R.living)/R.income*100:null},
+  st:function(v){return v<=70?'good':v<=85?'warn':'bad'}},
+ {key:'save',name:'모으는 돈 비율',crit:function(){return '30% 이상'},u:'p',
+  val:function(R){if(R.occ==='retire')return null;return R.income>0?R.save/R.income*100:null},
+  st:function(v){return v>=30?'good':v>=10?'warn':'bad'}},
+ {key:'emerg',name:'비상금',crit:function(R){return R.emergM+'개월치 이상'},u:'mo',
+  val:function(R){var x=R.living+R.principal;return x>0?R.cash/x:null},
+  st:function(v,R){var t=R.emergM;return v>=t?'good':v>=t/2?'warn':'bad'}},
+ {key:'ins',name:'보험료 비율',crit:function(){return '8~10%'},u:'p',
+  val:function(R){return R.income>0&&R.ins>0?R.ins/R.income*100:null},
+  st:function(v){return (v>=8&&v<=10)?'good':(v>=5&&v<=15)?'warn':'bad'}},
+ {key:'debtPay',name:'대출 상환 부담',crit:function(){return '30% 이하'},u:'p',
+  val:function(R){return R.income>0?R.debtPay/R.income*100:null},
+  st:function(v){return v<=30?'good':v<=40?'warn':'bad'}},
+ {key:'cons',name:'생활 빚 부담',crit:function(){return '10% 이하'},u:'p',
+  val:function(R){return R.income>0?R.consPay/R.income*100:null},
+  st:function(v){return v<=10?'good':v<=20?'warn':'bad'}},
+ {key:'debtA',name:'빚 비중',crit:function(){return '재산의 40% 이하'},u:'p',
+  val:function(R){if(R.assets>0)return R.debts/R.assets*100;return R.debts>0?999:null},
+  st:function(v){return v<=40?'good':v<=60?'warn':'bad'}},
+ {key:'fin',name:'금융자산 비중',crit:function(){return '재산의 40% 이상'},u:'p',
+  val:function(R){return R.assets>0?R.fin/R.assets*100:null},
+  st:function(v){return v>=40?'good':v>=20?'warn':'bad'}}
+];
+function runChecks(R){
+  var o={};
+  CK.forEach(function(c){var v=c.val(R);o[c.key]=v==null?{v:null,s:'none'}:{v:v,s:c.st(v,R)};});
+  return o;
+}
+function off(x){return x.s==='warn'||x.s==='bad'}
+function score(C){
+  var pts={good:100,warn:55,bad:15},t=0,n=0;
+  for(var k in C)if(pts[C[k].s]!=null){t+=pts[C[k].s];n++;}
+  return n?Math.round(t/n):null;
+}
+function grade(s){return s>=80?['건강해요','good']:s>=60?['보통이에요','warn']:s>=40?['관리가 필요해요','warn']:['점검이 급해요','bad']}
+
+/* ───────── 화면 만들기 ───────── */
+function inputHTML(id,label,cap,kind){
+  KIND[id]=kind;
+  var v=g(id);
+  return '<div class="fld">'+(cap?'<span class="cap" aria-hidden="true">'+cap+'</span>':'')+
+    '<div class="box"><input id="'+id+'" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="next" aria-label="'+esc(label+(cap?' '+cap:''))+' (만원)" placeholder="0" value="'+(v?v.toLocaleString('ko-KR'):'')+'"><span class="unit">만원</span></div>'+
+    '<p class="echo" id="'+id+'-e"></p></div>';
+}
+function rowHTML(it,o){
+  if(it.show&&!it.show(o))return '';
+  if(it.k==='sub')return '<p class="grp-sub">'+it.l+'</p>';
+  var l=(it.lab&&it.lab[o])||it.l;
+  var hint=it.h?'<p class="hint">'+it.h+'</p>':'';
+  if(it.k==='m'||it.k==='y'){
+    var id=it.ioId||it.id;
+    return '<div class="row"><div class="lab"><label for="'+id+'">'+l+'</label>'+hint+'</div>'+inputHTML(id,l,it.k==='y'?'1년 합계':'',it.k)+'</div>';
+  }
+  if(it.k==='ip')return '<div class="row two"><div class="lab"><label for="'+it.id+'_i">'+l+'</label>'+hint+'</div><div class="ins2">'+inputHTML(it.id+'_i',l,'이자','m')+inputHTML(it.id+'_p',l,'원금','m')+'</div></div>';
+  if(it.k==='bal')return '<div class="row"><div class="lab"><label for="'+it.id+'_b">'+l+'</label>'+hint+(it.link?'<p class="link" id="lk-'+it.link+'"></p>':'')+'</div>'+inputHTML(it.id+'_b',l,'','b')+'</div>';
+  var b=it.id+'_b',m=it.id+'_m';
+  if(it.nm)return '<div class="row"><div class="lab"><label for="'+b+'">'+l+'</label>'+hint+'</div>'+inputHTML(b,l,'','b')+'</div>';
+  return '<div class="row two"><div class="lab"><label for="'+b+'">'+l+'</label>'+hint+'</div><div class="ins2">'+inputHTML(b,l,'지금','b')+inputHTML(m,l,'매달','p')+'</div></div>';
+}
+function stepGroups(n){return n===1?step1(occ()):n===2?STEP2:n===3?STEP3:STEP4}
+function stepInner(n){
+  var m=STEPS_META[n-1],o=occ();
+  var h='<header class="step-h"><h2 id="st'+n+'h">'+m.title+'</h2>'+(m.lead?'<p class="lead">'+m.lead+'</p>':'')+'</header>';
+  h+=stepGroups(n).map(function(gr,gi){
+    if(gr.show&&!gr.show(o))return '';
+    var rows=gr.items.map(function(it){return rowHTML(it,o)}).join('');
+    var head=gr.t?'<div class="grp-h"><h3>'+(gr.tag?'<i>'+gr.tag+'</i>':'')+gr.t+'</h3><span class="gs" id="gs'+n+'-'+gi+'"></span></div>':'';
+    return '<div class="grp'+(gr.boxed?' boxed':'')+(gr.alt?' alt':'')+'">'+head+rows+'</div>';
+  }).join('');
+  if(n===1)h+='<div class="mini" id="mini"></div>';
+  h+='<div class="step-total" id="tot'+n+'"></div><nav class="step-nav" aria-label="단계 이동">'+
+    (n>1?'<button type="button" class="btn" data-go="'+(n-1)+'">← 이전</button>':'')+
+    '<button type="button" class="btn pri" data-go="'+(n+1)+'">'+NEXT[n]+'</button></nav>';
+  return h;
+}
+function buildOcc(){
+  var cur=occ();
+  D.getElementById('occList').innerHTML=OCCS.map(function(o){return '<button type="button" class="occ-opt" role="radio" aria-checked="'+(o[0]===cur)+'" data-occ="'+o[0]+'">'+o[1]+'</button>'}).join('');
+}
+function buildStepper(){
+  var T=[[1,'수입'],[2,'지출'],[3,'대출·빚'],[4,'자산'],[5,'결과']];
+  D.getElementById('stepper').innerHTML=T.map(function(t){
+    return '<button type="button" role="tab" class="sp'+(t[0]===5?' sp-res':'')+'" id="tab'+t[0]+'" data-go="'+t[0]+'" aria-selected="false"><span class="sp-n">'+(t[0]<5?t[0]:'✓')+'</span><span class="sp-t">'+t[1]+'</span><span class="sp-v" id="tv'+t[0]+'"></span></button>';
+  }).join('');
+}
+function buildSteps(){
+  KIND={};
+  var h='';
+  for(var n=1;n<=4;n++)h+='<section class="step" id="step'+n+'" role="tabpanel" aria-labelledby="st'+n+'h">'+stepInner(n)+'</section>';
+  D.getElementById('steps').innerHTML=h;
+  for(var id in KIND)echo(id);
+}
+function echo(id){
+  var el=D.getElementById(id+'-e');if(!el)return;
+  var k=KIND[id],t='',w=false,v=g(id);
+  if(v){
+    if((k==='m'||k==='p')&&v>=10000){t='만원 단위예요 (350만원 → 350)';w=true;}
+    else if(k==='y'&&v>=100000){t='만원 단위예요';w=true;}
+    else if(k==='b'){if(v>=1000000){t='만원 단위예요 (3억 → 30,000)';w=true;}else if(v>=10000)t='= '+fmt(v);}
+  }
+  el.textContent=t;el.className='echo'+(w?' warn':'');
+}
+
+/* ───────── 결과 그리기 ───────── */
+function groupSum(n,gr){
+  var mon=0,bal=0,o=occ();
+  gr.items.forEach(function(it){
+    if(it.show&&!it.show(o))return;
+    if(it.k==='m')mon+=g(it.ioId||it.id);
+    else if(it.k==='y')mon+=g(it.id)/12;
+    else if(it.k==='ip')mon+=g(it.id+'_i')+g(it.id+'_p');
+    else if(it.k==='bal'||it.k==='a')bal+=g(it.id+'_b');
+  });
+  return n<=2?'월 '+fmt(mon):fmt(bal);
+}
+function renderInputs(R){
+  var o=occ();
+  for(var n=1;n<=4;n++)stepGroups(n).forEach(function(gr,gi){var e=D.getElementById('gs'+n+'-'+gi);if(e)e.textContent=(gr.show&&!gr.show(o))?'':groupSum(n,gr);});
+  LOANS.forEach(function(x){
+    var e=D.getElementById('lk-'+x.id);if(!e)return;
+    var i=g('fx_'+x.id+'_i'),p=g('fx_'+x.id+'_p'),b=g('db_'+x.id+'_b');
+    if(i||p){e.textContent='이자 '+fmtD(i)+(x.io?'':' · 원금 '+fmtD(p))+(b?'':' · 남은 금액도 넣어 주세요');e.className='link'+(b?'':' warn');}
+    else{e.textContent='';e.className='link';}
+  });
+  var I=R.I,mi=D.getElementById('mini');
+  if(mi){
+    if(I.received<=0)mi.innerHTML='<p class="mini-empty">금액을 넣으면 세금·4대보험을 자동 계산해요</p>';
+    else{
+      var h='<div class="mini-row"><div><span>세전 (추정)</span><b>'+fmt(I.gross)+'</b></div><div class="neg"><span>세금·4대보험</span><b>−'+fmtD(Math.abs(I.tax))+'</b></div><div class="net"><span>쓸 수 있는 돈</span><b>'+fmt(I.received-I.toPay)+'</b></div></div>';
+      if(I.items.length)h+='<details><summary>내역 보기</summary><ul>'+I.items.map(function(x){return '<li'+(x[1]<0?' class="plus"':'')+'><span>'+x[0]+'</span><b>'+(x[1]<0?'+'+fmtD(-x[1]):fmtD(x[1]))+'</b></li>'}).join('')+'</ul></details>';
+      mi.innerHTML=h;
+    }
+  }
+  D.getElementById('tot1').innerHTML='<span class="st-l">한 달 수입</span><b class="st-v">'+fmt(R.netIncome)+'</b>';
+  D.getElementById('tot2').innerHTML='<span class="st-l">한 달 지출</span><b class="st-v">'+fmt(R.living+R.principal)+'</b>';
+  D.getElementById('tot3').innerHTML='<span class="st-l">남은 빚</span><b class="st-v">'+fmt(R.debts)+'</b>';
+  D.getElementById('tot4').innerHTML='<span class="st-l">가진 것</span><b class="st-v">'+fmt(R.assets)+'</b>';
+  D.getElementById('tv1').textContent=fmtS(R.netIncome);
+  D.getElementById('tv2').textContent=fmtS(R.living+R.principal);
+  D.getElementById('tv3').textContent=fmtS(R.debts);
+  D.getElementById('tv4').textContent=fmtS(R.assets);
+  D.getElementById('tv5').textContent=(Math.round(R.left)>0?'+':'')+fmtS(R.left);
+  var done={1:R.income>0,2:R.living>0,3:R.debts>0,4:R.assets>0};
+  for(var k=1;k<=4;k++)D.getElementById('tab'+k).classList.toggle('done',!!done[k]);
+}
+function isEmpty(R){return R.income===0&&R.out===0&&R.assets===0&&R.debts===0}
+function renderTop(R,C){
+  var short=Math.round(R.left)<0,lL=short?'매달 모자란 돈':'매달 남는 돈',cls=Math.round(R.left)>0?'pos':short?'neg':'';
+  var s=score(C),gr=s==null?['숫자를 넣어 주세요','none']:grade(s);
+  var rc=gr[1]==='good'?'var(--good)':gr[1]==='bad'?'var(--bad)':'var(--pri)';
+  var hl=R.I.hl.map(function(t){return '<span'+(t.indexOf('탈락')>=0?' class="w"':'')+'>'+t+'</span>'});
+  if(R.tax>0)hl.unshift('<span>세금·4대보험 월 '+fmt(R.tax)+'</span>');
+  D.getElementById('resTop').innerHTML='<p class="rt-eye">재무 건강 점수 · '+OCC_NAME[R.occ]+'</p>'+
+    '<div class="score"><div class="ring" style="--p:'+(s||0)+';--rc:'+rc+'"><div class="ring-in"><b>'+(s==null?'–':s)+'</b><span>점</span></div></div><div class="grade"><b>'+gr[0]+'</b><span>8가지 지표 기준</span></div></div>'+
+    '<div class="kpis"><div class="kpi"><span>'+lL+'</span><b class="'+cls+'">'+sgn(R.left)+'</b></div><div class="kpi"><span>순자산</span><b class="'+(R.net<0?'neg':'')+'">'+fmt(R.net)+'</b></div></div>'+
+    (hl.length?'<div class="hl">'+hl.join('')+'</div>':'');
+  var sl=D.getElementById('sbLeft');D.getElementById('sbLeftL').textContent=lL;sl.textContent=sgn(R.left);sl.className='sb-v '+cls;
+  var sn=D.getElementById('sbNet');sn.textContent=fmt(R.net);sn.className='sb-v'+(R.net<0?' neg':'');
+  var sc=D.getElementById('sbScore');sc.textContent=s==null?'':'건강 점수 '+s+'점';sc.className='sb-score'+(s==null?'':' sc-'+gr[1]);
+}
+function renderFlow(R){
+  var el=D.getElementById('flow'),total=Math.max(R.income,R.out);
+  if(total<=0){el.innerHTML='<p class="empty">수입과 지출을 넣어 주세요</p>';return;}
+  var segs=[['세금·4대보험',R.tax,'tax'],['고정비',R.fixed,'fixed'],['1년 지출 (월)',R.yearly,'year'],['대출 원금',R.principal,'debt'],['저축·투자',R.save,'save']];
+  if(Math.round(R.left)>0)segs.push(['남는 돈',R.left,'left']);
+  var bar=segs.filter(function(s){return s[1]>0}).map(function(s){var w=s[1]/total*100,lab=(w>=9&&R.income>0)?pct(s[1]/R.income*100):'';return '<span class="fs c-'+s[2]+'" style="width:'+w.toFixed(3)+'%">'+lab+'</span>'}).join('');
+  var short=Math.round(R.left)<0,mark='';
+  if(short&&R.income>0){var p=R.income/total*100;mark='<span class="fmark '+(p>50?'l':'r')+'" style="left:'+p.toFixed(3)+'%"><em>버는 돈</em></span>';}
+  var h='<div class="fwrap"><div class="fbar" role="img" aria-label="'+esc('세전 수입 '+fmt(R.income)+' 기준 돈의 흐름')+'">'+bar+'</div>'+mark+'</div>';
+  h+='<ul class="lg">'+segs.map(function(s){return '<li'+(s[1]>0?'':' class="zero"')+'><i class="sw c-'+s[2]+'"></i><span class="lg-n">'+s[0]+'</span><b class="lg-v">'+fmt(s[1])+'</b><span class="lg-p">'+(R.income>0?pct(s[1]/R.income*100):'–')+'</span></li>'}).join('');
+  if(short)h+='<li class="short"><i class="sw c-short"></i><span class="lg-n">모자란 돈</span><b class="lg-v">'+fmt(-R.left)+'</b><span class="lg-p">'+(R.income>0?pct(-R.left/R.income*100):'–')+'</span></li>';
+  el.innerHTML=h+'</ul>';
+}
+function seg(cls,name,v,ofTotal,colPct){var p=v/ofTotal*100,px=220*colPct/100*p/100;return '<div class="ts '+cls+'" style="height:'+p.toFixed(3)+'%">'+(px>=40?'<span>'+name+'</span><b>'+fmtS(v)+'</b>':'')+'</div>'}
+function renderBS(R){
+  var el=D.getElementById('bs'),scale=Math.max(R.assets,R.debts);
+  if(scale<=0){el.innerHTML='<p class="empty">빚과 자산을 넣어 주세요</p>';return;}
+  var AS=[['저축',R.A.save,'c-a1'],['투자',R.A.inv,'c-a2'],['연금',R.A.pen,'c-a3'],['부동산',R.A.home,'c-a4'],['차·기타',R.A.etc,'c-a5']];
+  var lh=R.assets/scale*100,left=R.assets>0?AS.filter(function(a){return a[1]>0}).map(function(a){return seg(a[2],a[0],a[1],R.assets,lh)}).join(''):'';
+  var right,rh;
+  if(R.net>=0){rh=lh;right=(R.debts>0?seg('c-debt','빚',R.debts,R.assets,rh):'')+(R.net>0?seg('c-left','내 몫',R.net,R.assets,rh):'');}
+  else{rh=100;right=seg('c-debt','빚',R.debts,R.debts,rh);}
+  var leftCol=R.assets>0?'<div class="tc" style="height:'+lh.toFixed(3)+'%">'+left+'</div>':'<div class="t-neg">가진 것 없음</div>';
+  var h='<div class="t-area" role="img" aria-label="'+esc('가진 것 '+fmt(R.assets)+', 빚 '+fmt(R.debts)+', 내 몫 '+fmt(R.net))+'">'+leftCol+'<div class="tc" style="height:'+rh.toFixed(3)+'%">'+right+'</div></div>';
+  h+='<div class="t-cap"><span>가진 것</span><span>빚 + 내 몫</span></div>';
+  h+='<div class="chips">'+AS.filter(function(a){return a[1]>0}).map(function(a){return '<span><i class="sw '+a[2]+'"></i>'+a[0]+' <b>'+fmtS(a[1])+'</b></span>'}).join('')+'</div>';
+  h+='<p class="eq">가진 것 <b>'+fmt(R.assets)+'</b> − 빚 <b>'+fmt(R.debts)+'</b><br>= 내 몫 <b class="me">'+fmt(R.net)+'</b></p>';
+  el.innerHTML=h;
+}
+function renderChecks(R,C){
+  D.getElementById('chk').innerHTML=CK.map(function(c){
+    var r=C[c.key],vt=r.v==null?'–':(c.u==='mo'?mo(r.v):(r.v>=999?'–':pct(r.v)));
+    return '<li class="s-'+r.s+'"><span class="pill">'+LBL[r.s]+'</span><span class="nm">'+c.name+'<small>기준 '+c.crit(R)+'</small></span><span class="vl">'+vt+'</span></li>';
+  }).join('');
+}
+function renderActs(R,C){
+  var o=[];
+  if(isEmpty(R)){D.getElementById('acts').innerHTML='<li><div><b>1단계부터 숫자 넣기</b><span>할 일이 여기에 나와요</span></div></li>';return;}
+  if(R.income>0&&Math.round(R.left)<0)o.push(['매달 '+fmt(-R.left)+' 적자 막기','카드값·구독료부터 줄이기']);
+  if(off(C.cons))o.push(['비싼 생활 빚부터 갚기','금리 높은 대출 먼저']);
+  if((R.occ==='biz'||R.occ==='free')&&R.I.toPay>0)o.push(['세금 통장 따로 만들기','매달 '+fmt(R.I.toPay)+'씩 모아 두기']);
+  if(off(C.emerg)){var t=R.emergM*(R.living+R.principal);o.push(['비상금 '+fmt(t)+' 만들기','지금보다 '+fmt(Math.max(0,t-R.cash))+' 더']);}
+  if(off(C.spend))o.push(['지출 '+fmt(R.tax+R.living-R.income*0.7)+' 줄이기','고정비부터 점검']);
+  if(off(C.save))o.push(['매달 '+fmt(R.income*0.3-R.save)+' 더 모으기','월급날 자동이체로']);
+  if(off(C.debtPay))o.push(['대출 갈아타기 알아보기','상환이 수입의 '+pct(C.debtPay.v)]);
+  if(off(C.ins))o.push(C.ins.v<8?['보장 점검하기','보험료가 기준보다 적어요']:['겹치는 보험 정리','보험료가 기준보다 많아요']);
+  if(off(C.debtA))o.push(['새 대출 멈추기','빚이 재산의 '+(C.debtA.v>=999?'대부분':pct(C.debtA.v))]);
+  if(off(C.fin))o.push(['금융자산 늘리기','재산이 집에 몰려 있어요']);
+  R.I.warns.forEach(function(w){o.push(w)});
+  if(Math.round(R.left)>0&&!off(C.save))o.push(['남는 '+fmt(R.left)+' 쓸 곳 정하기','그냥 두면 새기 쉬워요']);
+  if(!o.length)o.push(['지금처럼 유지하기','1년에 한 번 다시 점검']);
+  D.getElementById('acts').innerHTML=o.slice(0,3).map(function(a){return '<li><div><b>'+a[0]+'</b><span>'+esc(a[1])+'</span></div></li>'}).join('');
+}
+/* 은퇴자금 계산기로 넘길 값: 모아둔 돈(저축+투자), 은퇴 후 생활비(지금 생활비 − 대출 이자 − 자녀 교육비), 집값 */
+var RETIRE_URL='https://kimsungjin0702.github.io/retire/';
+function retireLink(R){
+  var q=['from=money'];
+  var a=Math.round(R.A.save+R.A.inv);if(a>0)q.push('assets='+a);
+  var x=Math.round(R.living-R.intH-R.intO-g('fx_edu'));if(x>0)q.push('expense='+x);
+  var h=Math.round(g('as_home_b'));if(h>0)q.push('house='+h);
+  return RETIRE_URL+'?'+q.join('&');
+}
+function renderAll(){
+  var R=calc(),C=runChecks(R);
+  renderInputs(R);renderTop(R,C);renderFlow(R);renderBS(R);renderChecks(R,C);renderActs(R,C);
+  var nx=D.getElementById('toRetire');if(nx)nx.href=retireLink(R);
+  D.getElementById('exNote').hidden=MODE!=='example';
+}
+
+/* ───────── 저장 ───────── */
+var saveT;
+function save(){clearTimeout(saveT);saveT=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify({v:V,mode:MODE,step:STEP,last:LAST}))}catch(_){}},250)}
+function load(){
+  try{var o=JSON.parse(localStorage.getItem(KEY)||'null');if(o&&o.v&&typeof o.v==='object'){V=o.v;if(!V.o)V.o={occ:'worker'};MODE=o.mode==='mine'?'mine':'example';STEP=+o.step||1;LAST=+o.last||1;return true;}}catch(_){}
+  return false;
+}
+var raf=0;
+function schedule(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;renderAll();save();})}
+
+/* ───────── 단계 이동 ───────── */
+var mq=window.matchMedia('(min-width: 980px)');
+function reduce(){return window.matchMedia('(prefers-reduced-motion: reduce)').matches}
+function scrollToEl(el,force){var sb=D.getElementById('sbar').offsetHeight;var y=el.getBoundingClientRect().top+window.pageYOffset-sb-10;if(force||y<window.pageYOffset)window.scrollTo({top:Math.max(0,y),behavior:reduce()?'auto':'smooth'});}
+function go(n,quiet){
+  if(n==='back')n=LAST;
+  n=+n;
+  if(n===5&&mq.matches){scrollToEl(D.getElementById('results'),true);return;}
+  if(n<5)LAST=n;
+  STEP=n;APP.setAttribute('data-step',String(n));
+  for(var i=1;i<=4;i++){var s=D.getElementById('step'+i);if(s)s.classList.toggle('on',i===n);}
+  for(var j=1;j<=5;j++)D.getElementById('tab'+j).setAttribute('aria-selected',j===n?'true':'false');
+  save();
+  if(!quiet)scrollToEl(D.getElementById('stepper'));
+}
+function onMq(){if(mq.matches&&STEP===5)go(LAST,true)}
+if(mq.addEventListener)mq.addEventListener('change',onMq);else if(mq.addListener)mq.addListener(onMq);
+
+/* ───────── 입력 처리 ───────── */
+var stepsEl=D.getElementById('steps');
+stepsEl.addEventListener('input',function(e){
+  var el=e.target;if(!el||el.tagName!=='INPUT')return;
+  var raw=el.value,caret=el.selectionStart==null?raw.length:el.selectionStart;
+  var before=raw.slice(0,caret).replace(/\D/g,'').length;
+  var d=raw.replace(/\D/g,'').replace(/^0+(?=\d)/,'').slice(0,8);
+  var f=d?Number(d).toLocaleString('ko-KR'):'';
+  if(f!==raw){el.value=f;var p=0,c=0;while(p<f.length&&c<before){if(/\d/.test(f.charAt(p)))c++;p++;}try{el.setSelectionRange(p,p)}catch(_){}}
+  V[el.id]=d?Number(d):0;
+  echo(el.id);schedule();
+});
+stepsEl.addEventListener('keydown',function(e){
+  if(e.key!=='Enter'||!e.target||e.target.tagName!=='INPUT')return;
+  e.preventDefault();
+  var sec=e.target.closest('.step'),list=[].slice.call(sec.querySelectorAll('input')),i=list.indexOf(e.target);
+  if(i<list.length-1)list[i+1].focus();else{var nb=sec.querySelector('.step-nav .pri');if(nb)nb.click();}
+});
+D.addEventListener('click',function(e){
+  var t=e.target,oc=t.closest('[data-occ]');
+  if(oc){if(!V.o)V.o={};V.o.occ=oc.getAttribute('data-occ');buildOcc();var cur=STEP,y=window.pageYOffset;buildSteps();go(cur,true);renderAll();save();window.scrollTo(0,y);return;}
+  var b=t.closest('[data-go]');
+  if(b)go(b.getAttribute('data-go'));
+});
+
+function reset(vals,mode){V=copy(vals);if(!V.o)V.o={occ:occ()};MODE=mode;buildOcc();buildSteps();go(1,true);renderAll();save();}
+D.getElementById('exClear').addEventListener('click',function(){reset({o:{occ:occ()}},'mine');scrollToEl(D.getElementById('occList'),true);});
+function armed(btn,label,armLabel,fn,needArm){
+  btn.addEventListener('click',function(){
+    if(needArm()&&btn.getAttribute('data-armed')!=='1'){btn.setAttribute('data-armed','1');btn.textContent=armLabel;setTimeout(function(){btn.removeAttribute('data-armed');btn.textContent=label;},4000);return;}
+    btn.removeAttribute('data-armed');btn.textContent=label;fn();
+  });
+}
+function hasMine(){if(MODE!=='mine')return false;for(var k in V)if(k!=='o'&&V[k])return true;return false}
+armed(D.getElementById('btnEx'),'예시 숫자 보기','한 번 더 누르면 내 숫자가 지워져요',function(){reset(EX,'example');scrollToEl(D.getElementById('occList'),true);},hasMine);
+armed(D.getElementById('btnClear'),'모두 지우기','한 번 더 누르면 지워져요',function(){reset({o:{occ:occ()}},'mine');scrollToEl(D.getElementById('occList'),true);},function(){return true});
+
+/* ───────── 시작 ───────── */
+if(!load()){V=copy(EX);MODE='example';}
+buildOcc();buildStepper();buildSteps();
+if(STEP===5&&mq.matches)STEP=LAST;
+go(STEP,true);
+renderAll();
+})();
+</script>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   연락처 설정 — 아래 따옴표 안의 값만 바꾸면 모든 페이지에 반영됩니다.
+   비워 두면 그 줄은 화면에 나오지 않습니다.
+   ───────────────────────────────────────────────────────────── */
+var CONTACT = {
+  tel:     "010-2142-0193",
+  kakao:   "https://open.kakao.com/o/sr9z0Zqi",
+  youtube: "https://www.youtube.com/@%EA%B9%80%EC%84%B1%EC%A7%84%EC%9D%98%EB%B3%B4%ED%97%98%EA%B2%BD%EC%A0%9C",
+  blog:    ""                  /* 블로그 주소가 생기면 여기에 */
+};
+(function () {
+  try {
+    var rows = [];
+    if (CONTACT.tel)     rows.push('<a href="tel:' + CONTACT.tel.replace(/[^0-9+]/g, "") + '">' + CONTACT.tel + '</a>');
+    if (CONTACT.kakao)   rows.push('<a href="' + CONTACT.kakao + '" target="_blank" rel="noopener">카카오톡 상담</a>');
+    if (CONTACT.youtube) rows.push('<a href="' + CONTACT.youtube + '" target="_blank" rel="noopener">유튜브 채널</a>');
+    if (CONTACT.blog)    rows.push('<a href="' + CONTACT.blog + '" target="_blank" rel="noopener">블로그</a>');
+    if (!rows.length) return;
+    var s = document.getElementById("sideContact");
+    if (s) { s.innerHTML = '<span class="sb">상담 문의</span>' + rows.join("<br />"); }
+    var f = document.getElementById("footContact");
+    if (f) { f.innerHTML = '<div style="margin-top:8px">' + rows.join(' &nbsp;·&nbsp; ') + '</div>'; }
+    var c = document.getElementById("ctaCard");
+    if (c) {
+      var btns = "";
+      if (CONTACT.tel)     btns += '<a class="cta-b primary" href="tel:' + CONTACT.tel.replace(/[^0-9+]/g, "") + '">전화 상담 ' + CONTACT.tel + '</a>';
+      if (CONTACT.kakao)   btns += '<a class="cta-b" href="' + CONTACT.kakao + '" target="_blank" rel="noopener">카카오톡으로 묻기</a>';
+      if (CONTACT.youtube) btns += '<a class="cta-b" href="' + CONTACT.youtube + '" target="_blank" rel="noopener">유튜브 채널 보기</a>';
+      if (CONTACT.blog)    btns += '<a class="cta-b" href="' + CONTACT.blog + '" target="_blank" rel="noopener">블로그 보기</a>';
+      c.innerHTML =
+        '<div class="cta-t">숫자는 나왔는데, 뭘 해야 할지 모르시겠다면</div>' +
+        '<div class="cta-s">CFP 자격, 보험업 20년. 모자라는 돈을 <b>어떤 순서로 메울지</b> 같이 정리해 드립니다.</div>' +
+        '<div class="cta-btns">' + btns + '</div>';
+    }
+  } catch (e) {}
+})();
+</script>
+
+<script>
+(function () {
+  try {
+    var nav = document.querySelector(".nav"), on = nav && nav.querySelector("a.on");
+    if (!nav || !on) return;
+    if (nav.scrollWidth > nav.clientWidth + 4) {
+      nav.scrollLeft = Math.max(0, on.offsetLeft - 12);
+    }
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

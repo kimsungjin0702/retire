@@ -586,7 +586,7 @@
   }
 
   .hub { display: grid; gap: 10px; }
-  @media (min-width: 760px) { .hub { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 760px) { .hub { grid-template-columns: repeat(2, 1fr); } }
   .hub-i { display: block; padding: 14px 15px; border-radius: 9px; background: var(--panel-alt);
            border: 1px solid var(--border); text-decoration: none;
            -webkit-tap-highlight-color: transparent; }
@@ -662,6 +662,7 @@
     .sticky-summary .v { font-size: 18px; }
   }
 
+  .from-money { margin: 4px 0 16px; padding: 12px 15px; border: 1px solid; border-radius: 10px; font-size: 17px; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -673,6 +674,7 @@
       <span class="brand-text"><b>김성진의 보험경제</b><em>은퇴 · 연금 · <i>장기요양/간병</i> 설계</em></span>
     </a>
     <nav class="nav" aria-label="주요 메뉴">
+      <a href="https://kimsungjin0702.github.io/retire/money/">내 돈 건강검진</a>
       <a href="https://kimsungjin0702.github.io/retire/" class="on">은퇴자금·노후자금 계산기</a>
       <a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a>
       <a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a>
@@ -689,6 +691,7 @@
     <b>Chrome · Safari · 삼성인터넷</b>으로 직접 열어 주세요. (카카오톡·메일 앱의 내장 미리보기는 스크립트를 차단합니다)
   </div>
   <div class="err-banner" id="errBanner"></div>
+  <div class="from-sim from-money" id="fromMoney" style="display:none"></div>
 
   <div class="sticky-summary" id="stickyBar">
     <div class="row">
@@ -1066,11 +1069,12 @@
   </div>
 
   <div class="card">
-    <div class="card-title">세 가지를 차례로 계산합니다</div>
+    <div class="card-title">네 가지를 차례로 계산합니다</div>
     <div class="hub">
-      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/"><b>① 얼마가 모자라나</b><span>연금과 모아둔 돈으로 몇 살까지 버티는지 (지금 화면)</span></a>
-      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/annuity/"><b>② 어떻게 메우나</b><span>매달 얼마를 넣으면 평생 월 얼마가 나오는지</span></a>
-      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/care/"><b>③ 아플 때는</b><span>2026년 장기요양 한도·본인부담금과 병원 간병비</span></a>
+      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/money/"><b>① 지금 내 돈은 괜찮나</b><span>수입·지출·빚·자산으로 매달 남는 돈과 재무 건강 점수</span></a>
+      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/"><b>② 얼마가 모자라나</b><span>연금과 모아둔 돈으로 몇 살까지 버티는지 (지금 화면)</span></a>
+      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/annuity/"><b>③ 어떻게 메우나</b><span>매달 얼마를 넣으면 평생 월 얼마가 나오는지</span></a>
+      <a class="hub-i" href="https://kimsungjin0702.github.io/retire/care/"><b>④ 아플 때는</b><span>2026년 장기요양 한도·본인부담금과 병원 간병비</span></a>
     </div>
   </div>
 
@@ -1107,6 +1111,7 @@
     CFP · 보험업 20년 · 은퇴설계 / 연금 / 장기요양(간병) 상담
     <div id="footContact"></div>
     <ul class="foot-links">
+      <li><a href="https://kimsungjin0702.github.io/retire/money/">내 돈 건강검진</a></li>
       <li><a href="https://kimsungjin0702.github.io/retire/">은퇴자금·노후자금 계산기</a></li>
       <li><a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a></li>
       <li><a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a></li>
@@ -2145,6 +2150,41 @@
   }
   window.addEventListener("resize", onResize, false);
   window.addEventListener("orientationchange", function () { setTimeout(render, 300); }, false);
+
+  // 내 돈 건강검진에서 넘어온 숫자 채우기 (?from=money&assets=만원&expense=만원&house=만원)
+  (function () {
+    try {
+      var q = {}, parts = window.location.search.replace(/^\?/, "").split("&");
+      for (var n = 0; n < parts.length; n++) {
+        var kv = parts[n].split("=");
+        if (kv[0]) q[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || "");
+      }
+      if (q.from !== "money") return;
+      function man(v) {
+        var e = Math.floor(v / 10000), m = v % 10000;
+        return e ? e + "억" + (m ? " " + m.toLocaleString("ko-KR") + "만원" : "원") : v.toLocaleString("ko-KR") + "만원";
+      }
+      function put(id, v) {
+        var el = $(id);
+        if (!el || !isFinite(v) || v <= 0) return null;
+        var mn = Number(el.getAttribute("min")), mx = Number(el.getAttribute("max")), st = Number(el.getAttribute("step")) || 1;
+        v = Math.round(v / st) * st;
+        if (v < mn) v = mn;
+        if (v > mx) v = mx;
+        el.value = v;
+        return v;
+      }
+      var got = [], a = put("initialAssets", Number(q.assets)), x = put("monthlyExpense", Number(q.expense)), h = put("houseValue", Number(q.house));
+      if (a != null) got.push("모아둔 돈 <b>" + man(a) + "</b>");
+      if (x != null) got.push("생활비 <b>" + man(x) + "</b>");
+      if (h != null) got.push("집값 <b>" + man(h) + "</b>");
+      var box = $("fromMoney");
+      if (box && got.length) {
+        box.innerHTML = "내 돈 건강검진에서 " + got.join(" · ") + "을 가져왔어요." + (h != null ? " 집값은 주택연금을 켜면 반영돼요." : "");
+        box.style.display = "block";
+      }
+    } catch (e) {}
+  })();
 
   render();
 
