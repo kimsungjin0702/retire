@@ -304,6 +304,15 @@
   .cta-b.primary { background: var(--gold-fill); border-color: var(--gold-fill); color: #0E1826; }
   .side-contact:empty { display: none !important; }
   .main { min-width: 0; }
+  details.card.more > summary {
+    list-style: none; cursor: pointer; user-select: none; -webkit-user-select: none;
+    font-size: 19.5px; font-weight: 700; color: var(--text-primary);
+    -webkit-tap-highlight-color: transparent;
+  }
+  details.card.more > summary::-webkit-details-marker { display: none; }
+  details.card.more > summary::before { content: "＋ "; color: var(--gold); }
+  details.card.more[open] > summary::before { content: "－ "; }
+  details.card.more > summary + * { margin-top: 14px; }
 
   .foot { margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--border);
           font-size: 16px; line-height: 1.75; color: var(--text-muted); }
@@ -410,9 +419,8 @@
   </aside>
   <main class="main">
   <h1>간병·장기요양 비용 계산기</h1>
-  <p class="subtitle">노인장기요양보험 <b>재가급여</b>를 쓰면 한 달에 내 돈이 얼마나 나가는지, <b>공단이 내주지 않는 돈</b>은 얼마인지 2026년 기준으로 계산합니다.</p>
-  <p class="subtitle small">등급과 이용 형태만 고르시면 됩니다. 입력한 내용은 이 기기 밖으로 나가지 않습니다.
-    &nbsp;·&nbsp; <a href="https://kimsungjin0702.github.io/retire/">은퇴자금·노후자금 계산기 →</a></p>
+  <p class="subtitle">노인장기요양보험 <b>재가급여</b>, 한 달에 내 돈이 얼마나 나가나 (2026년 기준)</p>
+  <p class="subtitle small">입력한 내용은 이 기기 밖으로 나가지 않습니다.</p>
 
   <div class="notice" id="jsBlockedNotice">
     ⚠️ 자바스크립트가 실행되지 않아 계산이 되지 않는 상태입니다. 이 페이지를 <b>Chrome · Safari · 삼성인터넷</b>으로 열어 주세요.
@@ -423,7 +431,7 @@
 
   <div class="card">
     <div class="card-title">내 상황 넣기</div>
-    <div class="card-sub">등급을 모르시면 짐작으로 고르셔도 됩니다. 등급에 따라 한 달에 쓸 수 있는 한도가 달라집니다.</div>
+    <div class="card-sub">등급을 모르시면 짐작으로 고르셔도 됩니다.</div>
 
     <div class="seg-label">장기요양등급</div>
     <div class="seg-group" id="gradeBtns">
@@ -489,7 +497,7 @@
       <button type="button" class="seg-btn" data-r="6">감경 6%</button>
       <button type="button" class="seg-btn" data-r="0">수급자 0%</button>
     </div>
-    <div class="hint">기초생활수급자는 <b>0%</b>, 소득과 재산이 낮으면 <b>6% 또는 9%</b>로 줄어듭니다. 해당되는지는 국민건강보험공단(1577-1000)에서 확인합니다.</div>
+    <div class="hint">감경 여부는 국민건강보험공단(1577-1000)에서 확인합니다.</div>
   </div>
 
   <div class="stat-row">
@@ -500,7 +508,7 @@
 
   <div class="card">
     <div class="card-title">한 달 돈이 어떻게 나뉘나</div>
-    <div class="card-sub">막대가 이번 달 이용한 금액이고, <b>흰 세로선이 등급 한도</b>입니다. 선을 넘어간 만큼은 공단이 한 푼도 보태주지 않습니다.</div>
+    <div class="card-sub"><b>세로선이 등급 한도.</b> 넘어간 만큼은 전액 본인 부담입니다.</div>
     <div class="total-track" id="track"></div>
     <div class="ledger" id="ledger"></div>
     <div class="short-result" id="over"></div>
@@ -508,17 +516,17 @@
 
   <div class="card">
     <div class="card-title">2026년 장기요양 등급별 재가급여 월 한도액</div>
-    <div class="card-sub">집에서 받는 서비스(방문요양·방문목욕·방문간호·주야간보호·단기보호)를 모두 합쳐 한 달에 이만큼까지만 공단이 부담합니다.</div>
+    <div class="card-sub">방문요양·방문목욕·방문간호·주야간보호·단기보호를 합쳐 이 금액까지만 공단이 부담합니다.</div>
     <table id="limitTable">
       <thead><tr><th>등급</th><th>어떤 상태인가</th><th class="num">월 한도액</th><th class="num">일반 본인부담(15%)</th></tr></thead>
       <tbody></tbody>
     </table>
-    <div class="hint" style="margin-top:12px">복지용구(미끄럼방지 매트, 보행기, 전동침대 등)는 이 한도와 <b>별도로 연 160만원</b>까지 쓸 수 있고, 본인부담은 15%입니다.</div>
+    <div class="hint" style="margin-top:12px">복지용구는 별도로 <b>연 160만원</b>까지, 본인부담 15%.</div>
   </div>
 
   <div class="card">
     <div class="card-title">병원에 입원하면 이야기가 달라집니다</div>
-    <div class="card-sub">장기요양보험은 <b>집과 요양원</b>을 위한 제도입니다. 병원에 입원해서 간병인을 쓰는 비용은 여기서 <b>한 푼도 나오지 않습니다.</b></div>
+    <div class="card-sub">장기요양보험은 집과 요양원을 위한 제도라, <b>병원 간병비는 한 푼도 나오지 않습니다.</b></div>
     <table>
       <thead><tr><th>간병 형태</th><th class="num">하루</th><th class="num">한 달(30일)</th><th class="num">공단·건보 지원</th></tr></thead>
       <tbody>
@@ -527,12 +535,12 @@
         <tr class="hl"><td>간호·간병 통합서비스 병동</td><td class="num">약 22,340원</td><td class="num">약 67만원</td><td class="num" style="color:#07915B">건보 적용</td></tr>
       </tbody>
     </table>
-    <div class="hint" style="margin-top:12px">간병비는 2026년 수도권 시세 참고치입니다. 지역과 환자 상태에 따라 달라집니다. 간호·간병 통합서비스는 병동 수가 제한되어 원할 때 바로 들어가기 어려운 경우가 많습니다.</div>
+    <div class="hint" style="margin-top:12px">2026년 수도권 시세 참고치. 간호·간병 통합병동은 자리가 부족해 바로 들어가기 어렵습니다.</div>
   </div>
 
   <div class="card">
     <div class="card-title">오래 사는 것이 왜 위험이 되나</div>
-    <div class="card-sub">돈이 떨어지는 문제와 몸이 아픈 문제는 보통 <b>같은 시기에</b> 옵니다.</div>
+    <div class="card-sub">돈이 떨어지는 때와 몸이 아픈 때는 보통 겹칩니다.</div>
     <div class="points">
       <div class="point"><h3>연금은 줄지 않지만</h3><p>국민연금과 종신연금은 죽을 때까지 같은 금액이 나옵니다. 그런데 간병이 시작되면 나가는 돈만 갑자기 늘어납니다.</p></div>
       <div class="point"><h3>기간이 깁니다</h3><p>장기요양 인정을 받은 뒤 서비스를 이용하는 기간은 몇 달이 아니라 몇 년 단위입니다. 한 달 부담이 작아도 누적되면 금액이 커집니다.</p></div>
@@ -568,8 +576,8 @@
 
   <div class="cta-card" id="ctaCard"></div>
 
-  <div class="disclaimer">
-    <h2>계산 기준과 한계</h2>
+  <details class="disclaimer more">
+    <summary>계산 기준과 한계</summary>
     <ul>
       <li>2026년 노인장기요양보험 <b>급여비용(수가)과 등급별 월 한도액</b>을 기준으로 계산했습니다. 금액은 매년 1월에 고시로 바뀝니다.</li>
       <li>한 달 이용 횟수는 <b>일주일 횟수 × 4.345주</b>로 환산해 반올림했습니다. 실제 청구는 그 달의 실제 이용일 기준이므로 1~2회 차이가 날 수 있습니다.</li>
@@ -579,21 +587,19 @@
       <li>복지용구(연 160만원 한도)와 시설급여(요양원)는 계산에 들어가지 않습니다.</li>
     </ul>
     <p class="line">이 도구는 장기요양 비용을 가늠해 보기 위한 <b>일반 정보 제공용 참고 자료</b>이며, 특정 금융상품의 권유나 가입 안내가 아닙니다. 정확한 등급·한도·본인부담금은 국민건강보험공단(1577-1000) 또는 노인장기요양보험 누리집에서 확인하시기 바랍니다.</p>
-  </div>
+   </details>
 
   <div class="diag" id="diag">—</div>
   <footer class="foot">
     <span class="fb">김성진의 보험경제</span>
-    CFP(국제공인재무설계사) · 보험업 20년<br />
-    은퇴설계 · 연금 · 장기요양(간병) 상담
+    CFP · 보험업 20년 · 은퇴설계 / 연금 / 장기요양(간병) 상담
     <div id="footContact"></div>
     <ul class="foot-links">
       <li><a href="https://kimsungjin0702.github.io/retire/">은퇴자금·노후자금 계산기</a></li>
       <li><a href="https://kimsungjin0702.github.io/retire/annuity/">개인 연금보험 계산기</a></li>
       <li><a href="https://kimsungjin0702.github.io/retire/care/">간병·장기요양 계산기</a></li>
     </ul>
-    <p style="margin:12px 0 0">이 사이트의 계산 결과는 이해를 돕기 위한 일반 정보이며, 특정 금융상품의 권유나 가입 안내가 아닙니다.
-      실제 수령액과 급여는 해당 기관과 상품 약관에 따릅니다.</p>
+    <p style="margin:12px 0 0">계산 결과는 일반 정보이며 특정 금융상품의 권유가 아닙니다.</p>
   </footer>
   </main>
   </div>
@@ -881,9 +887,8 @@ var CONTACT = {
       if (CONTACT.youtube) btns += '<a class="cta-b" href="' + CONTACT.youtube + '" target="_blank" rel="noopener">유튜브 채널 보기</a>';
       if (CONTACT.blog)    btns += '<a class="cta-b" href="' + CONTACT.blog + '" target="_blank" rel="noopener">블로그 보기</a>';
       c.innerHTML =
-        '<div class="cta-t">숫자는 나왔는데, 뭘 어떻게 해야 할지 모르시겠다면</div>' +
-        '<div class="cta-s">이 화면을 그대로 두고 물어보셔도 됩니다. CFP(국제공인재무설계사) 자격과 보험업 20년 경력으로, ' +
-        '모자라는 돈을 어떤 순서로 메우는 게 나은지 같이 정리해 드립니다. 편하게 연락 주세요.</div>' +
+        '<div class="cta-t">숫자는 나왔는데, 뭘 해야 할지 모르시겠다면</div>' +
+        '<div class="cta-s">CFP 자격, 보험업 20년. 모자라는 돈을 <b>어떤 순서로 메울지</b> 같이 정리해 드립니다.</div>' +
         '<div class="cta-btns">' + btns + '</div>';
     }
   } catch (e) {}
